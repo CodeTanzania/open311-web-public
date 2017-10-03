@@ -1,5 +1,5 @@
-# React SSR Boilerplate
-React Boilerplate with Server Side rendering enabled.
+# open311-web-public
+Dawasco public website for open311 issues
 
 ## Project Structure
 ```
