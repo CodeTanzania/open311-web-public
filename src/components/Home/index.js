@@ -1,14 +1,15 @@
-import React, { Component }  from 'react'
-import { Map, TileLayer, Marker, Popup } from 'react-leaflet'
+import React, { Component } from 'react';
+import { Map, TileLayer, Marker, Popup } from 'react-leaflet';
+import './leaflet.css';
 
 class SimpleMap extends Component {
   constructor() {
-    super()
+    super();
     this.state = {
       lat: -6.816330,
       lng: 39.276638,
       zoom: 13
-    }
+    };
   }
 
   render() {
@@ -21,7 +22,7 @@ class SimpleMap extends Component {
         />
         <Marker position={position}>
           <Popup>
-            <span>A pretty CSS3 popup. <br/> Easily customizable.</span>
+            <span>A pretty CSS3 popup. <br /> Easily customizable.</span>
           </Popup>
         </Marker>
       </Map>

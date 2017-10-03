@@ -1,21 +1,74 @@
-open311-web-public
-==================
+# React SSR Boilerplate
+React Boilerplate with Server Side rendering enabled.
 
-Public website for [open311-api](https://github.com/CodeTanzania/open311-api)
+## Project Structure
+```
+.
+├── README.md
+├── config
+│   ├── jest
+│   │   ├── fileMock.js
+│   │   └── fileTransform.js
+│   ├── webpack.config.dev.js
+│   └── webpack.config.prod.js
+├── development.js
+├── package.json
+├── production.js
+├── public
+├── src
+│   ├── index.js
+│   ├── setupTests.js
+│   ├── components
+└── package-lock.json
+```
 
-## Contribute
+- `development.js`  
+Server in dev environment  
+- `production.js`  
+Server in production environment    
+- `config/webpack.config.dev.js`  
+Webpack development configuration  
+- `config/webpack.config.prod.js`  
+Webpack production configuration 
 
-Fork this repo and push in your ideas. 
-Do not forget to add a bit of test(s) of what value you adding.
 
-## License
+## Usage
 
-The MIT License (MIT)
+> **First install all the dependencies for development**
 
-Copyright (c) 2016 lykmapipo, CodeTanzania & Contributors
+```sh
+npm install && bower install
+```
 
-Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the “Software”), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
+> **Launch application in development mode**
 
-The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
+```sh
+npm run dev
+```
 
-THE SOFTWARE IS PROVIDED “AS IS”, WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+> **Testing Application**
+
+```sh
+npm run test
+```
+Note  
+Leaflet Map Testing is limited as of this writing, leaflet does not natively support headless browser and it keeps giving out  `window is not defined error`. Refer to [https://github.com/PaulLeCam/react-leaflet/issues/69](https://github.com/PaulLeCam/react-leaflet/issues/69) and [https://github.com/PaulLeCam/react-leaflet/issues/45](https://github.com/PaulLeCam/react-leaflet/issues/45)  
+
+
+> **Build application**
+
+```sh
+npm run build
+```
+
+> **Run application**
+```sh
+npm run start
+```
+
+> **Extras**
+- Best fix of `npm run.lock` merge conflict
+    ```
+    $ git checkout <previous commit> -- npm run.lock
+    $ npm run install
+    ```
