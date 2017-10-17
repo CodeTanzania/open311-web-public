@@ -6,15 +6,23 @@
   "license": "MIT",
   "dependencies": {
     "body-parser": "^1.17.2",
+    "classnames": "^2.2.5",
     "express": "^4.15.3",
+    "http-proxy-middleware": "^0.17.4",
     "leaflet": "^1.2.0",
+    "moment": "^2.18.1",
     "prop-types": "^15.6.0",
     "react": "^15.6.0",
     "react-dom": "^15.6.0",
     "react-leaflet": "^1.7.0",
+    "react-moment": "^0.6.5",
     "react-router-dom": "^4.2.2"
   },
   "devDependencies": {
+    "@kadira/react-storybook-addon-info": "^3.4.0",
+    "@storybook/addon-actions": "^3.2.12",
+    "@storybook/addon-links": "^3.2.12",
+    "@storybook/react": "^3.2.12",
     "autoprefixer": "^7.1.2",
     "babel-core": "^6.25.0",
     "babel-jest": "^20.0.3",
@@ -22,7 +30,6 @@
     "babel-preset-env": "^1.5.2",
     "babel-preset-es2015": "^6.24.1",
     "babel-preset-react": "^6.24.1",
-    "classnames": "^2.2.5",
     "css-loader": "^0.28.4",
     "css-mqpacker": "^6.0.1",
     "cssnano": "^3.10.0",
@@ -32,6 +39,7 @@
     "eslint-loader": "^1.9.0",
     "eslint-plugin-react": "^7.1.0",
     "extract-text-webpack-plugin": "^2.1.2",
+    "faker": "^4.1.0",
     "file-loader": "^0.11.2",
     "identity-obj-proxy": "^3.0.0",
     "isomorphic-style-loader": "^4.0.0",
@@ -58,7 +66,9 @@
     "predev": "rm -rf public/dist",
     "build": "NODE_ENV=production webpack --config config/webpack.config.prod.js --progress --profile --colors",
     "prebuild": "rm -rf public/dist",
-    "test": "jest"
+    "test": "jest",
+    "storybook": "start-storybook -p 6006",
+    "build-storybook": "build-storybook"
   },
   "repository": {
     "type": "git",

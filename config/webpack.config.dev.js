@@ -9,7 +9,7 @@ const clientConfig = {
 	entry: [
 		// We ship a few polyfills by default:
 		require.resolve('./polyfills'),
-		'webpack-hot-middleware/client?timeout=2000&name=client',
+		'webpack-hot-middleware/client?timeout=2000',
 		path.resolve(__dirname, '..', 'src', 'index.js')
 	],
 	output: {

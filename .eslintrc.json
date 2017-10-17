@@ -20,6 +20,7 @@
 		// 	"error",
 		// 	"tab"
 		// ],
+		"no-console": 1,
 		"linebreak-style": [
 			"error",
 			"unix"

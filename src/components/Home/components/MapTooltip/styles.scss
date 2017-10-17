@@ -1,0 +1,33 @@
+.container {
+    max-width: 350px;
+}
+
+.item {
+    line-height: 1.5;
+    display: table-row;
+    width: 100%;
+}
+
+.header {
+    font-weight: bold;
+    text-align: center;
+    display: inline-block;
+}
+
+.itemTitle,
+.itemValue {
+    display: table-cell;
+    font-weight: bold;
+}
+
+.itemTitle {
+    color: #6a6a6a;
+}
+
+.itemValue {
+    text-align: right;
+    max-width: 200px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}

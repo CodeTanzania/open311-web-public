@@ -1,0 +1,90 @@
+.container {
+    position: fixed;
+    top: 0;
+    right: 0;
+    width: 320px;
+    padding: 15px;
+    z-index: 1000;
+}
+
+.issueCard {
+    border-radius: 5px;
+    box-shadow: 0px 5px 43px rgba( 0, 0, 0, 0.18);
+    background: #fff;
+    height: 400px;
+}
+
+.header {
+    display: block;
+    width: 100%;
+    padding: 10px;
+    color: #026AA7;
+}
+
+.hideBtn {
+    display: table-cell;
+    font-size: 12px;
+    color: #026AA7;
+    font-weight: bold;
+    padding: 5px 8px;
+    cursor: pointer;
+    vertical-align: middle;
+}
+
+.hideBtn:hover {
+    background: #026AA7;
+    color: #fff;
+}
+
+.name {
+    display: table-cell;
+    width: 100%;
+    text-align: center;
+    font-size: 20px;
+    font-weight: bold;
+    margin-bottom: 7px;
+}
+
+.items {
+    padding-bottom: 5px;
+    border-bottom: 1px solid #eee;
+}
+
+.item {
+    padding: 5px 20px;
+    &.horizontal {
+        width: 100%;
+        display: table-row;
+        padding: 0;
+    }
+}
+
+.itemValue {
+    color: #6a6a6a;
+    &.big {
+        font-size: 16px;
+        text-transform: uppercase;
+    }
+    &.horizontal {
+        width: 100%;
+        font-weight: 400;
+        text-align: right;
+        display: table-cell;
+        padding: 5px 20px;
+    }
+    &.vertical {
+        background: #fafafa;
+        padding: 9px 11px;
+        border-radius: 3px;
+        box-shadow: 0 1px 2px rgba(0, 0, 0, .23);
+    }
+}
+
+.itemTitle {
+    color: #026AA7;
+    padding-bottom: 5px;
+    &.horizontal {
+        display: table-cell;
+        padding: 5px 20px;
+    }
+}
