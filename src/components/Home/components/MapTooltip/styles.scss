@@ -4,30 +4,21 @@
 
 .item {
     line-height: 1.5;
-    display: table-row;
     width: 100%;
-}
-
-.header {
-    font-weight: bold;
-    text-align: center;
-    display: inline-block;
+    padding: 5px;
 }
 
 .itemTitle,
 .itemValue {
-    display: table-cell;
-    font-weight: bold;
+    display: block;
 }
 
 .itemTitle {
     color: #6a6a6a;
+    text-transform: uppercase;
+    font-weight: 400;
 }
 
 .itemValue {
-    text-align: right;
-    max-width: 200px;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
+    font-weight: 900;
 }

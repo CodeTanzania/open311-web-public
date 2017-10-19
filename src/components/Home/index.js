@@ -16,7 +16,7 @@ class SimpleMap extends Component {
   constructor() {
     super();
     this.state = {
-      zoom: 13,
+      zoom: 9,
       center: [-6.816330, 39.276638],
       issues: [],
       selected: {}
@@ -28,15 +28,23 @@ class SimpleMap extends Component {
     const map = this.map.leafletElement;
     map.on('click', (event) => {
       const serviceRequest = getIssue(event.latlng, this.state.issues);
-      this.setState({ selected: serviceRequest });
+      if (serviceRequest) {
+        this.setState({ selected: serviceRequest, center: event.latlng, zoom: 13 });
+      } else {
+        this.setState({ zoom: 9 });
+      }
     });
 
-    fetch('/api/issues')
+    fetch('http://dawasco.herokuapp.com/servicerequests?query={"location":{"$ne":null}}&limit=200', {
+      headers: new Headers({
+        'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjU5ZTQ0OWQzODI0NjEwMDAwNGYzNDgzMSIsImlhdCI6MTUwODEzMzMzMSwiZXhwIjozMzA2NTczMzMzMSwiYXVkIjoib3BlbjMxMSJ9.3-a02oah-lmHFdqw1wMkbxIVa2qdA_D7ZTo0bGQQ_zE'
+      })
+    })
       .then(res => {
         return res.json();
       })
       .then(data => {
-        this.setState({ issues: data });
+        this.setState({ issues: data.servicerequests });
       });
   }
 
@@ -59,6 +67,7 @@ class SimpleMap extends Component {
                     service={issue.service.name}
                     ticket={issue.code.toUpperCase()}
                     address={issue.address}
+                    area={issue.jurisdiction.name}
                     date={issue.createdAt}
                     status={issue.status.name}
                   />

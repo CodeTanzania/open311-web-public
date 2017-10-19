@@ -9,6 +9,7 @@ storiesOf('MapTooltip', module)
         service='Water Leakage'
         ticket='HLK170006'
         address='Ohio'
+        area='Tabata'
         date='2017-09-22T11:56:39.585Z'
         status='Open'
     />)
