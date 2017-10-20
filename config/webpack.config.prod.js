@@ -29,6 +29,9 @@ const clientConfig = {
 			'bower_components'
 		],
 		alias: {
+			API: path.resolve(__dirname, '../src/api/'),
+			actions: path.resolve(__dirname, '../src/actions'),
+			reducers: path.resolve(__dirname, '../src/reducers')
 		}
 	},
 	/* eslint indent:1 */
