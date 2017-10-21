@@ -2,7 +2,7 @@ import React from 'react';
 import { storiesOf } from '@storybook/react';
 import faker from 'faker';
 
-import IssueCard from './index.jsx';
+import SRCard from './index.jsx';
 
 const issue = {
     service: {
@@ -13,7 +13,7 @@ const issue = {
     code: 'HLK170006'
 }
 
-storiesOf('Issue Card', module)
-    .addWithInfo('Default', 'Issuecard is the card with issue info displayed on the map on marker click', () => <IssueCard issue={issue} />
+storiesOf('Service Request Card', module)
+    .addWithInfo('Default', 'ServiceRequestcard is the card with issue info displayed on the map on marker click', () => <SRCard serviceRequest={issue} />
     )
-    .addWithInfo('Show', '', () => <IssueCard issue={issue} />);
+    .addWithInfo('Show', '', () => <SRCard serviceRequest={issue} />);
