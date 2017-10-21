@@ -4,7 +4,7 @@ import styles from './styles.scss';
 import classnames from 'classnames/bind';
 const cx = classnames.bind(styles);
 
-class IssueCard extends Component {
+class SRCard extends Component {
     constructor(props) {
         super(props);
         this.state = { showCard: true };
@@ -27,28 +27,28 @@ class IssueCard extends Component {
 
     render() {
         const { showCard } = this.state;
-        const { issue } = this.props;
-        return Object.keys(issue).length && showCard ?
-            <div className={cx('container')}>
+        const { serviceRequest } = this.props;
+        return Object.keys(serviceRequest).length && showCard ?
+            <div className={cx('container')} style={{ zIndex: 1000 }}>
                 <div className={cx('issueCard')}>
                     <div className={cx('header')}>
                         <div className={cx('hideBtn')} title='Hide' onClick={this.onHideCardClicked}>&#10005;</div>
-                        <div className={cx('name')}>{issue.service.name}</div>
+                        <div className={cx('name')}>{serviceRequest.service.name}</div>
                     </div>
                     <div className={cx('items')}>
                         <div className={cx('item', 'horizontal')}>
                             <div className={cx('itemTitle', 'horizontal')}>Ticket#:</div>
-                            <div className={cx('itemValue', 'horizontal', 'big')}>{issue.code}</div>
+                            <div className={cx('itemValue', 'horizontal', 'big')}>{serviceRequest.code}</div>
                         </div>
                         <div className={cx('item', 'horizontal')}>
                             <div className={cx('itemTitle', 'horizontal')}>Address:</div>
-                            <div className={cx('itemValue', 'horizontal')}>{issue.address}</div>
+                            <div className={cx('itemValue', 'horizontal')}>{serviceRequest.address}</div>
                         </div>
                     </div>
                     <div className={cx('items')}>
                         <div className={cx('item')}>
                             <div className={cx('itemTitle')}>Description:</div>
-                            <div className={cx('itemValue', 'vertical')}>{issue.description}</div>
+                            <div className={cx('itemValue', 'vertical')}>{serviceRequest.description}</div>
                         </div>
                     </div>
                 </div>
@@ -56,8 +56,8 @@ class IssueCard extends Component {
     }
 }
 
-IssueCard.propTypes = {
+SRCard.propTypes = {
     issue: PropTypes.object
 };
 
-export default IssueCard;
+export default SRCard;

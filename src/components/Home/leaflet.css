@@ -1,4 +1,28 @@
 .leaflet-container {
-    height: 100vh;
     width: 100%;
+    height: 100vh;
+}
+
+.divIcon {
+    background: #a9a9a9;
+    border: 1px solid #666;
+    border-radius: 50%;
+}
+
+.iconWaterLeakage {
+    background: #AD1457;
+    border: 1px solid #666;
+    border-radius: 50%;
+}
+
+.iconBilling {
+    background: #0D47A1;
+    border: 1px solid #666;
+    border-radius: 50%;
+}
+
+.iconWaterShortage {
+    background: #C62828;
+    border: 1px solid #666;
+    border-radius: 50%;
 }

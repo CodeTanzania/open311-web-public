@@ -1,9 +1,17 @@
+
 import React, { Component } from 'react';
 import { Map, TileLayer, Marker, Tooltip } from 'react-leaflet';
-import MapTooltip from './components/MapTooltip';
-import IssueCard from './components/IssueCard';
+import { divIcon } from 'leaflet';
+import SRTooltip from './components/SRTooltip';
+import SRCard from './components/SRCard';
+import { connect } from 'react-redux';
+import { getAllServiceRequests } from 'actions';
+import styles from './styles.scss';
+import classnames from 'classnames/bind';
+const cx = classnames.bind(styles);
 import './leaflet.css';
 
+const defaultZoom = 10;
 //Get service request(issue) using lat & lng
 const getIssue = (latlng, issues) => {
   return issues.find(issue => {
@@ -11,12 +19,25 @@ const getIssue = (latlng, issues) => {
   });
 };
 
+const getIcon = serviceRequestName => {
+  switch (serviceRequestName) {
+    case 'Water Leakage':
+      return divIcon({ className: 'iconWaterLeakage' });
+    case 'Billing':
+      return divIcon({ className: 'iconBilling' });
+    case 'Lack of Water':
+      return divIcon({ className: 'iconWaterShortage' });
+    default:
+      return divIcon({ className: 'divIcon' });
+  }
+};
+
 
 class SimpleMap extends Component {
   constructor() {
     super();
     this.state = {
-      zoom: 9,
+      zoom: defaultZoom,
       center: [-6.816330, 39.276638],
       issues: [],
       selected: {}
@@ -27,50 +48,37 @@ class SimpleMap extends Component {
   componentDidMount() {
     const map = this.map.leafletElement;
     map.on('click', (event) => {
-      const serviceRequest = getIssue(event.latlng, this.state.issues);
+      const serviceRequest = getIssue(event.latlng, this.props.serviceRequest.items);
       if (serviceRequest) {
-        this.setState({ selected: serviceRequest, center: event.latlng, zoom: 13 });
+        this.setState({ selected: serviceRequest, center: event.latlng, zoom: 12 });
       } else {
-        this.setState({ zoom: 9 });
+        this.setState({ zoom: defaultZoom });
       }
     });
 
-    fetch('http://dawasco.herokuapp.com/servicerequests?query={"location":{"$ne":null}}&limit=200', {
-      headers: new Headers({
-        'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjU5ZTQ0OWQzODI0NjEwMDAwNGYzNDgzMSIsImlhdCI6MTUwODEzMzMzMSwiZXhwIjozMzA2NTczMzMzMSwiYXVkIjoib3BlbjMxMSJ9.3-a02oah-lmHFdqw1wMkbxIVa2qdA_D7ZTo0bGQQ_zE'
-      })
-    })
-      .then(res => {
-        return res.json();
-      })
-      .then(data => {
-        this.setState({ issues: data.servicerequests });
-      });
+    this.props.getAllServiceRequests();
   }
 
   render() {
-    const { center, zoom, issues, selected } = this.state;
+    const { center, zoom, selected } = this.state;
+    const { serviceRequest } = this.props;
 
     return (
       <div>
-        <IssueCard issue={selected} showCard={true} />
+        <div className={cx('loaderContainer', { 'hide': !serviceRequest.isFetching })} style={{ zIndex: 1500 }}>
+          <div className={cx('loader')}></div>
+        </div>
+        <SRCard serviceRequest={selected} showCard={true} />
         <Map center={center} zoom={zoom} ref={map => this.map = map}>
           <TileLayer
             attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
             url='http://{s}.tile.osm.org/{z}/{x}/{y}.png'
           />
           {
-            issues.map(issue =>
-              <Marker position={[issue.latitude, issue.longitude]} key={issue.code} bubblingMouseEvents={true} >
+            serviceRequest.items.map(issue =>
+              <Marker position={[issue.latitude, issue.longitude]} key={issue.code} bubblingMouseEvents={true} icon={getIcon(issue.service.name)}>
                 <Tooltip direction='top'>
-                  <MapTooltip
-                    service={issue.service.name}
-                    ticket={issue.code.toUpperCase()}
-                    address={issue.address}
-                    area={issue.jurisdiction.name}
-                    date={issue.createdAt}
-                    status={issue.status.name}
-                  />
+                  <SRTooltip serviceRequest={issue} />
                 </Tooltip>
               </Marker>)
           }
@@ -80,5 +88,11 @@ class SimpleMap extends Component {
   }
 }
 
-export default SimpleMap;
+const mapStateToProps = (state) => {
+  return {
+    serviceRequest: state.serviceRequest
+  };
+};
+
+export default connect(mapStateToProps, { getAllServiceRequests })(SimpleMap);
 
