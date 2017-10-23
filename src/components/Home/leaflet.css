@@ -3,8 +3,50 @@
     height: 100vh;
 }
 
-.divIcon {
-    background: #a9a9a9;
+.iconWTH {
+    background-color: #D32F2F;
+    border: 1px solid #666;
+    border-radius: 50%;
+}
+
+.iconLW {
+    background-color: #C62828;
+    border: 1px solid #666;
+    border-radius: 50%;
+}
+
+.iconWL {
+    background-color: #AD1457;
+    border: 1px solid #666;
+    border-radius: 50%;
+}
+
+.iconMP {
+    background-color: #6A1B9A;
+    border: 1px solid #666;
+    border-radius: 50%;
+}
+
+.iconSL {
+    background-color: #00838F;
+    border: 1px solid #666;
+    border-radius: 50%;
+}
+
+.iconWQ {
+    background-color: #0277BD;
+    border: 1px solid #666;
+    border-radius: 50%;
+}
+
+.iconNW {
+    background-color: #1A237E;
+    border: 1px solid #666;
+    border-radius: 50%;
+}
+
+.iconRO {
+    background-color: #C9D13C;
     border: 1px solid #666;
     border-radius: 50%;
 }

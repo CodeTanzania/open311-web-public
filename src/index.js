@@ -5,6 +5,7 @@ import { Provider } from 'react-redux';
 import thunk from 'redux-thunk';
 import reducers from 'reducers';
 import Home from 'Home';
+import './index.css';
 // import { BrowserRouter as Router } from 'react-router-dom';
 
 //create redux store

@@ -3,7 +3,7 @@ const auth_token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjU5ZTQ0OWQzODI
 export default {
     // Get all service requests
     getAllSR() {
-        return fetch('api/servicerequests?query={"location":{"$ne":null}}&limit=500', {
+        return fetch('api/servicerequests?select={"operator": 0, "attachments": 0, "changelogs": 0, "wasOpenTicketSent": 0, "wasResolveTicketSent": 0, "ttr": 0, "resolvedAt": 0, "call": 0, "method": 0, "group": 0, "description": 0}&query={"location":{"$ne":null}}&limit=2000', {
             headers: new Headers({
                 'Authorization': `Bearer ${auth_token}`
             })

@@ -4,6 +4,7 @@ import { Map, TileLayer, Marker, Tooltip } from 'react-leaflet';
 import { divIcon } from 'leaflet';
 import SRTooltip from './components/SRTooltip';
 import SRCard from './components/SRCard';
+import SRMapLegend from './components/SRMapLegend';
 import { connect } from 'react-redux';
 import { getAllServiceRequests } from 'actions';
 import styles from './styles.scss';
@@ -22,13 +23,21 @@ const getIssue = (latlng, issues) => {
 const getIcon = serviceRequestName => {
   switch (serviceRequestName) {
     case 'Water Leakage':
-      return divIcon({ className: 'iconWaterLeakage' });
-    case 'Billing':
-      return divIcon({ className: 'iconBilling' });
+      return divIcon({ className: 'iconWL' });
+    case 'Water Theft':
+      return divIcon({ className: 'iconWTH' });
     case 'Lack of Water':
-      return divIcon({ className: 'iconWaterShortage' });
+      return divIcon({ className: 'iconLW' });
+    case 'Meter Problem':
+      return divIcon({ className: 'iconMP' });
+    case 'Seawage Leakage':
+      return divIcon({ className: 'iconSL' });
+    case 'Water Quality':
+      return divIcon({ className: 'iconWQ' });
+    case 'New Connection':
+      return divIcon({ className: 'iconNW' });
     default:
-      return divIcon({ className: 'divIcon' });
+      return divIcon({ className: 'iconRO' });
   }
 };
 
@@ -65,7 +74,7 @@ class SimpleMap extends Component {
 
     return (
       <div>
-        <div className={cx('loaderContainer', { 'hide': !serviceRequest.isFetching })} style={{ zIndex: 1500 }}>
+        <div className={cx('loaderContainer', { 'hide': !serviceRequest.isFetching })} style={{ zIndex: 501 }}>
           <div className={cx('loader')}></div>
         </div>
         <SRCard serviceRequest={selected} showCard={true} />
@@ -83,6 +92,9 @@ class SimpleMap extends Component {
               </Marker>)
           }
         </Map >
+        <div className={cx('mapLegend')} style={{ zIndex: 600 }}>
+          <SRMapLegend />
+        </div>
       </div>
     );
   }

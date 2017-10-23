@@ -1,0 +1,58 @@
+.legend {
+    background: white;
+    padding: 15px;
+    border-radius: 2px;
+    box-shadow: 0px 1px 4px rgba(0, 0, 0, 0.3);
+}
+
+.symbol {
+    display: inline-block;
+    padding: 0 8px;
+    color: #6a6a6a;
+}
+
+.symbolIcon {
+    border: 1px solid #666;
+    border-radius: 50%;
+    width: 9px;
+    height: 9px;
+    margin-right: 4px;
+}
+
+.symbolIcon.WTH {
+    background-color: #D32F2F;
+}
+
+.symbolIcon.LW {
+    background-color: #C62828;
+}
+
+.symbolIcon.WL {
+    background-color: #AD1457;
+}
+
+.symbolIcon.MP {
+    background-color: #6A1B9A;
+}
+
+.symbolIcon.SL {
+    background-color: #00838F;
+}
+
+.symbolIcon.WQ {
+    background-color: #0277BD;
+}
+
+.symbolIcon.RO {
+    background-color: #C9D13C;
+}
+
+.symbolIcon.NW {
+    background-color: #1A237E;
+}
+
+.symbolIcon,
+.symbolDesc {
+    display: inline-block;
+    vertical-align: middle;
+}

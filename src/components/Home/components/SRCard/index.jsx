@@ -9,10 +9,10 @@ class SRCard extends Component {
         super(props);
         this.state = { showCard: true };
         //bind functions
-        this.onHideCardClicked = this.onHideCardClicked.bind(this);
+        this.onCloseBtnClicked = this.onCloseBtnClicked.bind(this);
     }
 
-    onHideCardClicked(event) {
+    onCloseBtnClicked(event) {
         event.preventDefault();
         this.setState({
             showCard: false
@@ -29,29 +29,42 @@ class SRCard extends Component {
         const { showCard } = this.state;
         const { serviceRequest } = this.props;
         return Object.keys(serviceRequest).length && showCard ?
-            <div className={cx('container')} style={{ zIndex: 1000 }}>
-                <div className={cx('issueCard')}>
-                    <div className={cx('header')}>
-                        <div className={cx('hideBtn')} title='Hide' onClick={this.onHideCardClicked}>&#10005;</div>
-                        <div className={cx('name')}>{serviceRequest.service.name}</div>
+            <div className={cx('cardContainer')} style={{ zIndex: 500 }}>
+                <div className={cx('closeBtn')} title='Close' onClick={this.onCloseBtnClicked}>   <span> &#10005;</span>
+                </div>
+                <div className={cx('serviceName')}>
+                    <span>{serviceRequest.service.name}</span>
+                </div>
+                <div className={cx('item')}>
+                    <div className={cx('title', 'horizontal')}>Ticket No:</div>
+                    <div className={cx('horizontalValue')}>{serviceRequest.code}</div>
+                </div>
+                <div className={cx('item')}>
+                    <div className={cx('itemLeft')}>
+                        <div className={cx('title', 'vertical')}>Address:</div>
+                        <div className={cx('verticalValue')}>{serviceRequest.address}</div>
                     </div>
-                    <div className={cx('items')}>
-                        <div className={cx('item', 'horizontal')}>
-                            <div className={cx('itemTitle', 'horizontal')}>Ticket#:</div>
-                            <div className={cx('itemValue', 'horizontal', 'big')}>{serviceRequest.code}</div>
-                        </div>
-                        <div className={cx('item', 'horizontal')}>
-                            <div className={cx('itemTitle', 'horizontal')}>Address:</div>
-                            <div className={cx('itemValue', 'horizontal')}>{serviceRequest.address}</div>
-                        </div>
-                    </div>
-                    <div className={cx('items')}>
-                        <div className={cx('item')}>
-                            <div className={cx('itemTitle')}>Description:</div>
-                            <div className={cx('itemValue', 'vertical')}>{serviceRequest.description}</div>
-                        </div>
+                    <div className={cx('itemRight')}>
+                        <div className={cx('title', 'vertical')}>Area:</div>
+                        <div className={cx('verticalValue')}>{serviceRequest.jurisdiction.name}</div>
                     </div>
                 </div>
+                {/* <div className={cx('items')}>
+                    <div className={cx('item', 'horizontal')}>
+                        <div className={cx('itemTitle', 'horizontal')}>Ticket#:</div>
+                        <div className={cx('itemValue', 'horizontal', 'big')}>{serviceRequest.code}</div>
+                    </div>
+                    <div className={cx('item', 'horizontal')}>
+                        <div className={cx('itemTitle', 'horizontal')}>Address:</div>
+                        <div className={cx('itemValue', 'horizontal')}>{serviceRequest.address}</div>
+                    </div>
+                </div>
+                <div className={cx('items')}>
+                    <div className={cx('item')}>
+                        <div className={cx('itemTitle')}>Description:</div>
+                        <div className={cx('itemValue', 'vertical')}>{serviceRequest.description}</div>
+                    </div>
+                </div> */}
             </div> : null;
     }
 }

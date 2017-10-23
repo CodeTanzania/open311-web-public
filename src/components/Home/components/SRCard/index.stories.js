@@ -8,9 +8,12 @@ const issue = {
     service: {
         name: 'Water Leakage'
     },
-    address: '792 Becker Knoll',
+    address: 'Mbezi Juu',
     description: '"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
-    code: 'HLK170006'
+    code: 'HLK170006',
+    jurisdiction: {
+        name: 'Mabibo'
+    }
 }
 
 storiesOf('Service Request Card', module)
