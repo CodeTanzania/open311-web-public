@@ -28,7 +28,7 @@ class SRCard extends Component {
     render() {
         const { showCard } = this.state;
         const { serviceRequest } = this.props;
-        return Object.keys(serviceRequest).length && showCard ?
+        return serviceRequest && Object.keys(serviceRequest).length && showCard ?
             <div className={cx('cardContainer')} style={{ zIndex: 500 }}>
                 <div className={cx('closeBtn')} title='Close' onClick={this.onCloseBtnClicked}>   <span> &#10005;</span>
                 </div>
@@ -49,22 +49,6 @@ class SRCard extends Component {
                         <div className={cx('verticalValue')}>{serviceRequest.jurisdiction.name}</div>
                     </div>
                 </div>
-                {/* <div className={cx('items')}>
-                    <div className={cx('item', 'horizontal')}>
-                        <div className={cx('itemTitle', 'horizontal')}>Ticket#:</div>
-                        <div className={cx('itemValue', 'horizontal', 'big')}>{serviceRequest.code}</div>
-                    </div>
-                    <div className={cx('item', 'horizontal')}>
-                        <div className={cx('itemTitle', 'horizontal')}>Address:</div>
-                        <div className={cx('itemValue', 'horizontal')}>{serviceRequest.address}</div>
-                    </div>
-                </div>
-                <div className={cx('items')}>
-                    <div className={cx('item')}>
-                        <div className={cx('itemTitle')}>Description:</div>
-                        <div className={cx('itemValue', 'vertical')}>{serviceRequest.description}</div>
-                    </div>
-                </div> */}
             </div> : null;
     }
 }

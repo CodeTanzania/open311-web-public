@@ -1,7 +1,8 @@
-
+/*eslint no-unused-vars: "off"*/
 import React, { Component } from 'react';
-import { Map, TileLayer, Marker, Tooltip } from 'react-leaflet';
-import { divIcon } from 'leaflet';
+import ReactDOM from 'react-dom';
+import { Map, TileLayer, Tooltip, GeoJSON } from 'react-leaflet';
+import { divIcon, marker } from 'leaflet';
 import SRTooltip from './components/SRTooltip';
 import SRCard from './components/SRCard';
 import SRMapLegend from './components/SRMapLegend';
@@ -52,20 +53,39 @@ class SimpleMap extends Component {
       selected: {}
     };
     //bind functions
+    this.pointToLayer = this.pointToLayer.bind(this);
+    this.onEachFeature = this.onEachFeature.bind(this);
   }
 
   componentDidMount() {
     const map = this.map.leafletElement;
-    map.on('click', (event) => {
-      const serviceRequest = getIssue(event.latlng, this.props.serviceRequest.items);
-      if (serviceRequest) {
-        this.setState({ selected: serviceRequest, center: event.latlng, zoom: 12 });
-      } else {
-        this.setState({ zoom: defaultZoom });
-      }
+    map.on('click', () => {
+      this.setState({ selected: undefined, zoom: defaultZoom });
     });
 
     this.props.getAllServiceRequests();
+  }
+
+  pointToLayer(feature, latlng) {
+    const SRItem = JSON.parse(feature.properties.SRItem);
+    const SRMarker = marker(latlng, { icon: getIcon(SRItem.service.name) });
+    const markerContent = document.createElement('div');
+
+    ReactDOM.render(
+      <SRTooltip serviceRequest={SRItem} />,
+      markerContent
+    );
+    SRMarker.bindTooltip(markerContent.innerHTML, { direction: 'top' });
+    return SRMarker;
+  }
+
+  onEachFeature(feature, layer) {
+    layer.on({
+      click: () => {
+        const SRItem = JSON.parse(feature.properties.SRItem);
+        this.setState({ selected: SRItem, center: [SRItem.latitude, SRItem.longitude], zoom: 12 });
+      }
+    });
   }
 
   render() {
@@ -77,25 +97,34 @@ class SimpleMap extends Component {
         <div className={cx('loaderContainer', { 'hide': !serviceRequest.isFetching })} style={{ zIndex: 501 }}>
           <div className={cx('loader')}></div>
         </div>
-        <SRCard serviceRequest={selected} showCard={true} />
+        <SRCard serviceRequest={selected} />
         <Map center={center} zoom={zoom} ref={map => this.map = map}>
           <TileLayer
             attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
             url='http://{s}.tile.osm.org/{z}/{x}/{y}.png'
           />
+
           {
-            serviceRequest.items.map(issue =>
-              <Marker position={[issue.latitude, issue.longitude]} key={issue.code} bubblingMouseEvents={true} icon={getIcon(issue.service.name)}>
-                <Tooltip direction='top'>
-                  <SRTooltip serviceRequest={issue} />
-                </Tooltip>
-              </Marker>)
+            serviceRequest.items.map(item => {
+              const data = {
+                'type': 'Feature',
+                'geometry': {
+                  'type': 'Point',
+                  'coordinates': item.location.coordinates
+                },
+                'properties': {
+                  'SRItem': JSON.stringify(item)
+                }
+              };
+              return (<GeoJSON data={data} key={item.code} pointToLayer={this.pointToLayer.bind(this)} onEachFeature={this.onEachFeature}>
+              </GeoJSON>);
+            })
           }
         </Map >
         <div className={cx('mapLegend')} style={{ zIndex: 600 }}>
           <SRMapLegend />
         </div>
-      </div>
+      </div >
     );
   }
 }

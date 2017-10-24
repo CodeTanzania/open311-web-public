@@ -19,4 +19,4 @@ const issue = {
 storiesOf('Service Request Card', module)
     .addWithInfo('Default', 'ServiceRequestcard is the card with issue info displayed on the map on marker click', () => <SRCard serviceRequest={issue} />
     )
-    .addWithInfo('Show', '', () => <SRCard serviceRequest={issue} />);
+    .addWithInfo('Hide', '', () => <SRCard serviceRequest={undefined} showCard={false} />);
