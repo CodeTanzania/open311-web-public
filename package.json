@@ -68,7 +68,6 @@
   "scripts": {
     "start": "node production.js",
     "dev": "node development.js",
-    "predev": "rm -rf public/dist",
     "build": "NODE_ENV=production webpack --config config/webpack.config.prod.js --progress --profile --colors",
     "prebuild": "rm -rf public/dist",
     "test": "jest",
