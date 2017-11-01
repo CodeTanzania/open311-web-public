@@ -7,7 +7,7 @@ import SRTooltip from './components/SRTooltip';
 import SRCard from './components/SRCard';
 import SRMapLegend from './components/SRMapLegend';
 import { connect } from 'react-redux';
-import { getAllServiceRequests } from 'actions';
+import { getServiceRequests } from 'actions';
 import styles from './styles.scss';
 import classnames from 'classnames/bind';
 const cx = classnames.bind(styles);
@@ -63,7 +63,7 @@ class SimpleMap extends Component {
       this.setState({ selected: undefined, zoom: defaultZoom });
     });
 
-    this.props.getAllServiceRequests();
+    this.props.getServiceRequests();
   }
 
   pointToLayer(feature, latlng) {
@@ -121,7 +121,7 @@ class SimpleMap extends Component {
             })
           }
         </Map >
-        <div className={cx('mapLegend')} style={{ zIndex: 600 }}>
+        <div className={cx('mapLegend')} style={{ zIndex: 500 }}>
           <SRMapLegend />
         </div>
       </div >
@@ -135,5 +135,5 @@ const mapStateToProps = (state) => {
   };
 };
 
-export default connect(mapStateToProps, { getAllServiceRequests })(SimpleMap);
+export default connect(mapStateToProps, { getServiceRequests })(SimpleMap);
 

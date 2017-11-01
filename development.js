@@ -6,7 +6,7 @@ const webpackHotMiddleware = require('webpack-hot-middleware');
 const config = require('./config/webpack.config.dev.js');
 const compiler = webpack(config);
 const proxy = require('http-proxy-middleware');
-const api = 'http://dawasco.herokuapp.com';
+const api = ' http://127.0.0.1:5000';
 
 app.set('port', (process.env.PORT || 3000));
 
@@ -16,7 +16,7 @@ app.use(webpackDevMiddleware(compiler, {
 }));
 app.use(webpackHotMiddleware(compiler));
 
-const apiProxy = proxy('/api', { target: api, changeOrigin: true, pathRewrite: { '^/api': '' } });
+const apiProxy = proxy('/api', { target: api, pathRewrite: { '^/api': '' } });
 app.use(apiProxy);
 
 app.use(express.static('public'));

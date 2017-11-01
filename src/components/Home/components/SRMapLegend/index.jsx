@@ -1,43 +1,53 @@
-import React from 'react';
+import React, { Component } from 'react';
 import styles from './styles.scss';
 import classnames from 'classnames/bind';
+import MapKey from './mapKey';
+import { connect } from 'react-redux';
+import { getServices, toggleService, getServiceRequests } from 'actions';
 const cx = classnames.bind(styles);
 
-export default function SRMapLegend() {
-    return (
-        <div className={cx('legend')}>
-            <div className={cx('symbol')}>
-                <div className={cx('symbolIcon', 'WTH')}></div>
-                <div className={cx('symbolDesc')}>Water Theft</div>
-            </div>
-            <div className={cx('symbol')}>
-                <div className={cx('symbolIcon', 'LW')}></div>
-                <div className={cx('symbolDesc')}>Lack of Water</div>
-            </div>
-            <div className={cx('symbol')}>
-                <div className={cx('symbolIcon', 'WL')}></div>
-                <div className={cx('symbolDesc')}>Water Leakage</div>
-            </div>
-            <div className={cx('symbol')}>
-                <div className={cx('symbolIcon', 'MP')}></div>
-                <div className={cx('symbolDesc')}>Meter Problem</div>
-            </div>
-            <div className={cx('symbol')}>
-                <div className={cx('symbolIcon', 'SL')}></div>
-                <div className={cx('symbolDesc')}>Seawage Leakage</div>
-            </div>
-            <div className={cx('symbol')}>
-                <div className={cx('symbolIcon', 'WQ')}></div>
-                <div className={cx('symbolDesc')}>Water Quality</div>
-            </div>
-            <div className={cx('symbol')}>
-                <div className={cx('symbolIcon', 'NW')}></div>
-                <div className={cx('symbolDesc')}>New Connection</div>
-            </div>
-            <div className={cx('symbol')}>
-                <div className={cx('symbolIcon', 'RO')}></div>
-                <div className={cx('symbolDesc')}>Other</div>
-            </div>
-        </div>
-    );
+
+
+class SRMapLegend extends Component {
+    constructor() {
+        super();
+        this.handleMapKeyClicked = this.handleMapKeyClicked.bind(this);
+    }
+
+    componentDidMount() {
+        this.props.getServices();
+    }
+
+    handleMapKeyClicked(id) {
+        this.props.toggleService(id);
+        const selectedMapKeys = this.props.mapKeys.filter(mapKey => mapKey.selected);
+
+        this.props.getServiceRequests(selectedMapKeys.map(mapKey => mapKey.id));
+    }
+
+    render() {
+        const { mapKeys } = this.props;
+        if (mapKeys.length) {
+            return (
+                <div className={cx('legend')}>
+                    {
+                        mapKeys.map(mapKey => (<MapKey key={mapKey.id} mapKey={mapKey} onMapKeyClicked={this.handleMapKeyClicked} />))
+                    }
+                </div>
+            );
+        }
+
+        return null;
+    }
+
+
 }
+
+const mapStateToProps = (state) => {
+    return {
+        mapKeys: state.services
+    };
+};
+
+export default connect(mapStateToProps, { getServices, toggleService, getServiceRequests })(SRMapLegend);
+

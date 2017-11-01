@@ -36,17 +36,39 @@ class SRCard extends Component {
                     <span>{serviceRequest.service.name}</span>
                 </div>
                 <div className={cx('item')}>
-                    <div className={cx('title', 'horizontal')}>Ticket No:</div>
-                    <div className={cx('horizontalValue')}>{serviceRequest.code}</div>
+                    <div className={cx('itemTitle', 'horizontal')}>Ticket No:</div>
+                    <div className={cx('itemValue', 'horizontal')}>{serviceRequest.code}</div>
                 </div>
                 <div className={cx('item')}>
                     <div className={cx('itemLeft')}>
-                        <div className={cx('title', 'vertical')}>Address:</div>
-                        <div className={cx('verticalValue')}>{serviceRequest.address}</div>
+                        <div className={cx('itemTitle', 'vertical')}>Address:</div>
+                        <div className={cx('itemValue')}>{serviceRequest.address}</div>
                     </div>
                     <div className={cx('itemRight')}>
-                        <div className={cx('title', 'vertical')}>Area:</div>
-                        <div className={cx('verticalValue')}>{serviceRequest.jurisdiction.name}</div>
+                        <div className={cx('itemTitle', 'vertical')}>Area:</div>
+                        <div className={cx('itemValue')}>{serviceRequest.jurisdiction.name}</div>
+                    </div>
+                </div>
+                <div className={cx('item')}>
+                    <div className={cx('timelineContainer')}>
+                        <ul className={cx('timeline')}>
+                            <li className={cx('timelineItem')}>
+                                <div className={cx('timelineTitle')}>Pending</div>
+                                <div className={cx('timelineDetail')}>Fri Jul 21, 2017</div>
+                            </li>
+                            <li className={cx('timelineItem')} >
+                                <div className={cx('timelineTitle')}>Resolved</div>
+                                <div className={cx('timelineDetail')}>Fri Jul 21, 2017</div>
+                            </li>
+                            <li className={cx('timelineItem')} >
+                                <div className={cx('timelineTitle')}>Re-Opened</div>
+                                <div className={cx('timelineDetail')}>Fri Jul 21, 2017</div>
+                            </li>
+                            <li className={cx('timelineItem')} >
+                                <div className={cx('timelineTitle')}>Re-Opened</div>
+                                <div className={cx('timelineDetail')}>Fri Jul 21, 2017</div>
+                            </li>
+                        </ul>
                     </div>
                 </div>
             </div> : null;

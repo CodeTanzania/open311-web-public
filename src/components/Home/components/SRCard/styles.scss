@@ -39,9 +39,6 @@
     padding: 10px 0;
 }
 
-// .itemLeft {
-//     vertical-align: middle;
-// }
 .itemLeft,
 .itemRight {
     vertical-align: top;
@@ -49,74 +46,68 @@
     width: 50%;
 }
 
-.title {
+.itemTitle {
     display: inline-block;
     font-weight: bold;
     color: #026AA7;
 }
 
-.title.horizontal {
+.itemTitle.horizontal {
     padding-right: 5px;
 }
 
-.title.vertical {
+.itemTitle.vertical {
     padding-bottom: 3px;
 }
 
-.horizontalValue {
+.itemValue {
+    display: block
+}
+
+.itemValue.horizontal {
     display: inline-block;
 }
 
-// .header {
-//     display: block;
-//     width: 100%;
-//     padding: 10px;
-// }
-// .name {
-//     display: table-cell;
-//     width: 100%;
-//     text-align: center;
-//     font-size: 20px;
-//     font-weight: bold;
-//     margin-bottom: 7px;
-// }
-// .items {
-//     padding-bottom: 5px;
-//     border-bottom: 1px solid #eee;
-// }
-// .item {
-//     padding: 5px 20px;
-//     &.horizontal {
-//         width: 100%;
-//         display: table-row;
-//         padding: 0;
-//     }
-// }
-// .itemValue {
-//     color: #6a6a6a;
-//     &.big {
-//         font-size: 16px;
-//         text-transform: uppercase;
-//     }
-//     &.horizontal {
-//         width: 100%;
-//         font-weight: 400;
-//         text-align: right;
-//         display: table-cell;
-//         padding: 5px 20px;
-//     }
-//     &.vertical {
-//         background: #fafafa;
-//         padding: 9px 11px;
-//         border-radius: 3px;
-//         box-shadow: 0 1px 2px rgba(0, 0, 0, .23);
-//     }
-// }
-// .itemTitle {
-//     color: #026AA7;
-//     padding-bottom: 5px;
-//     &.horizontal {
-//         display: table-cell;
-//         padding: 5px 20px;
-//     }
-// }
+.timelineContainer {
+    width: 100%;
+    background: white;
+    height: 250px;
+    overflow-y: auto;
+    margin-top: 15px;
+}
+
+.timeline {
+    margin: 20px 0;
+    display: inline-block;
+}
+
+.timelineItem {
+    list-style: none;
+    margin: auto;
+    min-height: 50px;
+    border-left: 1px dashed #86D6FF;
+    padding: 0 0 50px 30px;
+    position: relative;
+}
+
+.timelineItem:last-child {
+    border-left: 0;
+}
+
+.timelineItem::before {
+    position: absolute;
+    left: -11px;
+    top: -5px;
+    content: " ";
+    border: 8px solid rgba(255, 255, 255, 0.74);
+    border-radius: 500%;
+    background: #258CC7;
+    height: 20px;
+    width: 20px;
+    transition: all 500ms ease-in-out;
+}
+
+.timelineDetail {
+    color: rgba(0, 0, 0, 0.5);
+    font-size: 12px;
+}
