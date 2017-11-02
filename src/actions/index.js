@@ -1,20 +1,20 @@
 import API from 'API';
 
-
-export const FETCH_SERVICEREQUESTS = 'service_request_fetch';
+export const MAP_LOADING = 'map_loading';
+export const MAP_LOADING_COMPLETE = 'map_loading_complete';
+// export const FETCH_SERVICEREQUESTS = 'service_request_fetch';
 export const RECEIVE_SERVICEREQUESTS = 'service_request_receive';
 export const RECEIVE_SERVICES = 'services_receive';
 export const TOGGLE_SERVICE = 'toggle_service';
 
-const fetchServiceRequests = (serviceRequests, isFetching) => ({
-    type: FETCH_SERVICEREQUESTS,
-    serviceRequests,
-    isFetching
-});
-const receiveServiceRequests = (serviceRequests, isFetching) => ({
+// const fetchServiceRequests = (serviceRequests, isFetching) => ({
+//     type: FETCH_SERVICEREQUESTS,
+//     serviceRequests,
+//     isFetching
+// });
+const receiveServiceRequests = (serviceRequests) => ({
     type: RECEIVE_SERVICEREQUESTS,
-    serviceRequests,
-    isFetching
+    serviceRequests
 });
 
 const receiveServices = (services) => ({
@@ -22,21 +22,37 @@ const receiveServices = (services) => ({
     services
 });
 
+const mapLoading = () => ({
+    type: MAP_LOADING,
+    mapLoading: true
+});
 
-export const getServiceRequests = (services) => dispatch => {
-    dispatch(fetchServiceRequests([], true));
+const mapLoadingComplete = () => ({
+    type: MAP_LOADING,
+    mapLoading: false
+});
+
+
+export const getServiceRequests = () => (dispatch, getState) => {
+    dispatch(mapLoading());
+    const { services } = getState();
+    const selectedServices = services.filter(service => service.selected);
+
     API
-        .getSR({ services })
+        .getSR({ services: selectedServices.map(service => service.id) })
         .then(data => {
             const serviceRequests = data.servicerequests;
-            dispatch(receiveServiceRequests(serviceRequests, false));
+            dispatch(receiveServiceRequests(serviceRequests));
+            dispatch(mapLoadingComplete());
         })
         .catch(() => {
-            dispatch(receiveServiceRequests([], false));
+            dispatch(receiveServiceRequests([]));
+            dispatch(mapLoadingComplete());
         });
 };
 
 export const getServices = () => dispatch => {
+    dispatch(mapLoading());
     API
         .getServices()
         .then(data => {
@@ -49,9 +65,21 @@ export const getServices = () => dispatch => {
                 };
             });
             dispatch(receiveServices(services));
+            return services;
+        })
+        .then((services) => {
+            // dispatch(fetchServiceRequests([], true));
+            return API
+                .getSR({ services: services.map(service => service.id) })
+                .then(data => {
+                    const serviceRequests = data.servicerequests;
+                    dispatch(receiveServiceRequests(serviceRequests));
+                    dispatch(mapLoadingComplete());
+                });
         })
         .catch(() => {
             dispatch(receiveServices([]));
+            dispatch(mapLoadingComplete());
         });
 };
 

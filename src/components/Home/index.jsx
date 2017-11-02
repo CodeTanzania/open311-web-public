@@ -62,8 +62,6 @@ class SimpleMap extends Component {
     map.on('click', () => {
       this.setState({ selected: undefined, zoom: defaultZoom });
     });
-
-    this.props.getServiceRequests();
   }
 
   pointToLayer(feature, latlng) {
@@ -90,11 +88,11 @@ class SimpleMap extends Component {
 
   render() {
     const { center, zoom, selected } = this.state;
-    const { serviceRequest } = this.props;
+    const { serviceRequests, mapLoading } = this.props;
 
     return (
       <div>
-        <div className={cx('loaderContainer', { 'hide': !serviceRequest.isFetching })} style={{ zIndex: 501 }}>
+        <div className={cx('loaderContainer', { 'hide': !mapLoading })} style={{ zIndex: 501 }}>
           <div className={cx('loader')}></div>
         </div>
         <SRCard serviceRequest={selected} />
@@ -105,7 +103,7 @@ class SimpleMap extends Component {
           />
 
           {
-            serviceRequest.items.map(item => {
+            serviceRequests.map(item => {
               const data = {
                 'type': 'Feature',
                 'geometry': {
@@ -131,7 +129,8 @@ class SimpleMap extends Component {
 
 const mapStateToProps = (state) => {
   return {
-    serviceRequest: state.serviceRequest
+    serviceRequests: state.serviceRequests,
+    mapLoading: state.mapLoading
   };
 };
 

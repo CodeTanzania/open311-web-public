@@ -20,9 +20,7 @@ class SRMapLegend extends Component {
 
     handleMapKeyClicked(id) {
         this.props.toggleService(id);
-        const selectedMapKeys = this.props.mapKeys.filter(mapKey => mapKey.selected);
-
-        this.props.getServiceRequests(selectedMapKeys.map(mapKey => mapKey.id));
+        this.props.getServiceRequests();
     }
 
     render() {
