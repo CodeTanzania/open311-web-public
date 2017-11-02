@@ -1,7 +1,7 @@
 import { combineReducers } from 'redux';
 import serviceRequests from './serviceRequests';
 import services from './services';
-import { MAP_LOADING, MAP_LOADING_COMPLETE } from 'actions';
+import { MAP_LOADING, MAP_LOADING_COMPLETE, SHOWSRCARD, HIDESRCARD } from 'actions';
 
 const mapLoading = (state = false, action) => {
     switch (action.type) {
@@ -14,9 +14,21 @@ const mapLoading = (state = false, action) => {
     }
 };
 
+const serviceRequestCard = (state = false, action) => {
+    switch (action.type) {
+        case SHOWSRCARD:
+            return action.showSRCard;
+        case HIDESRCARD:
+            return action.showSRCard;
+        default:
+            return state;
+    }
+};
+
 
 export default combineReducers({
     serviceRequests,
     services,
-    mapLoading
+    mapLoading,
+    showSRCard: serviceRequestCard
 });

@@ -7,7 +7,7 @@ import SRTooltip from './components/SRTooltip';
 import SRCard from './components/SRCard';
 import SRMapLegend from './components/SRMapLegend';
 import { connect } from 'react-redux';
-import { getServiceRequests } from 'actions';
+import { getServiceRequests, showSRCard } from 'actions';
 import styles from './styles.scss';
 import classnames from 'classnames/bind';
 const cx = classnames.bind(styles);
@@ -82,6 +82,7 @@ class SimpleMap extends Component {
       click: () => {
         const SRItem = JSON.parse(feature.properties.SRItem);
         this.setState({ selected: SRItem, center: [SRItem.latitude, SRItem.longitude], zoom: 12 });
+        this.props.showSRCard();
       }
     });
   }
@@ -134,5 +135,5 @@ const mapStateToProps = (state) => {
   };
 };
 
-export default connect(mapStateToProps, { getServiceRequests })(SimpleMap);
+export default connect(mapStateToProps, { getServiceRequests, showSRCard })(SimpleMap);
 

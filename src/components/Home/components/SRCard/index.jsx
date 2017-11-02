@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
-import PropTypes from 'prop-types';
 import styles from './styles.scss';
 import classnames from 'classnames/bind';
 const cx = classnames.bind(styles);
+import { connect } from 'react-redux';
+import { hideSRCard } from 'actions';
 
 class SRCard extends Component {
     constructor(props) {
@@ -14,21 +15,12 @@ class SRCard extends Component {
 
     onCloseBtnClicked(event) {
         event.preventDefault();
-        this.setState({
-            showCard: false
-        });
-    }
-
-    componentWillReceiveProps() {
-        this.setState({
-            showCard: true
-        });
+        this.props.hideSRCard();
     }
 
     render() {
-        const { showCard } = this.state;
-        const { serviceRequest } = this.props;
-        return serviceRequest && Object.keys(serviceRequest).length && showCard ?
+        const { serviceRequest, showSRCard } = this.props;
+        return serviceRequest && Object.keys(serviceRequest).length && showSRCard ?
             <div className={cx('cardContainer')} style={{ zIndex: 500 }}>
                 <div className={cx('closeBtn')} title='Close' onClick={this.onCloseBtnClicked}>   <span> &#10005;</span>
                 </div>
@@ -75,8 +67,10 @@ class SRCard extends Component {
     }
 }
 
-SRCard.propTypes = {
-    issue: PropTypes.object
+const mapStateToProps = (state) => {
+    return {
+        showSRCard: state.showSRCard
+    };
 };
 
-export default SRCard;
+export default connect(mapStateToProps, { hideSRCard })(SRCard);

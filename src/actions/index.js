@@ -2,16 +2,13 @@ import API from 'API';
 
 export const MAP_LOADING = 'map_loading';
 export const MAP_LOADING_COMPLETE = 'map_loading_complete';
-// export const FETCH_SERVICEREQUESTS = 'service_request_fetch';
+export const SHOWSRCARD = 'show_service_request_card';
+export const HIDESRCARD = 'hide_service_request_card';
 export const RECEIVE_SERVICEREQUESTS = 'service_request_receive';
 export const RECEIVE_SERVICES = 'services_receive';
 export const TOGGLE_SERVICE = 'toggle_service';
 
-// const fetchServiceRequests = (serviceRequests, isFetching) => ({
-//     type: FETCH_SERVICEREQUESTS,
-//     serviceRequests,
-//     isFetching
-// });
+
 const receiveServiceRequests = (serviceRequests) => ({
     type: RECEIVE_SERVICEREQUESTS,
     serviceRequests
@@ -86,4 +83,13 @@ export const getServices = () => dispatch => {
 export const toggleService = (id) => ({
     type: TOGGLE_SERVICE,
     id
+});
+
+export const showSRCard = () => ({
+    type: SHOWSRCARD,
+    showSRCard: true
+});
+export const hideSRCard = () => ({
+    type: HIDESRCARD,
+    showSRCard: false
 });
