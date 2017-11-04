@@ -5,9 +5,10 @@ import { Map, TileLayer, Tooltip, GeoJSON } from 'react-leaflet';
 import { divIcon, marker } from 'leaflet';
 import SRTooltip from './components/SRTooltip';
 import SRCard from './components/SRCard';
+import SRFilter from './components/SRFilter';
 import SRMapLegend from './components/SRMapLegend';
 import { connect } from 'react-redux';
-import { getServiceRequests, showSRCard } from 'actions';
+import { initMapData, showSRCard } from 'actions';
 import styles from './styles.scss';
 import classnames from 'classnames/bind';
 const cx = classnames.bind(styles);
@@ -62,6 +63,7 @@ class SimpleMap extends Component {
     map.on('click', () => {
       this.setState({ selected: undefined, zoom: defaultZoom });
     });
+    this.props.initMapData();
   }
 
   pointToLayer(feature, latlng) {
@@ -95,6 +97,9 @@ class SimpleMap extends Component {
       <div>
         <div className={cx('loaderContainer', { 'hide': !mapLoading })} style={{ zIndex: 501 }}>
           <div className={cx('loader')}></div>
+        </div>
+        <div className={cx('mapFilter')} style={{ zIndex: 500 }}>
+          <SRFilter />
         </div>
         <SRCard serviceRequest={selected} />
         <Map center={center} zoom={zoom} ref={map => this.map = map}>
@@ -135,5 +140,5 @@ const mapStateToProps = (state) => {
   };
 };
 
-export default connect(mapStateToProps, { getServiceRequests, showSRCard })(SimpleMap);
+export default connect(mapStateToProps, { initMapData, showSRCard })(SimpleMap);
 

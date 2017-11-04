@@ -6,7 +6,11 @@ export const SHOWSRCARD = 'show_service_request_card';
 export const HIDESRCARD = 'hide_service_request_card';
 export const RECEIVE_SERVICEREQUESTS = 'service_request_receive';
 export const RECEIVE_SERVICES = 'services_receive';
+export const RECEIVE_STATUSES = 'statuses_receive';
+export const RECEIVE_JURISDICTIONS = 'jurisdictions_receive';
 export const TOGGLE_SERVICE = 'toggle_service';
+export const TOGGLE_JURISDICTION = 'toggle_jurisdiction';
+export const TOGGLE_STATUS = 'toggle_status';
 
 
 const receiveServiceRequests = (serviceRequests) => ({
@@ -19,6 +23,16 @@ const receiveServices = (services) => ({
     services
 });
 
+const receiveJurisdictions = jurisdictions => ({
+    type: RECEIVE_JURISDICTIONS,
+    jurisdictions
+});
+
+const receiveStatuses = statuses => ({
+    type: RECEIVE_STATUSES,
+    statuses
+});
+
 const mapLoading = () => ({
     type: MAP_LOADING,
     mapLoading: true
@@ -28,15 +42,46 @@ const mapLoadingComplete = () => ({
     type: MAP_LOADING,
     mapLoading: false
 });
+// Action to select or unselect service among filters
+export const toggleService = (id) => ({
+    type: TOGGLE_SERVICE,
+    id
+});
+// Action to select or unselect area among filters
+export const toggleJurisdiction = (id) => ({
+    type: TOGGLE_JURISDICTION,
+    id
+});
+// Action to select or unselect status among filters
+export const toggleStatus = (id) => ({
+    type: TOGGLE_STATUS,
+    id
+});
+
+export const showSRCard = () => ({
+    type: SHOWSRCARD,
+    showSRCard: true
+});
+export const hideSRCard = () => ({
+    type: HIDESRCARD,
+    showSRCard: false
+});
 
 
 export const getServiceRequests = () => (dispatch, getState) => {
     dispatch(mapLoading());
-    const { services } = getState();
+    const { services, jurisdictions, statuses } = getState();
     const selectedServices = services.filter(service => service.selected);
+    const selectedAreas = jurisdictions.filter(area => area.selected);
+    const selectedStatuses = statuses.filter(status => status.selected);
+    const query = {
+        services: selectedServices.map(service => service.id),
+        jurisdictions: selectedAreas.map(area => area.id),
+        statuses: selectedStatuses.map(status => status.id)
+    };
 
     API
-        .getSR({ services: selectedServices.map(service => service.id) })
+        .getSR(query)
         .then(data => {
             const serviceRequests = data.servicerequests;
             dispatch(receiveServiceRequests(serviceRequests));
@@ -48,7 +93,7 @@ export const getServiceRequests = () => (dispatch, getState) => {
         });
 };
 
-export const getServices = () => dispatch => {
+export const initMapData = () => dispatch => {
     dispatch(mapLoading());
     API
         .getServices()
@@ -61,35 +106,40 @@ export const getServices = () => dispatch => {
                     selected: true
                 };
             });
-            dispatch(receiveServices(services));
-            return services;
+            return dispatch(receiveServices(services));
         })
-        .then((services) => {
-            // dispatch(fetchServiceRequests([], true));
+        .then(() => {
+            //Get Jurisdictions
             return API
-                .getSR({ services: services.map(service => service.id) })
+                .getJurisdictions()
                 .then(data => {
-                    const serviceRequests = data.servicerequests;
-                    dispatch(receiveServiceRequests(serviceRequests));
-                    dispatch(mapLoadingComplete());
+                    const areas = data.jurisdictions.map(jurisdiction => {
+                        return {
+                            name: jurisdiction.name,
+                            id: jurisdiction._id,
+                            selected: false
+                        };
+                    });
+                    return dispatch(receiveJurisdictions(areas));
                 });
         })
-        .catch(() => {
-            dispatch(receiveServices([]));
-            dispatch(mapLoadingComplete());
+        .then(() => {
+            // Get statuses
+            return API
+                .getStatuses()
+                .then(data => {
+                    const statuses = data.statuses.map(status => {
+                        return {
+                            name: status.name,
+                            id: status._id,
+                            selected: false
+                        };
+                    });
+                    return dispatch(receiveStatuses(statuses));
+                });
+        })
+        .then(() => {
+            dispatch(getServiceRequests());
         });
 };
 
-export const toggleService = (id) => ({
-    type: TOGGLE_SERVICE,
-    id
-});
-
-export const showSRCard = () => ({
-    type: SHOWSRCARD,
-    showSRCard: true
-});
-export const hideSRCard = () => ({
-    type: HIDESRCARD,
-    showSRCard: false
-});

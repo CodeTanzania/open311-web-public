@@ -8,6 +8,7 @@
     "body-parser": "^1.17.2",
     "classnames": "^2.2.5",
     "express": "^4.15.3",
+    "font-awesome": "^4.7.0",
     "http-proxy-middleware": "^0.17.4",
     "leaflet": "^1.2.0",
     "moment": "^2.18.1",
@@ -18,6 +19,7 @@
     "react-moment": "^0.6.5",
     "react-redux": "^5.0.6",
     "react-router-dom": "^4.2.2",
+    "react-select": "^1.0.0-rc.10",
     "redux": "^3.7.2",
     "redux-thunk": "^2.2.0"
   },
@@ -72,7 +74,7 @@
     "build": "NODE_ENV=production webpack --config config/webpack.config.prod.js --progress --profile --colors",
     "prebuild": "rm -rf public/dist",
     "test": "jest",
-    "storybook": "start-storybook -p 6006",
+    "storybook": "node storybook-server.js",
     "build-storybook": "build-storybook"
   },
   "repository": {

@@ -3,7 +3,7 @@ import styles from './styles.scss';
 import classnames from 'classnames/bind';
 import MapKey from './mapKey';
 import { connect } from 'react-redux';
-import { getServices, toggleService, getServiceRequests } from 'actions';
+import { toggleService, getServiceRequests } from 'actions';
 const cx = classnames.bind(styles);
 
 
@@ -12,10 +12,6 @@ class SRMapLegend extends Component {
     constructor() {
         super();
         this.handleMapKeyClicked = this.handleMapKeyClicked.bind(this);
-    }
-
-    componentDidMount() {
-        this.props.getServices();
     }
 
     handleMapKeyClicked(id) {
@@ -47,5 +43,5 @@ const mapStateToProps = (state) => {
     };
 };
 
-export default connect(mapStateToProps, { getServices, toggleService, getServiceRequests })(SRMapLegend);
+export default connect(mapStateToProps, { toggleService, getServiceRequests })(SRMapLegend);
 

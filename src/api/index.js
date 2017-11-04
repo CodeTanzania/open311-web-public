@@ -38,5 +38,25 @@ export default {
             .then(res => {
                 return res.json();
             });
+    },
+    /**
+     * Get all jurisdictions
+     * 
+     * @returns 
+     */
+    getJurisdictions() {
+        const url = 'api/jurisdictions';
+        return fetch(url, { headers: header })
+            .then(res => {
+                return res.json();
+            });
+    },
+
+    getStatuses() {
+        const url = 'api/statuses';
+        return fetch(url, { headers: header })
+            .then(res => {
+                return res.json();
+            });
     }
 };

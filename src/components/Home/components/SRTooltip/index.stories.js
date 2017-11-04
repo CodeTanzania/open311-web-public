@@ -20,6 +20,6 @@ const serviceRequest = {
     }
 }
 
-storiesOf('Service Request Tooltip', module)
+storiesOf('SR Tooltip', module)
     .addWithInfo('Default', 'Service Request Tooltip is the tooltip displayed when hovering over map markers', () => <SRTooltip serviceRequest={serviceRequest} />)
 
