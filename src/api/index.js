@@ -12,19 +12,25 @@ const header = new Headers({
 
 export default {
     // Get all service requests
-    getSR({ limit = 2000, page = 0, services }) {
-        let url = `api/servicerequests?select={"operator": 0, "attachments": 0, "changelogs": 0, "wasOpenTicketSent": 0, "wasResolveTicketSent": 0, "ttr": 0, "resolvedAt": 0, "call": 0, "method": 0, "group": 0, "description": 0}&limit=${limit}&page=${page}`;
+    getSR({ limit = 1, page = 0, services, jurisdictions, statuses }) {
+        let url = 'api/servicerequests?select={"operator": 0, "attachments": 0, "changelogs": 0, "wasOpenTicketSent": 0, "wasResolveTicketSent": 0, "ttr": 0, "resolvedAt": 0, "call": 0, "method": 0, "group": 0, "description": 0}';
         const query = { location: { '$ne': null } };
-        if (services) {
+        if (services && services.length) {
             query.service = { '$in': services };
         }
-        url = `${url}&query=${JSON.stringify(query)}`;
+        if (jurisdictions && jurisdictions.length) {
+            query.jurisdiction = { '$in': jurisdictions };
+        }
+        if (statuses && statuses.length) {
+            query.status = { '$in': statuses };
+        }
 
 
-        return fetch(url, { headers: header })
-            .then(res => {
-
-                return res.json();
+        return fetch(`${url}&query=${JSON.stringify(query)}&limit=${limit}&page=${page}`, { headers: header })
+            .then(res => res.json())
+            .then(data => {
+                return fetch(`${url}&query=${JSON.stringify(query)}&limit=${data.count}&page=${page}`, { headers: header })
+                    .then(res => res.json());
             });
     },
     /**
@@ -33,7 +39,7 @@ export default {
      * @returns 
      */
     getServices() {
-        const url = 'api/services?query={"isExternal":true}';
+        const url = 'api/services?query={"isExternal":true}&limit=100';
         return fetch(url, { headers: header })
             .then(res => {
                 return res.json();
@@ -45,7 +51,7 @@ export default {
      * @returns 
      */
     getJurisdictions() {
-        const url = 'api/jurisdictions';
+        const url = 'api/jurisdictions?limit=100';
         return fetch(url, { headers: header })
             .then(res => {
                 return res.json();
@@ -53,7 +59,7 @@ export default {
     },
 
     getStatuses() {
-        const url = 'api/statuses';
+        const url = 'api/statuses?limit=100';
         return fetch(url, { headers: header })
             .then(res => {
                 return res.json();

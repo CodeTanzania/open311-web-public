@@ -23,23 +23,33 @@ class SRFilter extends Component {
         });
     }
     /**
+     * This function is fired when jurisdiction/area select box
+     * change
      * 
-     * 
-     * @param {[Object]} selected ~ An array of selected areas[{label, value}] 
+     * @param {[Object]} selected ~ An array of selected areas as
+     *  seen from select box [{label, value}] 
      * @memberof SRFilter
      */
     areaChangeHandler(selected) {
-        let added = '';
+        let changed = ''; // variable to hold changed jurisdiction
         if (!this.state.selectedArea) {
-            added = selected[0].value;
+            changed = selected[0].value;
+        } else {
+            selected.forEach(item => {
+                if (!this.state.selectedArea.includes(item)) {
+                    //There is new added item
+                    changed = item.value;
+                }
+            });
+            this.state.selectedArea.forEach(item => {
+                if (!selected.some(selectItem => selectItem.value === item.value)) {
+                    //There is an item removed
+                    changed = item.value;
+                }
+            });
         }
-        selected.forEach(item => {
-            if (this.state.selectedArea && !this.state.selectedArea.includes(item)) {
-                added = item.value;
-            }
-        });
         this.setState({ selectedArea: selected });
-        this.props.toggleJurisdiction(added);
+        this.props.toggleJurisdiction(changed);
         this.props.getServiceRequests();
     }
 
