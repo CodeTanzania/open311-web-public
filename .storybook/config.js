@@ -1,5 +1,5 @@
 import { configure, setAddon } from '@storybook/react';
-import infoAddon from '@kadira/react-storybook-addon-info';
+import infoAddon from '@storybook/addon-info';
 
 setAddon(infoAddon);
 

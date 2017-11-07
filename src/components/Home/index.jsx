@@ -7,6 +7,7 @@ import SRTooltip from './components/SRTooltip';
 import SRCard from './components/SRCard';
 import SRFilter from './components/SRFilter';
 import SRMapLegend from './components/SRMapLegend';
+import SRDateFilter from './components/SRDateFilter';
 import { connect } from 'react-redux';
 import { initMapData, showSRCard } from 'actions';
 import styles from './styles.scss';
@@ -75,7 +76,7 @@ class SimpleMap extends Component {
       <SRTooltip serviceRequest={SRItem} />,
       markerContent
     );
-    SRMarker.bindTooltip(markerContent.innerHTML, { direction: 'top' });
+    SRMarker.bindTooltip(markerContent, { direction: 'top' });
     return SRMarker;
   }
 
@@ -99,7 +100,8 @@ class SimpleMap extends Component {
           <div className={cx('loader')}></div>
         </div>
         <div className={cx('mapFilter')} style={{ zIndex: 500 }}>
-          <SRFilter />
+          <div className={cx('dateFilter')}><SRDateFilter /></div>
+          <div className={cx('extraFilter')}><SRFilter /></div>
         </div>
         <SRCard serviceRequest={selected} />
         <Map center={center} zoom={zoom} ref={map => this.map = map}>

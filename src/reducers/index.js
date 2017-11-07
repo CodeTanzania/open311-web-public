@@ -1,6 +1,7 @@
 import { combineReducers } from 'redux';
 import serviceRequests from './serviceRequests';
 import services from './services';
+import mapFilter from './mapFilter';
 import {
     MAP_LOADING,
     MAP_LOADING_COMPLETE,
@@ -68,6 +69,7 @@ const statuses = (state = [], action) => {
 
 
 export default combineReducers({
+    mapFilter,
     serviceRequests,
     services,
     jurisdictions,

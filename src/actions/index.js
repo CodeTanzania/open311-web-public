@@ -11,6 +11,7 @@ export const RECEIVE_JURISDICTIONS = 'jurisdictions_receive';
 export const TOGGLE_SERVICE = 'toggle_service';
 export const TOGGLE_JURISDICTION = 'toggle_jurisdiction';
 export const TOGGLE_STATUS = 'toggle_status';
+export const MAP_DATE_FILTER_CHANGE = 'map_date_change';
 
 
 const receiveServiceRequests = (serviceRequests) => ({
@@ -42,6 +43,7 @@ const mapLoadingComplete = () => ({
     type: MAP_LOADING,
     mapLoading: false
 });
+
 // Action to select or unselect service among filters
 export const toggleService = (id) => ({
     type: TOGGLE_SERVICE,
@@ -58,6 +60,12 @@ export const toggleStatus = (id) => ({
     id
 });
 
+export const dateFilterChange = (startDate, endDate) => ({
+    type: MAP_DATE_FILTER_CHANGE,
+    startDate,
+    endDate
+});
+
 export const showSRCard = () => ({
     type: SHOWSRCARD,
     showSRCard: true
@@ -70,14 +78,15 @@ export const hideSRCard = () => ({
 
 export const getServiceRequests = () => (dispatch, getState) => {
     dispatch(mapLoading());
-    const { services, jurisdictions, statuses } = getState();
+    const { services, jurisdictions, statuses, mapFilter } = getState();
     const selectedServices = services.filter(service => service.selected);
     const selectedAreas = jurisdictions.filter(area => area.selected);
     const selectedStatuses = statuses.filter(status => status.selected);
     const query = {
+        ...mapFilter,
         services: selectedServices.map(service => service.id),
         jurisdictions: selectedAreas.map(area => area.id),
-        statuses: selectedStatuses.map(status => status.id)
+        statuses: selectedStatuses.map(status => status.id),
     };
 
     API

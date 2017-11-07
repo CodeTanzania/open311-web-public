@@ -77,7 +77,9 @@ class SRFilter extends Component {
 
         return (
             <div className={cx('filterContainer')}>
-                <div className={cx('filterBtn')} title='More Filters' onClick={this.toggleFilterContent}><i className={cx('fa', 'fa-filter', 'fa-2x')} aria-hidden="true"></i></div>
+                <div className={cx('filterBtn')} title='More Filters' onClick={this.toggleFilterContent}>
+                    {/* <i className={cx('fa', 'fa-filter', 'fa-2x')} aria-hidden="true"></i> */}
+                </div>
                 <div className={cx('filterContent', { 'hide': hideFilterContent })} >
                     <Select
                         onChange={this.areaChangeHandler}

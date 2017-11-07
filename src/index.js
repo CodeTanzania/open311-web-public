@@ -9,6 +9,9 @@ import 'font-awesome/css/font-awesome.css';
 import 'react-select/dist/react-select.css';
 import './main.css';
 
+import 'react-dates/initialize';
+
+
 
 render(
 	//Connect redux store with react components
