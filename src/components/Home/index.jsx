@@ -2,7 +2,7 @@
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
 import { Map, TileLayer, Tooltip, GeoJSON } from 'react-leaflet';
-import { divIcon, marker } from 'leaflet';
+import { divIcon, icon, marker } from 'leaflet';
 import SRTooltip from './components/SRTooltip';
 import SRCard from './components/SRCard';
 import SRFilter from './components/SRFilter';
@@ -43,6 +43,25 @@ const getIcon = serviceRequestName => {
       return divIcon({ className: 'iconRO' });
   }
 };
+/**
+ * This function is fired whenever a map marker is clicked,
+ * it's used to give clicked marker different marker icon to 
+ * make easy to be seen
+ * @param {Object} previousSRItemMarker ~ previous clicked service request item marker
+ * @param {Object} currentSRItemMarker ~ current clicked service request item marker
+ */
+const setMarkerCustomIcon = (previousSRItemMarker, currentSRItemMarker) => {
+  if (previousSRItemMarker) {
+    //reset icon on previous clicked marker
+    previousSRItemMarker.marker.setIcon(getIcon(previousSRItemMarker.SRItem.service.name));
+  }
+  //set new icon to the current clicked marker
+  if (currentSRItemMarker) {
+    currentSRItemMarker.marker.setIcon(divIcon({}));
+  }
+};
+
+let srItemMarkerMap = {}; // Hold the mapping of SRItem and leaflet Marker instance
 
 
 class SimpleMap extends Component {
@@ -52,7 +71,8 @@ class SimpleMap extends Component {
       zoom: defaultZoom,
       center: [-6.816330, 39.276638],
       issues: [],
-      selected: {}
+      selected: {},
+      activeMarker: null //hold the active point
     };
     //bind functions
     this.pointToLayer = this.pointToLayer.bind(this);
@@ -70,13 +90,14 @@ class SimpleMap extends Component {
   pointToLayer(feature, latlng) {
     const SRItem = JSON.parse(feature.properties.SRItem);
     const SRMarker = marker(latlng, { icon: getIcon(SRItem.service.name) });
-    const markerContent = document.createElement('div');
+    srItemMarkerMap[SRItem.code] = { marker: SRMarker, SRItem };
+    const tooltipContent = document.createElement('div');
 
     ReactDOM.render(
       <SRTooltip serviceRequest={SRItem} />,
-      markerContent
+      tooltipContent
     );
-    SRMarker.bindTooltip(markerContent, { direction: 'top' });
+    SRMarker.bindTooltip(tooltipContent, { direction: 'top' });
     return SRMarker;
   }
 
@@ -84,7 +105,9 @@ class SimpleMap extends Component {
     layer.on({
       click: () => {
         const SRItem = JSON.parse(feature.properties.SRItem);
-        this.setState({ selected: SRItem, center: [SRItem.latitude, SRItem.longitude], zoom: 12 });
+        const clickedSRItemMarker = srItemMarkerMap[SRItem.code];
+        setMarkerCustomIcon(this.state.activeSRItemMarker, clickedSRItemMarker);
+        this.setState({ selected: SRItem, center: [SRItem.latitude, SRItem.longitude], zoom: 12, activeSRItemMarker: clickedSRItemMarker });
         this.props.showSRCard();
       }
     });
