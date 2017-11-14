@@ -7,7 +7,7 @@ export const SHOWSRCARD = 'show_service_request_card';
 export const HIDESRCARD = 'hide_service_request_card';
 export const RECEIVE_SERVICEREQUESTS = 'service_request_receive';
 export const RECEIVE_SERVICES = 'services_receive';
-export const RESET_SERVICES = 'services_reset';
+// export const RESET_SERVICES = 'services_reset';
 export const RECEIVE_STATUSES = 'statuses_receive';
 export const RESET_STATUSES = 'statuses_reset';
 export const RECEIVE_JURISDICTIONS = 'jurisdictions_receive';
@@ -31,9 +31,9 @@ const receiveServices = (services) => ({
     services
 });
 
-const resetServices = () => ({
-    type: RESET_SERVICES
-});
+// const resetServices = () => ({
+//     type: RESET_SERVICES
+// });
 
 const receiveJurisdictions = jurisdictions => ({
     type: RECEIVE_JURISDICTIONS,
@@ -147,11 +147,15 @@ export const searchSRByTicketNo = (ticketNum) => (dispatch) => {
                 const serviceRequest = data.servicerequests[0];
                 const endDate = moment(serviceRequest.createdAt).add(1, 'months');
                 const startDate = moment(serviceRequest.createdAt).subtract(2, 'months');
+                //change date filter to include the found issue
                 dispatch(dateFilterChange(startDate, endDate));
+                //reset jurisdictions
                 dispatch(resetJurisdictions());
-                dispatch(resetServices());
+                // reset statuses if set
                 dispatch(resetStatuses());
+                // load all SR's 
                 dispatch(getServiceRequests());
+                //display issue card
                 dispatch(showSRCard());
             }
         });

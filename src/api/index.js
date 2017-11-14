@@ -3,7 +3,7 @@ let auth_token;
 if (process.env.NODE_ENV === 'production') {
     auth_token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjU5ZTQ0OWQzODI0NjEwMDAwNGYzNDgzMSIsImlhdCI6MTUwODEzMzMzMSwiZXhwIjozMzA2NTczMzMzMSwiYXVkIjoib3BlbjMxMSJ9.3-a02oah-lmHFdqw1wMkbxIVa2qdA_D7ZTo0bGQQ_zE';
 } else {
-    auth_token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjU5NjhiNjQyNDhkZmMyMjRiYjQ3NzRhNSIsImlhdCI6MTUxMDA0NjI1MywiZXhwIjoxNTEwNjUxMDUzLCJhdWQiOiJvcGVuMzExIn0.nG4ELHtQ1NnZVjKtFWaWIFZfazOtF3p5XoEoJ7vvyNc';
+    auth_token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVhMGFkNDQwNWVmMjI1MDUxYTJiMGE0OCIsImlhdCI6MTUxMDY1OTEzNywiZXhwIjozMzA2ODI1OTEzNywiYXVkIjoib3BlbjMxMSJ9.5j59O2WV1fRnGY11sKoeaDZWh6zmvXyVVkiOE9pq2aI';
 }
 
 const header = new Headers({

@@ -90,15 +90,7 @@ class SimpleMap extends Component {
 
   pointToLayer(feature, latlng) {
     const SRItem = JSON.parse(feature.properties.SRItem);
-    let SRMarker = null;
-
-    if (this.props.ticketNum === SRItem.code) {
-      SRMarker = marker(latlng, { icon: divIcon({ className: 'customMarker' }) });
-      this.setState({ selected: SRItem, center: [SRItem.latitude, SRItem.longitude], zoom: 12, activeSRItemMarker: { marker: SRMarker, SRItem } });
-    } else {
-
-      SRMarker = marker(latlng, { icon: getIcon(SRItem.service.name) });
-    }
+    const SRMarker = marker(latlng, { icon: getIcon(SRItem.service.name) });
 
     srItemMarkerMap[SRItem.code] = { marker: SRMarker, SRItem };
     const tooltipContent = document.createElement('div');
@@ -121,6 +113,19 @@ class SimpleMap extends Component {
         this.props.showSRCard();
       }
     });
+  }
+
+  componentDidUpdate(prevProps, prevState) {
+    const ticketNumExist = prevProps.ticketNum;
+    const existInMap = Object.keys(srItemMarkerMap).some(code => code === prevProps.ticketNum);
+    const isNotSelected = prevState.selected.code !== prevProps.ticketNum;
+    if (ticketNumExist && existInMap && isNotSelected) {
+      const clickedSRItemMarker = srItemMarkerMap[prevProps.ticketNum];
+      const SRItem = clickedSRItemMarker.SRItem;
+      setMarkerCustomIcon(this.state.activeSRItemMarker, clickedSRItemMarker);
+      this.setState({ selected: SRItem, center: [SRItem.latitude, SRItem.longitude], zoom: 12, activeSRItemMarker: clickedSRItemMarker });
+      this.props.showSRCard();
+    }
   }
 
 
