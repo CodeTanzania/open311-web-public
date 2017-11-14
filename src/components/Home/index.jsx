@@ -8,6 +8,7 @@ import SRCard from './components/SRCard';
 import SRFilter from './components/SRFilter';
 import SRMapLegend from './components/SRMapLegend';
 import SRDateFilter from './components/SRDateFilter';
+import SRSearchBox from './components/SRSearchBox';
 import { connect } from 'react-redux';
 import { initMapData, showSRCard } from 'actions';
 import styles from './styles.scss';
@@ -57,7 +58,7 @@ const setMarkerCustomIcon = (previousSRItemMarker, currentSRItemMarker) => {
   }
   //set new icon to the current clicked marker
   if (currentSRItemMarker) {
-    currentSRItemMarker.marker.setIcon(divIcon({}));
+    currentSRItemMarker.marker.setIcon(divIcon({ className: 'customMarker' }));
   }
 };
 
@@ -89,7 +90,16 @@ class SimpleMap extends Component {
 
   pointToLayer(feature, latlng) {
     const SRItem = JSON.parse(feature.properties.SRItem);
-    const SRMarker = marker(latlng, { icon: getIcon(SRItem.service.name) });
+    let SRMarker = null;
+
+    if (this.props.ticketNum === SRItem.code) {
+      SRMarker = marker(latlng, { icon: divIcon({ className: 'customMarker' }) });
+      this.setState({ selected: SRItem, center: [SRItem.latitude, SRItem.longitude], zoom: 12, activeSRItemMarker: { marker: SRMarker, SRItem } });
+    } else {
+
+      SRMarker = marker(latlng, { icon: getIcon(SRItem.service.name) });
+    }
+
     srItemMarkerMap[SRItem.code] = { marker: SRMarker, SRItem };
     const tooltipContent = document.createElement('div');
 
@@ -113,6 +123,7 @@ class SimpleMap extends Component {
     });
   }
 
+
   render() {
     const { center, zoom, selected } = this.state;
     const { serviceRequests, mapLoading } = this.props;
@@ -123,6 +134,9 @@ class SimpleMap extends Component {
           <div className={cx('loader')}></div>
         </div>
         <div className={cx('mapFilter')} style={{ zIndex: 500 }}>
+          <div className={cx('searchBox')} >
+            <SRSearchBox />
+          </div>
           <div className={cx('dateFilter')}><SRDateFilter /></div>
           <div className={cx('extraFilter')}><SRFilter /></div>
         </div>
@@ -135,18 +149,22 @@ class SimpleMap extends Component {
 
           {
             serviceRequests.map(item => {
-              const data = {
-                'type': 'Feature',
-                'geometry': {
-                  'type': 'Point',
-                  'coordinates': item.location.coordinates
-                },
-                'properties': {
-                  'SRItem': JSON.stringify(item)
-                }
-              };
-              return (<GeoJSON data={data} key={item.code} pointToLayer={this.pointToLayer.bind(this)} onEachFeature={this.onEachFeature}>
-              </GeoJSON>);
+              if (item.location) {
+                const data = {
+                  'type': 'Feature',
+                  'geometry': {
+                    'type': 'Point',
+                    'coordinates': item.location.coordinates
+                  },
+                  'properties': {
+                    'SRItem': JSON.stringify(item)
+                  }
+                };
+                return (<GeoJSON data={data} key={item.code} pointToLayer={this.pointToLayer.bind(this)} onEachFeature={this.onEachFeature}>
+                </GeoJSON>);
+              } else {
+                '';
+              }
             })
           }
         </Map >
@@ -161,7 +179,9 @@ class SimpleMap extends Component {
 const mapStateToProps = (state) => {
   return {
     serviceRequests: state.serviceRequests,
-    mapLoading: state.mapLoading
+    mapLoading: state.map.loading,
+    mapLoadingStatus: state.map.status,
+    ticketNum: state.ticketNum
   };
 };
 

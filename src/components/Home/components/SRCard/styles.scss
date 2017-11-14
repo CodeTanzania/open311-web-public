@@ -3,10 +3,11 @@
     top: 0;
     right: 0;
     width: 320px;
-    padding: 6px 22px;
+    padding: 6px 15px;
     background: #fafafa;
     box-shadow: -1px 1px 7px rgba(0, 0, 0, 0.4);
     height: 100%;
+    overflow: scroll;
 }
 
 .closeBtn {
@@ -39,11 +40,20 @@
     padding: 10px 0;
 }
 
+.item.last {
+    border-bottom: 0;
+    margin-bottom: 10px;
+}
+
 .itemLeft,
 .itemRight {
     vertical-align: top;
     display: inline-block;
     width: 50%;
+}
+
+.itemRight {
+    padding-left: 20px;
 }
 
 .itemTitle {
@@ -111,4 +121,58 @@
 .timelineDetail {
     color: rgba(0, 0, 0, 0.5);
     font-size: 12px;
+}
+
+.itemBtn {
+    background-color: #44c767;
+    border: 1px solid #18ab29;
+    display: inline-block;
+    color: #ffffff;
+    font-family: Arial;
+    padding: 4px 9px;
+    border-radius: 3px;
+    text-decoration: none;
+    text-shadow: 0px 1px 0px #2f6627;
+}
+
+.itemBtn.priorityCritical {
+    background-color: #F44336;
+    border: 1px solid #db3c30;
+    text-shadow: 0px 1px 0px #922820;
+}
+
+.itemBtn.priorityLow {
+    background-color: #1B5E20;
+    border: 1px solid #18541c;
+    text-shadow: 0px 1px 0px #124116;
+}
+
+.itemBtn.priorityNormal {
+    background-color: #4CAF50;
+    border: 1px solid #3c8c40;
+    text-shadow: 0px 1px 0px #357a38;
+}
+
+.itemBtn.statusOpen {
+    background-color: #0d47a1;
+    border: 1px solid #0a3880;
+    text-shadow: 0px 1px 0px #093170;
+}
+
+.itemBtn.statusInProgress {
+    background-color: #f9a825;
+    border: 1px solid #c7861d;
+    text-shadow: 0px 1px 0px #ae7519;
+}
+
+.itemBtn.statusClosed {
+    background-color: #1B5E20;
+    border: 1px solid #18541c;
+    text-shadow: 0px 1px 0px #124116;
+}
+
+.itemBtn.statusEscallated {
+    background-color: #EF6C00;
+    border: 1px solid #bf5600;
+    text-shadow: 0px 1px 0px #a74b00;
 }

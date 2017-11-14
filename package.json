@@ -6,6 +6,7 @@
   "license": "MIT",
   "dependencies": {
     "body-parser": "^1.17.2",
+    "bootstrap": "^4.0.0-beta.2",
     "classnames": "^2.2.5",
     "express": "^4.15.3",
     "font-awesome": "^4.7.0",

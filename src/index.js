@@ -6,6 +6,7 @@ import store from './store';
 import Home from 'Home';
 //Boostraping css
 import 'font-awesome/css/font-awesome.css';
+import 'bootstrap/dist/css/bootstrap.css';
 import 'react-select/dist/react-select.css';
 import './main.css';
 

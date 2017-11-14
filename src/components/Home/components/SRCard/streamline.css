@@ -1,0 +1,142 @@
+.streamline {
+    position: relative;
+    border-color: rgba(120, 130, 140, .13)
+}
+
+
+/* .streamline .sl-icon:before, */
+
+.streamline .sl-item:before {
+    content: '';
+    position: absolute;
+    border-color: inherit;
+    border-width: 3px;
+    border-style: solid;
+    border-radius: 50%;
+    width: 10px;
+    height: 10px;
+    top: 14px
+}
+
+.sl-item:after {
+    content: ""
+}
+
+
+/* .sl-icon {
+    position: absolute;
+    left: 11px;
+    z-index: 1;
+    border: inherit;
+    border-width: 0
+}
+
+.sl-icon>i {
+    width: 20px;
+    height: 20px;
+    display: table-cell;
+    color: #fff
+}
+
+.streamline .sl-icon:before {
+    width: 20px;
+    height: 20px;
+    border-width: 10px;
+    margin: 0!important;
+    top: 0!important;
+    left: 0
+} */
+
+
+/* .tl-content.panel, */
+
+.sl-content p:last-child {
+    margin-bottom: 0
+}
+
+.sl-item {
+    border-color: rgba(120, 130, 140, .13);
+    position: relative;
+    padding: 10px 16px;
+    clear: left
+}
+
+.sl-item:after {
+    top: 26px;
+    bottom: -12px;
+    left: 20px;
+    position: absolute;
+    z-index: 1;
+    border-color: inherit;
+    border-left-width: 2px;
+    border-right-width: 0;
+    border-style: solid
+}
+
+.sl-item:last-child:after {
+    display: none
+}
+
+.sl-item.active {
+    background-color: rgba(120, 130, 140, .13)
+}
+
+
+/* .sl-left {
+    float: left;
+    position: relative;
+    z-index: 1;
+    margin-left: -16px
+}
+
+.sl-left img {
+    max-width: 40px
+}
+
+.sl-left+.sl-content {
+    margin-left: 36px
+} */
+
+.sl-content {
+    margin-left: 24px
+}
+
+
+/* .sl-author,
+.sl-footer {
+    margin-bottom: 10px
+} */
+
+.sl-date {
+    font-size: .85em;
+    opacity: .6;
+}
+
+.sl-dateTitle {
+    color: #2196f3
+}
+
+.labelBadge {
+    padding: 3px 5px;
+    font-size: 10px;
+    line-height: 1;
+    vertical-align: baseline;
+    font-weight: 700;
+    background-color: blue;
+    color: blue;
+    border-radius: 4px;
+    position: relative;
+    display: inline;
+    margin-left: 10px;
+}
+
+.labelBadge:before {
+    content: '\25C0';
+    position: absolute;
+    top: 25%;
+    left: -6px;
+}
+
+.labelText {
+    color: #fff;
+}

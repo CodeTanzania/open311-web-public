@@ -4,6 +4,35 @@ import classnames from 'classnames/bind';
 const cx = classnames.bind(styles);
 import { connect } from 'react-redux';
 import { hideSRCard } from 'actions';
+import Moment from 'react-moment';
+import './streamline.css';
+
+const getSRPriorityClass = (priority) => {
+    switch (priority) {
+        case 'Low':
+            return 'priorityLow';
+        case 'Normal':
+            return 'priorityNormal';
+        case 'Critical':
+            return 'priorityCritical';
+        default:
+            return '';
+    }
+};
+const getSRStatusClass = (status) => {
+    switch (status) {
+        case 'Open':
+            return 'statusOpen';
+        case 'In Progress':
+            return 'statusInProgress';
+        case 'Closed':
+            return 'statusClosed';
+        case 'Escallated':
+            return 'statusEscallated';
+        default:
+            return '';
+    }
+};
 
 class SRCard extends Component {
     constructor(props) {
@@ -42,25 +71,54 @@ class SRCard extends Component {
                     </div>
                 </div>
                 <div className={cx('item')}>
-                    <div className={cx('timelineContainer')}>
-                        <ul className={cx('timeline')}>
-                            <li className={cx('timelineItem')}>
-                                <div className={cx('timelineTitle')}>Pending</div>
-                                <div className={cx('timelineDetail')}>Fri Jul 21, 2017</div>
-                            </li>
-                            <li className={cx('timelineItem')} >
-                                <div className={cx('timelineTitle')}>Resolved</div>
-                                <div className={cx('timelineDetail')}>Fri Jul 21, 2017</div>
-                            </li>
-                            <li className={cx('timelineItem')} >
-                                <div className={cx('timelineTitle')}>Re-Opened</div>
-                                <div className={cx('timelineDetail')}>Fri Jul 21, 2017</div>
-                            </li>
-                            <li className={cx('timelineItem')} >
-                                <div className={cx('timelineTitle')}>Re-Opened</div>
-                                <div className={cx('timelineDetail')}>Fri Jul 21, 2017</div>
-                            </li>
-                        </ul>
+                    <div className={cx('itemLeft')}>
+                        <div className={cx('itemBtn', getSRStatusClass(serviceRequest.status.name))}>
+                            Status - {serviceRequest.status.name}
+                        </div>
+                    </div>
+                    <div className={cx('itemRight')}>
+                        <div className={cx('itemBtn', getSRPriorityClass(serviceRequest.priority.name))}>
+                            Priority - {serviceRequest.priority.name}
+                        </div>
+                    </div>
+                </div>
+                <div className={cx('item', 'last')}>
+                    <div className="streamline">
+                        {
+                            serviceRequest.changelogs ?
+                                serviceRequest.changelogs.map(changelog => (
+                                    <div className="sl-item" key={changelog.id} style={{ borderColor: changelog.status.color }}>
+                                        <div className="sl-content">
+                                            <div className="sl-date">
+                                                <span className="sl-dateTitle"> {changelog.changer ? changelog.changer.name : ''} </span>
+                                                <Moment format='ddd MMM D, YYYY' date={changelog.createdAt} />
+                                            </div>
+                                            {
+                                                changelog.status ? (<p>Change status to
+                                                <span className='labelBadge' style={{ backgroundColor: changelog.status.color, color: changelog.status.color }}>
+                                                        <span className='labelText'>{changelog.status.name}</span>
+                                                    </span>
+                                                </p>) : ''
+                                            }
+                                            {
+                                                changelog.priority ? (<p>Change priority to
+                                                <span className='labelBadge' style={{ backgroundColor: changelog.priority.color, color: changelog.priority.color }}>
+                                                        <span className='labelText'>{changelog.priority.name}</span>
+                                                    </span>
+                                                </p>) : ''
+                                            }
+                                            {
+                                                changelog.assignee ? (
+                                                    <p>
+                                                        Assignee to {changelog.assignee.name}
+                                                    </p>
+                                                ) : ''
+                                            }
+
+                                        </div>
+                                    </div>
+                                )) : ''
+                        }
                     </div>
                 </div>
             </div> : null;

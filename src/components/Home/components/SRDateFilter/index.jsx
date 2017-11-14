@@ -5,7 +5,7 @@ import './react_dates_overrides.css';
 const START_DATE = 'startDate';
 const END_DATE = 'endDate';
 import { connect } from 'react-redux';
-import { dateFilterChange, getServiceRequests } from 'actions';
+import { dateFilterChange, getServiceRequests, resetSearchByTicketNo } from 'actions';
 
 const defaultProps = {
     isOutsideRange: () => false,
@@ -31,6 +31,7 @@ class DateFilter extends Component {
 
     onDatesChange({ startDate, endDate }) {
         this.props.dateFilterChange(startDate, endDate);
+        this.props.resetSearchByTicketNo();
         this.props.getServiceRequests();
     }
 
@@ -40,8 +41,8 @@ class DateFilter extends Component {
 
     render() {
         const { focusedInput } = this.state;
-        const { mapFilter } = this.props;
-        const { startDate, endDate } = mapFilter;
+        const { dateFilter } = this.props;
+        const { startDate, endDate } = dateFilter;
         return (
             <div>
                 <DateRangePicker
@@ -51,6 +52,8 @@ class DateFilter extends Component {
                     onDatesChange={this.onDatesChange} // PropTypes.func.isRequired,
                     focusedInput={focusedInput} // PropTypes.oneOf([START_DATE, END_DATE]) or null,
                     onFocusChange={this.onFocusChange} // PropTypes.func.isRequired,
+                    hideKeyboardShortcutsPanel
+                    reopenPickerOnClearDates={false}
                 />
             </div>
         );
@@ -59,8 +62,8 @@ class DateFilter extends Component {
 
 const mapStateToProps = state => {
     return {
-        mapFilter: state.mapFilter
+        dateFilter: state.dateFilter
     };
 };
 
-export default connect(mapStateToProps, { dateFilterChange, getServiceRequests })(DateFilter);
+export default connect(mapStateToProps, { dateFilterChange, getServiceRequests, resetSearchByTicketNo })(DateFilter);

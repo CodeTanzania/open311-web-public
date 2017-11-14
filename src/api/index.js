@@ -1,7 +1,7 @@
 let auth_token;
 
 if (process.env.NODE_ENV === 'production') {
-    auth_token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjU5NjhiNjQyNDhkZmMyMjRiYjQ3NzRhNSIsImlhdCI6MTUwOTYxMjUyOSwiZXhwIjoxNTEwMjE3MzI5LCJhdWQiOiJvcGVuMzExIn0.361O52glvQ-bWvgRT00Iv2ExbFBfl1uYre7TEXX_sCk';
+    auth_token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjU5ZTQ0OWQzODI0NjEwMDAwNGYzNDgzMSIsImlhdCI6MTUwODEzMzMzMSwiZXhwIjozMzA2NTczMzMzMSwiYXVkIjoib3BlbjMxMSJ9.3-a02oah-lmHFdqw1wMkbxIVa2qdA_D7ZTo0bGQQ_zE';
 } else {
     auth_token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjU5NjhiNjQyNDhkZmMyMjRiYjQ3NzRhNSIsImlhdCI6MTUxMDA0NjI1MywiZXhwIjoxNTEwNjUxMDUzLCJhdWQiOiJvcGVuMzExIn0.nG4ELHtQ1NnZVjKtFWaWIFZfazOtF3p5XoEoJ7vvyNc';
 }
@@ -38,14 +38,22 @@ export default {
             query.createdAt = undefined;
         }
 
-
-
         return fetch(`${url}&query=${JSON.stringify(query)}&limit=${limit}&page=${page}`, { headers: header })
             .then(res => res.json())
             .then(data => {
                 return fetch(`${url}&query=${JSON.stringify(query)}&limit=${data.count}&page=${page}`, { headers: header })
                     .then(res => res.json());
             });
+    },
+    /**
+     * Search SR by using ticket Number
+     * @param {String} ticketNum 
+     */
+    findSRByTicketNum(ticketNum) {
+        const query = { code: ticketNum };
+        const url = `api/servicerequests?query=${JSON.stringify(query)}`;
+        return fetch(url, { headers: header })
+            .then(res => res.json());
     },
     /**
      * Query all services

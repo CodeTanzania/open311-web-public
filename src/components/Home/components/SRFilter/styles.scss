@@ -1,12 +1,14 @@
 .filterContainer {
     position: relative;
+    height: 52px;
+    width: 50px;
 }
 
 .filterBtn {
     // background: white;
-    background: url('/images/filter_icon.png') center center/100% no-repeat;
-    width: 47px;
-    height: 49px;
+    background: url('/images/filter_icon.png') center center/100% 100% no-repeat;
+    width: 100%;
+    height: 100%;
     padding: 10px;
     border: 1px solid #cacccd;
     cursor: pointer;

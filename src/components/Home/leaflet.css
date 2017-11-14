@@ -68,3 +68,9 @@
     border: 1px solid #666;
     border-radius: 50%;
 }
+
+.customMarker {
+    background: url('/images/marker.png') center center/100% no-repeat;
+    width: 25px !important;
+    height: 40px !important;
+}
