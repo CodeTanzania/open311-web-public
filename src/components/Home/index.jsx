@@ -10,7 +10,7 @@ import SRMapLegend from './components/SRMapLegend';
 import SRDateFilter from './components/SRDateFilter';
 import SRSearchBox from './components/SRSearchBox';
 import { connect } from 'react-redux';
-import { initMapData, showSRCard } from 'actions';
+import { initMapData, selectMapPoint, resetSearchByTicketNo } from 'actions';
 import styles from './styles.scss';
 import classnames from 'classnames/bind';
 const cx = classnames.bind(styles);
@@ -45,11 +45,10 @@ const getIcon = serviceRequestName => {
   }
 };
 /**
- * This function is fired whenever a map marker is clicked,
- * it's used to give clicked marker different marker icon to 
- * make easy to be seen
- * @param {Object} previousSRItemMarker ~ previous clicked service request item marker
- * @param {Object} currentSRItemMarker ~ current clicked service request item marker
+ * This function reset icon on previous marker and 
+ * set icon on current marker
+ * @param {Object} previousSRItemMarker ~ previous  marker
+ * @param {Object} currentSRItemMarker ~ current  marker
  */
 const setMarkerCustomIcon = (previousSRItemMarker, currentSRItemMarker) => {
   if (previousSRItemMarker) {
@@ -71,9 +70,7 @@ class SimpleMap extends Component {
     this.state = {
       zoom: defaultZoom,
       center: [-6.816330, 39.276638],
-      issues: [],
-      selected: {},
-      activeMarker: null //hold the active point
+      issues: []
     };
     //bind functions
     this.pointToLayer = this.pointToLayer.bind(this);
@@ -83,7 +80,7 @@ class SimpleMap extends Component {
   componentDidMount() {
     const map = this.map.leafletElement;
     map.on('click', () => {
-      this.setState({ selected: undefined, zoom: defaultZoom });
+      this.setState({ zoom: defaultZoom });
     });
     this.props.initMapData();
   }
@@ -107,30 +104,32 @@ class SimpleMap extends Component {
     layer.on({
       click: () => {
         const SRItem = JSON.parse(feature.properties.SRItem);
-        const clickedSRItemMarker = srItemMarkerMap[SRItem.code];
-        setMarkerCustomIcon(this.state.activeSRItemMarker, clickedSRItemMarker);
-        this.setState({ selected: SRItem, center: [SRItem.latitude, SRItem.longitude], zoom: 12, activeSRItemMarker: clickedSRItemMarker });
-        this.props.showSRCard();
+        const selectedSRItemMarker = srItemMarkerMap[SRItem.code];
+        setMarkerCustomIcon(this.state.selectedSRItemMarker, selectedSRItemMarker);
+        this.setState({ center: [SRItem.latitude, SRItem.longitude], zoom: 12, selectedSRItemMarker: selectedSRItemMarker });
+        this.props.selectMapPoint(SRItem);
+        this.props.resetSearchByTicketNo();
       }
     });
   }
 
   componentDidUpdate(prevProps, prevState) {
-    const ticketNumExist = prevProps.ticketNum;
-    const existInMap = Object.keys(srItemMarkerMap).some(code => code === prevProps.ticketNum);
-    const isNotSelected = prevState.selected.code !== prevProps.ticketNum;
-    if (ticketNumExist && existInMap && isNotSelected) {
-      const clickedSRItemMarker = srItemMarkerMap[prevProps.ticketNum];
-      const SRItem = clickedSRItemMarker.SRItem;
-      setMarkerCustomIcon(this.state.activeSRItemMarker, clickedSRItemMarker);
-      this.setState({ selected: SRItem, center: [SRItem.latitude, SRItem.longitude], zoom: 12, activeSRItemMarker: clickedSRItemMarker });
-      this.props.showSRCard();
+    if (prevProps.selectedSR && srItemMarkerMap[prevProps.selectedSR.code]) {
+      const selectedSRItemMarker = srItemMarkerMap[prevProps.selectedSR.code];
+      const SRItem = selectedSRItemMarker.SRItem;
+      if (!prevState.selectedSRItemMarker) {
+        setMarkerCustomIcon(undefined, selectedSRItemMarker);
+        this.setState({ center: [SRItem.latitude, SRItem.longitude], zoom: 12, selectedSRItemMarker: selectedSRItemMarker });
+      } else if (prevState.selectedSRItemMarker.SRItem.code !== prevProps.selectedSR.code) {
+        setMarkerCustomIcon(prevState.selectedSRItemMarker, selectedSRItemMarker);
+        this.setState({ center: [SRItem.latitude, SRItem.longitude], zoom: 12, selectedSRItemMarker: selectedSRItemMarker });
+      }
     }
   }
 
 
   render() {
-    const { center, zoom, selected } = this.state;
+    const { center, zoom } = this.state;
     const { serviceRequests, mapLoading } = this.props;
 
     return (
@@ -145,7 +144,7 @@ class SimpleMap extends Component {
           <div className={cx('dateFilter')}><SRDateFilter /></div>
           <div className={cx('extraFilter')}><SRFilter /></div>
         </div>
-        <SRCard serviceRequest={selected} />
+        <SRCard />
         <Map center={center} zoom={zoom} ref={map => this.map = map}>
           <TileLayer
             attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
@@ -186,9 +185,9 @@ const mapStateToProps = (state) => {
     serviceRequests: state.serviceRequests,
     mapLoading: state.map.loading,
     mapLoadingStatus: state.map.status,
-    ticketNum: state.ticketNum
+    selectedSR: state.selectedMapPoint
   };
 };
 
-export default connect(mapStateToProps, { initMapData, showSRCard })(SimpleMap);
+export default connect(mapStateToProps, { initMapData, selectMapPoint, resetSearchByTicketNo })(SimpleMap);
 

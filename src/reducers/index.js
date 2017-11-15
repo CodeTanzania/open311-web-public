@@ -4,14 +4,14 @@ import serviceFilter from './serviceFilter';
 import dateFilter from './dateFilter';
 import statusFilter from './statusFilter';
 import jurisdictionFilter from './jurisdictionFilter';
-import searchByTicketNum from './searchByTicketNum';
+// import searchByTicketNum from './searchByTicketNum';
 
 import {
     MAP_LOADING,
     MAP_LOADING_COMPLETE,
     MAP_LOADING_COMPLETE_WITH_STATUS,
-    SHOWSRCARD,
-    HIDESRCARD
+    SELECT_MAP_POINT,
+    UNSELECT_MAP_POINT
 } from 'actions';
 
 const map = (state = { loading: false }, action) => {
@@ -27,12 +27,12 @@ const map = (state = { loading: false }, action) => {
     }
 };
 
-const serviceRequestCard = (state = false, action) => {
+const selectedMapPoint = (state = null, action) => {
     switch (action.type) {
-        case SHOWSRCARD:
-            return action.showSRCard;
-        case HIDESRCARD:
-            return action.showSRCard;
+        case SELECT_MAP_POINT:
+            return action.selected;
+        case UNSELECT_MAP_POINT:
+            return null;
         default:
             return state;
     }
@@ -45,6 +45,6 @@ export default combineReducers({
     jurisdictionFilter,
     statusFilter,
     map,
-    ticketNum: searchByTicketNum,
-    showSRCard: serviceRequestCard
+    // ticketNum: searchByTicketNum,
+    selectedMapPoint
 });

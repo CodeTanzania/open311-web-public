@@ -1,8 +1,8 @@
 .cardContainer {
-    position: absolute;
+    position: fixed;
     top: 0;
     right: 0;
-    width: 320px;
+    width: 350px;
     padding: 6px 15px;
     background: #fafafa;
     box-shadow: -1px 1px 7px rgba(0, 0, 0, 0.4);
@@ -10,19 +10,21 @@
     overflow: scroll;
 }
 
-.closeBtn {
+.header {
     display: inline-block;
     width: 100%;
-    text-align: right;
-    font-size: 18px;
+    text-align: center; // font-size: 18px;
     color: #a5a5a5;
     font-weight: bold;
-    cursor: pointer;
     vertical-align: middle;
+    border-bottom: 2px solid #c3c3c3;
+    &:hover {
+        color: #6a6a6a;
+    }
 }
 
-.closeBtn:hover {
-    color: #6a6a6a;
+.header.navBtn {
+    cursor: pointer;
 }
 
 .serviceName {
@@ -40,20 +42,24 @@
     padding: 10px 0;
 }
 
+.item.grid {
+    display: flex;
+    justify-content: space-between;
+}
+
 .item.last {
     border-bottom: 0;
     margin-bottom: 10px;
 }
 
-.itemLeft,
-.itemRight {
-    vertical-align: top;
-    display: inline-block;
-    width: 50%;
+.itemRight,
+.itemLeft {
+    flex: 1;
+    white-space: nowrap;
 }
 
 .itemRight {
-    padding-left: 20px;
+    padding-left: 60px;
 }
 
 .itemTitle {

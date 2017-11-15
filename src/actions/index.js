@@ -3,8 +3,10 @@ import API from 'API';
 export const MAP_LOADING = 'map_loading';
 export const MAP_LOADING_COMPLETE = 'map_loading_complete';
 export const MAP_LOADING_COMPLETE_WITH_STATUS = 'map_loading_complete_with_status';
-export const SHOWSRCARD = 'show_service_request_card';
-export const HIDESRCARD = 'hide_service_request_card';
+// export const SHOWSRCARD = 'show_service_request_card';
+// export const HIDESRCARD = 'hide_service_request_card';
+export const SELECT_MAP_POINT = 'select_map_point';
+export const UNSELECT_MAP_POINT = 'unselect_map_point';
 export const RECEIVE_SERVICEREQUESTS = 'service_request_receive';
 export const RECEIVE_SERVICES = 'services_receive';
 // export const RESET_SERVICES = 'services_reset';
@@ -16,7 +18,6 @@ export const TOGGLE_SERVICE = 'toggle_service';
 export const TOGGLE_JURISDICTION = 'toggle_jurisdiction';
 export const TOGGLE_STATUS = 'toggle_status';
 export const MAP_DATE_FILTER_CHANGE = 'map_date_change';
-export const SEARCH_BY_TICKET_NUM = 'search_ticket_number';
 export const RESET_SEARCH_BY_TICKET_NUM = 'reset_search_ticket_number';
 import moment from 'moment';
 
@@ -69,10 +70,6 @@ const mapLoadingCompleteWithStatus = (status) => ({
     status
 });
 
-const searchByTicketNo = (ticketNum) => ({
-    type: SEARCH_BY_TICKET_NUM,
-    ticketNum
-});
 
 // Action to select or unselect service among filters
 export const toggleService = (id) => ({
@@ -96,13 +93,12 @@ export const dateFilterChange = (startDate, endDate) => ({
     endDate
 });
 
-export const showSRCard = () => ({
-    type: SHOWSRCARD,
-    showSRCard: true
+export const selectMapPoint = (serviceRequest) => ({
+    type: SELECT_MAP_POINT,
+    selected: serviceRequest
 });
-export const hideSRCard = () => ({
-    type: HIDESRCARD,
-    showSRCard: false
+export const unselectMapPoint = () => ({
+    type: UNSELECT_MAP_POINT
 });
 
 export const resetSearchByTicketNo = () => ({
@@ -137,7 +133,6 @@ export const getServiceRequests = () => (dispatch, getState) => {
 };
 
 export const searchSRByTicketNo = (ticketNum) => (dispatch) => {
-    dispatch(searchByTicketNo(ticketNum));
     API
         .findSRByTicketNum(ticketNum)
         .then(data => {
@@ -155,8 +150,8 @@ export const searchSRByTicketNo = (ticketNum) => (dispatch) => {
                 dispatch(resetStatuses());
                 // load all SR's 
                 dispatch(getServiceRequests());
-                //display issue card
-                dispatch(showSRCard());
+                //select found SR
+                dispatch(selectMapPoint(serviceRequest));
             }
         });
 };
