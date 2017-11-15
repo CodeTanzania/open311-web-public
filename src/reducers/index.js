@@ -4,7 +4,6 @@ import serviceFilter from './serviceFilter';
 import dateFilter from './dateFilter';
 import statusFilter from './statusFilter';
 import jurisdictionFilter from './jurisdictionFilter';
-// import searchByTicketNum from './searchByTicketNum';
 
 import {
     MAP_LOADING,
@@ -45,6 +44,5 @@ export default combineReducers({
     jurisdictionFilter,
     statusFilter,
     map,
-    // ticketNum: searchByTicketNum,
     selectedMapPoint
 });
