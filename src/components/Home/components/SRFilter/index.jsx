@@ -5,7 +5,7 @@ const cx = classnames.bind(styles);
 import Select from 'react-select';
 import Status from './status';
 import { connect } from 'react-redux';
-import { toggleJurisdiction, toggleStatus, getServiceRequests, resetSearchByTicketNo } from 'actions';
+import { toggleJurisdiction, toggleStatus, getServiceRequests, resetSearchTicketNum } from 'actions';
 
 
 class SRFilter extends Component {
@@ -50,7 +50,7 @@ class SRFilter extends Component {
         }
         this.setState({ selectedArea: selected });
         this.props.toggleJurisdiction(changed);
-        this.props.resetSearchByTicketNo();
+        this.props.resetSearchTicketNum();
         this.props.getServiceRequests();
     }
 
@@ -62,7 +62,7 @@ class SRFilter extends Component {
      */
     statusChangeHandler(id) {
         this.props.toggleStatus(id);
-        this.props.resetSearchByTicketNo();
+        this.props.resetSearchTicketNum();
         this.props.getServiceRequests();
     }
 
@@ -110,4 +110,4 @@ const mapStateToProps = state => {
     };
 };
 
-export default connect(mapStateToProps, { toggleJurisdiction, toggleStatus, getServiceRequests, resetSearchByTicketNo })(SRFilter);
+export default connect(mapStateToProps, { toggleJurisdiction, toggleStatus, getServiceRequests, resetSearchTicketNum })(SRFilter);

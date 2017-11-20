@@ -10,7 +10,8 @@ import SRMapLegend from './components/SRMapLegend';
 import SRDateFilter from './components/SRDateFilter';
 import SRSearchBox from './components/SRSearchBox';
 import { connect } from 'react-redux';
-import { initMapData, selectMapPoint, resetSearchByTicketNo } from 'actions';
+import { initMapData, selectMapPoint, fetchMapDataComplete, resetSearchTicketNum } from 'actions';
+import { MAP_DATA_RELOAD, MAP_DATA_SEARCH_BY_TICKETNO } from 'utils/constants';
 import styles from './styles.scss';
 import classnames from 'classnames/bind';
 const cx = classnames.bind(styles);
@@ -75,6 +76,7 @@ class SimpleMap extends Component {
     //bind functions
     this.pointToLayer = this.pointToLayer.bind(this);
     this.onEachFeature = this.onEachFeature.bind(this);
+    this.handleEnterValidTicket = this.handleEnterValidTicket.bind(this);
   }
 
   componentDidMount() {
@@ -107,7 +109,7 @@ class SimpleMap extends Component {
         const selectedSRItemMarker = srItemMarkerMap[SRItem.code];
         setMarkerCustomIcon(this.state.selectedSRItemMarker, selectedSRItemMarker);
         this.props.selectMapPoint(SRItem);
-        this.props.resetSearchByTicketNo();
+        this.props.resetSearchTicketNum();
         this.setState({ center: [SRItem.latitude, SRItem.longitude], zoom: 12, selectedSRItemMarker: selectedSRItemMarker });
       }
     });
@@ -130,15 +132,32 @@ class SimpleMap extends Component {
     }
   }
 
+  handleEnterValidTicket() {
+    this.props.resetSearchTicketNum();
+    this.props.fetchMapDataComplete();
+  }
+
 
   render() {
     const { center, zoom } = this.state;
-    const { serviceRequests, mapLoading } = this.props;
+    const { serviceRequests, mapData, ticketNum } = this.props;
+    const { loading, dataFound, title } = mapData;
+    const ticketNotFound = !loading && !dataFound && title === MAP_DATA_SEARCH_BY_TICKETNO;
 
     return (
       <div>
-        <div className={cx('loaderContainer', { 'hide': !mapLoading })} style={{ zIndex: 501 }}>
-          <div className={cx('loader')}></div>
+        <div className={cx('loaderContainer', { 'hide': !loading && dataFound })} style={{ zIndex: 501 }}>
+          <div className={cx('spinner', { 'hide': !loading && !dataFound })}>
+          </div>
+          {
+            ticketNotFound ? <div className={cx('loaderInfoCard')}>
+              <div className={cx('infoCardHeader')}>Invalid Ticket Number</div>
+              <div className={cx('infoCardBody')}>Dawasco Map Cannot Find Issue with Ticket No: <strong>{ticketNum}</strong></div>
+              <div className={cx('infoCardActions')}>
+                <button type="button" className="btn btn-primary" onClick={this.handleEnterValidTicket}>Enter Valid Ticket Number</button>
+              </div>
+            </div> : ''
+          }
         </div>
         <div className={cx('mapFilter')} style={{ zIndex: 500 }}>
           <div className={cx('searchBox')} >
@@ -186,11 +205,11 @@ class SimpleMap extends Component {
 const mapStateToProps = (state) => {
   return {
     serviceRequests: state.serviceRequests,
-    mapLoading: state.map.loading,
-    mapLoadingStatus: state.map.status,
-    selectedSR: state.selectedMapPoint
+    mapData: state.mapData,
+    selectedSR: state.selectedMapPoint,
+    ticketNum: state.ticketNum
   };
 };
 
-export default connect(mapStateToProps, { initMapData, selectMapPoint, resetSearchByTicketNo })(SimpleMap);
+export default connect(mapStateToProps, { initMapData, selectMapPoint, fetchMapDataComplete, resetSearchTicketNum })(SimpleMap);
 

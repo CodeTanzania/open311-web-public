@@ -12,7 +12,33 @@
     display: none;
 }
 
-.loader {
+.loaderInfoCard {
+    width: 30%;
+    margin: 0 auto;
+    background-color: white;
+    border-radius: 2px;
+    box-shadow: 0px 1px 4px rgba(0, 0, 0, 0.3);
+}
+
+.infoCardHeader {
+    background-color: #d6e9d0;
+    padding: 10px 15px;
+    font-weight: bold;
+    font-size: 16px;
+}
+
+.infoCardBody {
+    padding-top: 10px;
+    text-align: center;
+}
+
+.infoCardActions {
+    padding: 15px 0 30px;
+    display: flex;
+    justify-content: center;
+}
+
+.spinner {
     border: 8px solid #f3f3f3;
     /* Light grey */
     border-top: 8px solid #3498db;
@@ -22,6 +48,10 @@
     height: 70px;
     margin: 0 auto;
     animation: spin 2s linear infinite;
+}
+
+.spinner.hide {
+    display: none;
 }
 
 @keyframes spin {

@@ -4,27 +4,10 @@ import serviceFilter from './serviceFilter';
 import dateFilter from './dateFilter';
 import statusFilter from './statusFilter';
 import jurisdictionFilter from './jurisdictionFilter';
+import mapData from './mapData';
 
-import {
-    MAP_LOADING,
-    MAP_LOADING_COMPLETE,
-    MAP_LOADING_COMPLETE_WITH_STATUS,
-    SELECT_MAP_POINT,
-    UNSELECT_MAP_POINT
-} from 'actions';
+import { SELECT_MAP_POINT, UNSELECT_MAP_POINT, SEARCH_TICKET_NUM, SEARCH_TICKET_NUM_RESET } from 'actions';
 
-const map = (state = { loading: false }, action) => {
-    switch (action.type) {
-        case MAP_LOADING:
-            return { ...state, loading: action.loading };
-        case MAP_LOADING_COMPLETE:
-            return { ...state, loading: action.loading };
-        case MAP_LOADING_COMPLETE_WITH_STATUS:
-            return { ...state, loading: action.loading, status: action.status };
-        default:
-            return state;
-    }
-};
 
 const selectedMapPoint = (state = null, action) => {
     switch (action.type) {
@@ -37,12 +20,24 @@ const selectedMapPoint = (state = null, action) => {
     }
 };
 
+const ticketNum = (state = '', action) => {
+    switch (action.type) {
+        case SEARCH_TICKET_NUM:
+            return action.ticketNum;
+        case SEARCH_TICKET_NUM_RESET:
+            return '';
+        default:
+            return state;
+    }
+};
+
 export default combineReducers({
     serviceRequests,
     dateFilter,
     serviceFilter,
     jurisdictionFilter,
     statusFilter,
-    map,
-    selectedMapPoint
+    mapData,
+    selectedMapPoint,
+    ticketNum
 });

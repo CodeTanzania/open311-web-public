@@ -31,7 +31,8 @@ const clientConfig = {
 		alias: {
 			API: path.resolve(__dirname, '../src/api/'),
 			actions: path.resolve(__dirname, '../src/actions'),
-			reducers: path.resolve(__dirname, '../src/reducers')
+			reducers: path.resolve(__dirname, '../src/reducers'),
+			utils: path.resolve(__dirname, '../src/utils')
 		}
 	},
 	/* eslint indent:1 */

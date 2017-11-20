@@ -1,15 +1,11 @@
 import API from 'API';
 
-export const MAP_LOADING = 'map_loading';
-export const MAP_LOADING_COMPLETE = 'map_loading_complete';
-export const MAP_LOADING_COMPLETE_WITH_STATUS = 'map_loading_complete_with_status';
-// export const SHOWSRCARD = 'show_service_request_card';
-// export const HIDESRCARD = 'hide_service_request_card';
+export const FETCH_MAP_DATA = 'fetch_map_data';
+export const FETCH_MAP_DATA_COMPLETE = 'fetch_map_data_complete';
 export const SELECT_MAP_POINT = 'select_map_point';
 export const UNSELECT_MAP_POINT = 'unselect_map_point';
 export const RECEIVE_SERVICEREQUESTS = 'service_request_receive';
 export const RECEIVE_SERVICES = 'services_receive';
-// export const RESET_SERVICES = 'services_reset';
 export const RECEIVE_STATUSES = 'statuses_receive';
 export const RESET_STATUSES = 'statuses_reset';
 export const RECEIVE_JURISDICTIONS = 'jurisdictions_receive';
@@ -18,105 +14,73 @@ export const TOGGLE_SERVICE = 'toggle_service';
 export const TOGGLE_JURISDICTION = 'toggle_jurisdiction';
 export const TOGGLE_STATUS = 'toggle_status';
 export const MAP_DATE_FILTER_CHANGE = 'map_date_change';
-export const RESET_SEARCH_BY_TICKET_NUM = 'reset_search_ticket_number';
+export const SEARCH_TICKET_NUM = 'search_ticket_number';
+export const SEARCH_TICKET_NUM_RESET = 'search_ticket_number_reset';
 import moment from 'moment';
+import { MAP_DATA_RELOAD, MAP_DATA_SEARCH_BY_TICKETNO } from 'utils/constants';
 
+const receiveServiceRequests = (serviceRequests) => ({ type: RECEIVE_SERVICEREQUESTS, serviceRequests });
 
-const receiveServiceRequests = (serviceRequests) => ({
-    type: RECEIVE_SERVICEREQUESTS,
-    serviceRequests
+const receiveServices = (services) => ({ type: RECEIVE_SERVICES, services });
+
+const receiveJurisdictions = jurisdictions => ({ type: RECEIVE_JURISDICTIONS, jurisdictions });
+
+const resetJurisdictions = () => ({ type: RESET_JURISDICTIONS });
+
+const receiveStatuses = statuses => ({ type: RECEIVE_STATUSES, statuses });
+
+const resetStatuses = () => ({ type: RESET_STATUSES });
+
+const fetchMapData = (title = MAP_DATA_RELOAD) => ({
+    type: FETCH_MAP_DATA,
+    loading: true,
+    title
 });
 
-const receiveServices = (services) => ({
-    type: RECEIVE_SERVICES,
-    services
-});
-
-// const resetServices = () => ({
-//     type: RESET_SERVICES
-// });
-
-const receiveJurisdictions = jurisdictions => ({
-    type: RECEIVE_JURISDICTIONS,
-    jurisdictions
-});
-
-const resetJurisdictions = () => ({
-    type: RESET_JURISDICTIONS
-});
-
-const receiveStatuses = statuses => ({
-    type: RECEIVE_STATUSES,
-    statuses
-});
-
-const resetStatuses = () => ({
-    type: RESET_STATUSES
-});
-
-const mapLoading = () => ({
-    type: MAP_LOADING,
-    loading: true
-});
-
-const mapLoadingComplete = () => ({
-    type: MAP_LOADING_COMPLETE,
-    loading: false
-});
-
-const mapLoadingCompleteWithStatus = (status) => ({
-    type: MAP_LOADING_COMPLETE_WITH_STATUS,
+export const fetchMapDataComplete = (dataFound = true) => ({
+    type: FETCH_MAP_DATA_COMPLETE,
     loading: false,
-    status
+    dataFound
 });
 
+const searchTicketNum = (ticketNum) => ({
+    type: SEARCH_TICKET_NUM,
+    ticketNum
+});
+
+export const resetSearchTicketNum = () => ({ type: SEARCH_TICKET_NUM_RESET });
 
 // Action to select or unselect service among filters
-export const toggleService = (id) => ({
-    type: TOGGLE_SERVICE,
-    id
-});
+export const toggleService = (id) => ({ type: TOGGLE_SERVICE, id });
 // Action to select or unselect area among filters
-export const toggleJurisdiction = (id) => ({
-    type: TOGGLE_JURISDICTION,
-    id
-});
+export const toggleJurisdiction = (id) => ({ type: TOGGLE_JURISDICTION, id });
 // Action to select or unselect status among filters
-export const toggleStatus = (id) => ({
-    type: TOGGLE_STATUS,
-    id
-});
+export const toggleStatus = (id) => ({ type: TOGGLE_STATUS, id });
 
-export const dateFilterChange = (startDate, endDate) => ({
-    type: MAP_DATE_FILTER_CHANGE,
-    startDate,
-    endDate
-});
+export const dateFilterChange = (startDate, endDate) => ({ type: MAP_DATE_FILTER_CHANGE, startDate, endDate });
 
-export const selectMapPoint = (serviceRequest) => ({
-    type: SELECT_MAP_POINT,
-    selected: serviceRequest
-});
-export const unselectMapPoint = () => ({
-    type: UNSELECT_MAP_POINT
-});
+export const selectMapPoint = (serviceRequest) => ({ type: SELECT_MAP_POINT, selected: serviceRequest });
+export const unselectMapPoint = () => ({ type: UNSELECT_MAP_POINT });
 
-export const resetSearchByTicketNo = () => ({
-    type: RESET_SEARCH_BY_TICKET_NUM
-});
 
 
 export const getServiceRequests = () => (dispatch, getState) => {
-    dispatch(mapLoading());
+    dispatch(fetchMapData());
     const { serviceFilter, jurisdictionFilter, statusFilter, dateFilter } = getState();
-    const selectedServices = serviceFilter.services.filter(service => service.selected);
-    const selectedAreas = jurisdictionFilter.jurisdictions.filter(area => area.selected);
-    const selectedStatuses = statusFilter.statuses.filter(status => status.selected);
+    const selectedServices = serviceFilter
+        .services
+        .filter(service => service.selected);
+    const selectedAreas = jurisdictionFilter
+        .jurisdictions
+        .filter(area => area.selected);
+    const selectedStatuses = statusFilter
+        .statuses
+        .filter(status => status.selected);
     const query = {
         ...dateFilter,
         services: selectedServices.map(service => service.id),
         jurisdictions: selectedAreas.map(area => area.id),
-        statuses: selectedStatuses.map(status => status.id),
+        statuses: selectedStatuses.map(status => status.id)
     };
 
     API
@@ -124,20 +88,22 @@ export const getServiceRequests = () => (dispatch, getState) => {
         .then(data => {
             const serviceRequests = data.servicerequests;
             dispatch(receiveServiceRequests(serviceRequests));
-            dispatch(mapLoadingComplete());
+            dispatch(fetchMapDataComplete());
         })
         .catch(() => {
             dispatch(receiveServiceRequests([]));
-            dispatch(mapLoadingComplete());
+            dispatch(fetchMapDataComplete());
         });
 };
 
 export const searchSRByTicketNo = (ticketNum) => (dispatch) => {
+    dispatch(fetchMapData(MAP_DATA_SEARCH_BY_TICKETNO));
+    dispatch(searchTicketNum(ticketNum));
     API
         .findSRByTicketNum(ticketNum)
         .then(data => {
             if (!data.servicerequests.length) {
-                dispatch(mapLoadingCompleteWithStatus(`Dawasco Map Can't Find Complain ${ticketNum}`));
+                dispatch(fetchMapDataComplete(false));
             } else {
                 const serviceRequest = data.servicerequests[0];
                 const endDate = moment(serviceRequest.createdAt).add(1, 'months');
@@ -148,7 +114,7 @@ export const searchSRByTicketNo = (ticketNum) => (dispatch) => {
                 dispatch(resetJurisdictions());
                 // reset statuses if set
                 dispatch(resetStatuses());
-                // load all SR's 
+                // load all SR's
                 dispatch(getServiceRequests());
                 //select found SR
                 dispatch(selectMapPoint(serviceRequest));
@@ -157,18 +123,15 @@ export const searchSRByTicketNo = (ticketNum) => (dispatch) => {
 };
 
 export const initMapData = () => dispatch => {
-    dispatch(mapLoading());
+    dispatch(fetchMapData());
     API
         .getServices()
         .then(data => {
-            const services = data.services.map(service => {
-                return {
-                    code: service.code,
-                    name: service.name,
-                    id: service._id,
-                    selected: true
-                };
-            });
+            const services = data
+                .services
+                .map(service => {
+                    return { code: service.code, name: service.name, id: service._id, selected: true };
+                });
             return dispatch(receiveServices(services));
         })
         .then(() => {
@@ -176,13 +139,11 @@ export const initMapData = () => dispatch => {
             return API
                 .getJurisdictions()
                 .then(data => {
-                    const areas = data.jurisdictions.map(jurisdiction => {
-                        return {
-                            name: jurisdiction.name,
-                            id: jurisdiction._id,
-                            selected: false
-                        };
-                    });
+                    const areas = data
+                        .jurisdictions
+                        .map(jurisdiction => {
+                            return { name: jurisdiction.name, id: jurisdiction._id, selected: false };
+                        });
                     return dispatch(receiveJurisdictions(areas));
                 });
         })
@@ -191,13 +152,11 @@ export const initMapData = () => dispatch => {
             return API
                 .getStatuses()
                 .then(data => {
-                    const statuses = data.statuses.map(status => {
-                        return {
-                            name: status.name,
-                            id: status._id,
-                            selected: false
-                        };
-                    });
+                    const statuses = data
+                        .statuses
+                        .map(status => {
+                            return { name: status.name, id: status._id, selected: false };
+                        });
                     return dispatch(receiveStatuses(statuses));
                 });
         })
@@ -205,4 +164,3 @@ export const initMapData = () => dispatch => {
             dispatch(getServiceRequests());
         });
 };
-
