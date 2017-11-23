@@ -1,4 +1,5 @@
 import { combineReducers } from 'redux';
+import { routerReducer } from 'react-router-redux';
 import serviceRequests from './serviceRequests';
 import serviceFilter from './serviceFilter';
 import dateFilter from './dateFilter';
@@ -6,7 +7,7 @@ import statusFilter from './statusFilter';
 import jurisdictionFilter from './jurisdictionFilter';
 import mapData from './mapData';
 
-import { SELECT_MAP_POINT, UNSELECT_MAP_POINT, SEARCH_TICKET_NUM, SEARCH_TICKET_NUM_RESET } from 'actions';
+import { SELECT_MAP_POINT, UNSELECT_MAP_POINT, SEARCH_TICKET_NUM, SEARCH_TICKET_NUM_RESET, RECEIVE_SR_SUMMARY } from 'actions';
 
 
 const selectedMapPoint = (state = null, action) => {
@@ -31,6 +32,15 @@ const ticketNum = (state = '', action) => {
     }
 };
 
+const SRSummary = (state = {}, action) => {
+    switch (action.type) {
+        case RECEIVE_SR_SUMMARY:
+            return action.summary;
+        default:
+            return state;
+    }
+};
+
 export default combineReducers({
     serviceRequests,
     dateFilter,
@@ -39,5 +49,7 @@ export default combineReducers({
     statusFilter,
     mapData,
     selectedMapPoint,
-    ticketNum
+    ticketNum,
+    SRSummary,
+    router: routerReducer
 });

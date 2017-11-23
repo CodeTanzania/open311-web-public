@@ -1,10 +1,18 @@
 import { createStore, applyMiddleware } from 'redux';
 import thunk from 'redux-thunk';
 import reducers from 'reducers';
+import { routerMiddleware } from 'react-router-redux';
 
-let store = createStore(reducers, applyMiddleware(thunk));
 
-function init() {
+
+
+
+
+function init(history) {
+    // Build the middleware for intercepting and dispatching navigation actions
+    const navMiddleware = routerMiddleware(history);
+
+    let store = createStore(reducers, applyMiddleware(thunk, navMiddleware));
 
     if (module.hot) {
         module.hot.accept('./reducers/index.js', () => {
@@ -16,4 +24,4 @@ function init() {
     return store;
 }
 
-export default init();
+export default init;

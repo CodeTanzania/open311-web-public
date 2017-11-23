@@ -1,86 +1,9 @@
-.loaderContainer {
-    position: fixed;
-    top: 0;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    padding-top: 25%;
-    background-color: rgba(0, 0, 0, 0.3);
-}
-
-.loaderContainer.hide {
-    display: none;
-}
-
-.loaderInfoCard {
-    width: 30%;
-    margin: 0 auto;
-    background-color: white;
-    border-radius: 2px;
-    box-shadow: 0px 1px 4px rgba(0, 0, 0, 0.3);
-}
-
-.infoCardHeader {
-    background-color: #d6e9d0;
-    padding: 10px 15px;
-    font-weight: bold;
-    font-size: 16px;
-}
-
-.infoCardBody {
-    padding-top: 10px;
-    text-align: center;
-}
-
-.infoCardActions {
-    padding: 15px 0 30px;
+.wrapper {
     display: flex;
-    justify-content: center;
+    min-height: 100vh;
+    flex-direction: column;
 }
 
-.spinner {
-    border: 8px solid #f3f3f3;
-    /* Light grey */
-    border-top: 8px solid #3498db;
-    /* Blue */
-    border-radius: 50%;
-    width: 70px;
-    height: 70px;
-    margin: 0 auto;
-    animation: spin 2s linear infinite;
-}
-
-.spinner.hide {
-    display: none;
-}
-
-@keyframes spin {
-    0% {
-        transform: rotate(0deg);
-    }
-    100% {
-        transform: rotate(360deg);
-    }
-}
-
-.mapLegend {
-    position: fixed;
-    bottom: 28px;
-    left: 131px;
-}
-
-.mapFilter {
-    position: fixed;
-    top: 12px;
-    left: 131px;
-    display: flex;
-}
-
-.extraFilter {
-    margin-left: 5px;
-    height: 100%;
-}
-
-.dateFilter {
-    margin-left: 5px;
+.main {
+    flex: 1;
 }

@@ -5,7 +5,7 @@ import './react_dates_overrides.css';
 const START_DATE = 'startDate';
 const END_DATE = 'endDate';
 import { connect } from 'react-redux';
-import { dateFilterChange, getServiceRequests, resetSearchTicketNum } from 'actions';
+import { dateFilterChange, getServiceRequests, resetSearchTicketNum, reloadSRSummary } from 'actions';
 
 const defaultProps = {
     isOutsideRange: () => false,
@@ -32,6 +32,7 @@ class DateFilter extends Component {
     onDatesChange({ startDate, endDate }) {
         this.props.dateFilterChange(startDate, endDate);
         this.props.resetSearchTicketNum();
+        this.props.reloadSRSummary();
         this.props.getServiceRequests();
     }
 
@@ -66,4 +67,4 @@ const mapStateToProps = state => {
     };
 };
 
-export default connect(mapStateToProps, { dateFilterChange, getServiceRequests, resetSearchTicketNum })(DateFilter);
+export default connect(mapStateToProps, { dateFilterChange, getServiceRequests, resetSearchTicketNum, reloadSRSummary })(DateFilter);

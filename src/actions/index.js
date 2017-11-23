@@ -16,6 +16,7 @@ export const TOGGLE_STATUS = 'toggle_status';
 export const MAP_DATE_FILTER_CHANGE = 'map_date_change';
 export const SEARCH_TICKET_NUM = 'search_ticket_number';
 export const SEARCH_TICKET_NUM_RESET = 'search_ticket_number_reset';
+export const RECEIVE_SR_SUMMARY = 'receive_service_request_summary';
 import moment from 'moment';
 import { MAP_DATA_RELOAD, MAP_DATA_SEARCH_BY_TICKETNO } from 'utils/constants';
 
@@ -36,6 +37,8 @@ const fetchMapData = (title = MAP_DATA_RELOAD) => ({
     loading: true,
     title
 });
+
+const receiveSRSummary = (summary) => ({ type: RECEIVE_SR_SUMMARY, summary });
 
 export const fetchMapDataComplete = (dataFound = true) => ({
     type: FETCH_MAP_DATA_COMPLETE,
@@ -62,7 +65,14 @@ export const dateFilterChange = (startDate, endDate) => ({ type: MAP_DATE_FILTER
 export const selectMapPoint = (serviceRequest) => ({ type: SELECT_MAP_POINT, selected: serviceRequest });
 export const unselectMapPoint = () => ({ type: UNSELECT_MAP_POINT });
 
-
+export const reloadSRSummary = () => (dispatch, getState) => {
+    const { startDate, endDate } = getState().dateFilter;
+    API
+        .getSRSummary(startDate, endDate)
+        .then(data => {
+            dispatch(receiveSRSummary(data));
+        });
+};
 
 export const getServiceRequests = () => (dispatch, getState) => {
     dispatch(fetchMapData());

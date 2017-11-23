@@ -1,0 +1,92 @@
+.loader {
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    padding-top: 25%;
+    background-color: rgba(0, 0, 0, 0.3);
+}
+
+.loader.hide {
+    display: none;
+}
+
+.loaderInfo {
+    width: 30%;
+    margin: 0 auto;
+    background-color: white;
+    border-radius: 2px;
+    box-shadow: 0px 1px 4px rgba(0, 0, 0, 0.3);
+}
+
+.loaderInfoHeader {
+    background-color: #d6e9d0;
+    padding: 10px 15px;
+    font-weight: 700;
+}
+
+.loaderInfoBody {
+    padding-top: 10px;
+    text-align: center;
+}
+
+.loaderInfoAction {
+    padding: 15px 0 30px;
+    display: flex;
+    justify-content: center;
+}
+
+.spinner {
+    border: 8px solid #f3f3f3;
+    /* Light grey */
+    border-top: 8px solid #3498db;
+    /* Blue */
+    border-radius: 50%;
+    width: 70px;
+    height: 70px;
+    margin: 0 auto;
+    animation: spin 2s linear infinite;
+}
+
+.spinner.hide {
+    display: none;
+}
+
+@keyframes spin {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+.legend {
+    position: fixed;
+    bottom: 28px;
+    left: 131px;
+}
+
+.header {
+    position: fixed;
+    top: 12px;
+    left: 5px;
+    display: flex;
+}
+
+.headerItem {
+    margin-left: 5px;
+    height: 52px;
+}
+
+.headerItem.homeBtn {
+    background-color: whitesmoke;
+    box-shadow: 0px 1px 4px rgba(0, 0, 0, 0.3);
+    padding: 15px;
+    color: #0BA3DD;
+    cursor: pointer;
+    &:hover {
+        background-color: #eeeeee;
+    }
+}

@@ -1,3 +1,6 @@
+
+import moment, { months } from 'moment';
+
 let auth_token;
 
 if (process.env.NODE_ENV === 'production') {
@@ -9,6 +12,20 @@ if (process.env.NODE_ENV === 'production') {
 const header = new Headers({
     'Authorization': `Bearer ${auth_token}`
 });
+
+function prepareDates(start, end) {
+    if (start && end) {
+        let startDate = moment(new Date(start)).utc().startOf('date');
+        let endDate = moment(new Date(end)).utc().startOf('date');
+        const diff = endDate.diff(startDate, 'months');
+        if (diff >= 3) {
+            return [startDate.toDate(), endDate.toDate()];
+        } else {
+            startDate = endDate.subtract(3, months).startOf('date');
+            return [startDate.toDate(), endDate.toDate()];
+        }
+    }
+}
 
 export default {
     // Get all service requests
@@ -86,5 +103,21 @@ export default {
             .then(res => {
                 return res.json();
             });
+    },
+    /**
+     * Calculate report overviews
+     * 
+     * @param {any} start  Start Date
+     * @param {any} end  End Date
+     * @returns 
+     */
+    getSRSummary(start, end) {
+        const dates = prepareDates(start, end);
+        const query = { createdAt: {} };
+        query.createdAt['$gte'] = dates[0];
+        query.createdAt['$lte'] = dates[1];
+        const url = 'api/reports/overviews?';
+        return fetch(`${url}query=${JSON.stringify(query)}`, { headers: header })
+            .then(res => res.json());
     }
 };
