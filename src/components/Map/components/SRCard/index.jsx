@@ -10,6 +10,9 @@ import ReactEcharts from 'echarts-for-react/lib/core';
 // then import echarts modules those you have used manually.
 import echarts from 'echarts/lib/echarts';
 import 'echarts/lib/chart/bar';
+import 'echarts/lib/chart/pie';
+import 'echarts/lib/component/tooltip';
+import 'echarts/lib/component/title';
 import './streamline.css';
 
 const getSRPriorityClass = (priority) => {
@@ -42,11 +45,14 @@ const getSRStatusClass = (status) => {
 const renderCard = (props, onBackBtnClicked) => {
     const { selectedSR, SRSummary, publicServices } = props;
 
-    let barChartOption;
+    let barChartOption, jurisdictionPieChartOption, serviceStatusChartOption;
     if (Object.keys(SRSummary).length) {
+
+        //calculate public services
         const services = SRSummary.services.filter(service => {
             return publicServices.some(publicService => publicService.name === service.name);
         });
+        //create service bar chart data
         const barChartData = services.map(service => {
             var serie = {
                 name: service.name,
@@ -68,17 +74,15 @@ const renderCard = (props, onBackBtnClicked) => {
 
             return serie;
         });
+        //create echart service chart options
         barChartOption = {
-            title: {
-                text: 'Services Summary'
-            },
             tooltip: {
                 trigger: 'axis',
                 axisPointer: {
                     type: 'shadow'
                 },
                 formatter: function (params) {
-                    return params[0].name + '<br/>' + params[0].value;
+                    return params[0].name + '<br/>' + params[0].value * 1000;
                 }
             },
             xAxis: [{
@@ -105,18 +109,81 @@ const renderCard = (props, onBackBtnClicked) => {
                 }
             ]
         };
+
+        //create jurisdictions chart data
+        const jurisdictionChartData = SRSummary.jurisdictions.map(jurisdiction => {
+            return {
+                name: jurisdiction.name,
+                value: jurisdiction['count'],
+                color: jurisdiction.color
+            };
+        });
+
+        //create echart jurisdiction pie chart options
+        jurisdictionPieChartOption = {
+            title: {
+                text: 'Total',
+                subtext: jurisdictionChartData.reduce((prev, curr) => {
+                    return prev + curr.value;
+                }, 0),
+                x: 'center',
+                y: 'center',
+                textStyle: {
+                    fontWeight: 'normal',
+                    fontSize: 16
+                }
+            },
+            tooltip: {
+                show: true,
+                trigger: 'item',
+                formatter: '{b}:<br/> Count: {c} <br/> Percent: ({d}%)'
+            },
+            series: [{
+                type: 'pie',
+                selectedMode: 'single',
+                radius: ['45%', '55%'],
+                color: jurisdictionChartData.map(data => data.color),
+                label: {
+                    normal: {
+                        formatter: '{b}\n{d}%',
+                    }
+                },
+                data: jurisdictionChartData
+            }]
+        };
+
+        //create service per status data
+        const serviceStatusData = [
+            { value: SRSummary.overall.pending, name: 'pending' },
+            { value: SRSummary.overall.resolved, name: 'resolved' },
+            { value: SRSummary.overall.unattended, name: 'unattended' },
+            { value: SRSummary.overall.late, name: 'late' },
+        ];
+
+        serviceStatusChartOption = {
+            tooltip: {
+                trigger: 'item',
+                formatter: '{a} <br/>{b} : {c} ({d}%)'
+            },
+            series: [
+                {
+                    name: 'Complains',
+                    type: 'pie',
+                    radius: '55%',
+                    center: ['50%', '60%'],
+                    data: serviceStatusData,
+                    itemStyle: {
+                        emphasis: {
+                            shadowBlur: 10,
+                            shadowOffsetX: 0,
+                            shadowColor: 'rgba(0, 0, 0, 0.5)'
+                        }
+                    }
+                }
+            ]
+        };
     }
-    // const barChartOption = {
-    //     xAxis: [{ type: 'category', data: ['male', 'female'] }],
-    //     yAxis: [{ type: 'value' }],
-    //     series: [
-    //         {
-    //             type: 'bar',
-    //             data: [{ name: 'male', value: 3 },
-    //             { name: 'female', value: 8 }]
-    //         }
-    //     ]
-    // };
+
 
     if (selectedSR) {
         return (
@@ -202,16 +269,33 @@ const renderCard = (props, onBackBtnClicked) => {
                 <div className={cx('header')} >
                     <span> Summary Statistics</span>
                 </div>
-                <div className={cx('chartItem')}>
-                    <div className={cx('chartTitle')}>Services Summary</div>
-                    <div>
-                        {
-                            Object.keys(SRSummary).length ? <ReactEcharts echarts={echarts} notMerge={true}
-                                lazyUpdate={true} style={{ height: '250px' }} option={barChartOption} /> : ''
-                        }
-
-                    </div>
-                </div>
+                {
+                    barChartOption ? (<div className={cx('chartItem')}>
+                        <div className={cx('chartTitle')}>Services</div>
+                        <div>
+                            <ReactEcharts echarts={echarts} notMerge={true}
+                                lazyUpdate={true} style={{ height: '250px' }} option={barChartOption} />
+                        </div>
+                    </div>) : ''
+                }
+                {
+                    jurisdictionPieChartOption ? (<div className={cx('chartItem')}>
+                        <div className={cx('chartTitle')}>Area</div>
+                        <div>
+                            <ReactEcharts echarts={echarts} notMerge={true}
+                                lazyUpdate={true} style={{ height: '250px' }} option={jurisdictionPieChartOption} />
+                        </div>
+                    </div>) : ''
+                }
+                {
+                    serviceStatusChartOption ? (<div className={cx('chartItem')}>
+                        <div className={cx('chartTitle')}>Status</div>
+                        <div>
+                            <ReactEcharts echarts={echarts} notMerge={true}
+                                lazyUpdate={true} style={{ height: '250px' }} option={serviceStatusChartOption} />
+                        </div>
+                    </div>) : ''
+                }
             </div>
         );
     }
