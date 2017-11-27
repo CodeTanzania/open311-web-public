@@ -4,7 +4,8 @@ const StatsPlugin = require('stats-webpack-plugin');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const webpack = require('webpack');
 
-const URL = 'http://127.0.0.1:3000/';
+const URL = 'https://dawasco-public.herokuapp.com/';
+// const URL = 'http://127.0.0.1:3000/';
 
 const clientConfig = {
 	devtool: 'source-map',
@@ -70,10 +71,20 @@ const clientConfig = {
 		},
 		{
 			test: /\.css$/,
-			use: [
-				'style-loader',
-				'css-loader'
-			]
+			use: ExtractTextPlugin.extract({
+				fallback: 'style-loader',
+				use: ['css-loader', {
+					loader: 'postcss-loader',
+					options: {
+						sourceMap: true,
+						plugins: () => [require('css-mqpacker'), require('cssnano')({
+							discardComments: {
+								removeAll: true // remove all comments even /** comments */
+							}
+						})]
+					}
+				}]
+			})
 		},
 		{
 			test: /\.(png|jpg)$/,
