@@ -1,4 +1,5 @@
 const express = require('express');
+const path = require('path');
 const app = express();
 const webpack = require('webpack');
 const webpackDevMiddleware = require('webpack-dev-middleware');
@@ -20,6 +21,10 @@ const apiProxy = proxy('/api', { target: api, pathRewrite: { '^/api': '' } });
 app.use(apiProxy);
 
 app.use(express.static('public'));
+
+app.get('*', (req, res) => {
+	res.sendFile(path.join(__dirname, 'public', 'index.html'));
+});
 
 app.listen(app.get('port'), function () {
 	console.log('The server is up and running on port', app.get('port'));

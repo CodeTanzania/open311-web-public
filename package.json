@@ -6,7 +6,6 @@
   "license": "MIT",
   "dependencies": {
     "body-parser": "^1.17.2",
-    "bootstrap": "^4.0.0-beta.2",
     "classnames": "^2.2.5",
     "echarts": "^3.8.5",
     "echarts-for-react": "^2.0.0",
@@ -80,7 +79,7 @@
     "start": "node production.js",
     "dev": "node development.js",
     "build": "NODE_ENV=production webpack --config config/webpack.config.prod.js --progress --profile --colors",
-    "prebuild": "rm -rf public/dist",
+    "predev": "rm -rf public/dist",
     "test": "jest",
     "storybook": "node storybook-server.js",
     "build-storybook": "build-storybook"

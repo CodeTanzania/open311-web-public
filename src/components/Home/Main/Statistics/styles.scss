@@ -1,0 +1,32 @@
+.container {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    width: 100%;
+}
+
+.item {
+    width: 25%;
+    text-align: center;
+}
+
+.iconContainer {
+    height: 150px;
+}
+
+.icon {
+    width: 100%;
+    height: 100%;
+}
+
+.itemName {
+    font-weight: bold;
+    margin-top: -60px;
+}
+
+.itemValue {
+    font-size: 2rem;
+    padding-top: 7px;
+    color: #0BA3DD;
+}

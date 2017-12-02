@@ -42,10 +42,9 @@
     background-color: whitesmoke;
     cursor: pointer;
     color: #0BA3DD;
-}
-
-.searchBtn:hover,
-.searchBtn:focus {
-    outline: 0;
-    background-color: #eeeeee;
+    &:hover,
+    &:focus {
+        outline: 0;
+        background-color: #eeeeee;
+    }
 }

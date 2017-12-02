@@ -1,3 +1,4 @@
+$brand-color:#0BA3DD;
 .header {
     position: fixed;
     background-color: rgba(255, 255, 255, 0.78);
@@ -43,6 +44,13 @@
     font-weight: 700;
     padding-top: 12px;
     padding-bottom: 12px;
+    border-bottom: 2px solid white;
+    text-decoration: none;
+    &:hover,
+    &:active {
+        color: inherit;
+        border-bottom: 2px solid $brand-color;
+    }
 }
 
 .horizontalMenu {

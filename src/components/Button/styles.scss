@@ -1,0 +1,44 @@
+.btn {
+    display: inline-block;
+    line-height: 1.25;
+    text-align: center;
+    white-space: nowrap;
+    vertical-align: middle;
+    border: 1px solid transparent;
+    font-size: 1rem;
+    padding: .5rem 1rem;
+    cursor: pointer;
+    &:hover,
+    &:focus {
+        color: #292b2c;
+        background-color: #e6e6e6;
+        border-color: #adadad;
+    }
+}
+
+.btn.search {
+    line-height: 1.5;
+    border-top: 1px solid #ced4da;
+    border-bottom: 1px solid #ced4da;
+    border-right: 1px solid #ced4da;
+    border-left: 0;
+    font-size: 1.25rem;
+    padding: .6rem 1rem;
+    background-color: whitesmoke;
+    color: #0BA3DD;
+    &:hover,
+    &:focus {
+        background-color: #eeeeee;
+        color: inherit;
+    }
+}
+
+.btn.green {
+    background-color: #2ab34b;
+    color: white;
+    &:hover,
+    &:focus {
+        background-color: #25a143;
+        color: white;
+    }
+}

@@ -6,7 +6,7 @@ let auth_token;
 if (process.env.NODE_ENV === 'production') {
     auth_token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjU5ZTQ0OWQzODI0NjEwMDAwNGYzNDgzMSIsImlhdCI6MTUwODEzMzMzMSwiZXhwIjozMzA2NTczMzMzMSwiYXVkIjoib3BlbjMxMSJ9.3-a02oah-lmHFdqw1wMkbxIVa2qdA_D7ZTo0bGQQ_zE';
 } else {
-    auth_token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVhMGFkNDQwNWVmMjI1MDUxYTJiMGE0OCIsImlhdCI6MTUxMDY1OTEzNywiZXhwIjozMzA2ODI1OTEzNywiYXVkIjoib3BlbjMxMSJ9.5j59O2WV1fRnGY11sKoeaDZWh6zmvXyVVkiOE9pq2aI';
+    auth_token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVhMjBmZjRiZDMyYzBhNDc3NmQ2ZmQ4OSIsImlhdCI6MTUxMjExMTk0NywiZXhwIjozMzA2OTcxMTk0NywiYXVkIjoib3BlbjMxMSJ9.IehsxZUpgkQWG_MQw7tFgPF1eFlZ8DB8j4ZjyYyR66k';
 }
 
 const header = new Headers({
@@ -112,12 +112,17 @@ export default {
      * @returns 
      */
     getSRSummary(start, end) {
-        const dates = prepareDates(start, end);
-        const query = { createdAt: {} };
-        query.createdAt['$gte'] = dates[0];
-        query.createdAt['$lte'] = dates[1];
-        const url = 'api/reports/overviews?';
-        return fetch(`${url}query=${JSON.stringify(query)}`, { headers: header })
-            .then(res => res.json());
+        if (start && end) {
+            const dates = prepareDates(start, end);
+            const query = { createdAt: {} };
+            query.createdAt['$gte'] = dates[0];
+            query.createdAt['$lte'] = dates[1];
+            const url = 'api/reports/overviews?';
+            return fetch(`${url}query=${JSON.stringify(query)}`, { headers: header })
+                .then(res => res.json());
+        } else {
+            return fetch('api/reports/overviews', { headers: header })
+                .then(res => res.json());
+        }
     }
 };

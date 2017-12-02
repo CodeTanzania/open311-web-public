@@ -1,21 +1,24 @@
 .container {
-    padding-top: 120px;
-    padding-left: 80px;
-    padding-right: 80px;
-    display: flex;
-    justify-content: space-between;
+    padding: 0 80px 120px;
 }
 
-.desc {
+.about {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 80vh;
+}
+
+.info {
     max-width: 400px;
 }
 
-.descItem {
+.infoItem {
     margin-bottom: 15px;
     line-height: 1.7;
 }
 
-.title {
+.infoItemHeader {
     color: #0BA3DD;
     font-weight: 700;
 }

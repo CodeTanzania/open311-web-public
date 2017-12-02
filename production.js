@@ -18,6 +18,10 @@ app.use(apiProxy);
 
 app.use(express.static('public'));
 
+app.get('*', (req, res) => {
+    res.sendFile(path.join(__dirname, 'public', 'index.html'));
+});
+
 app.listen(app.get('port'), function () {
     console.log('Express server is up on port', app.get('port'));
 });

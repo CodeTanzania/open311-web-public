@@ -132,6 +132,19 @@ export const searchSRByTicketNo = (ticketNum) => (dispatch) => {
         });
 };
 
+export const fetchServices = () => (dispatch) => {
+    API
+        .getServices()
+        .then(data => {
+            const services = data
+                .services
+                .map(service => {
+                    return { code: service.code, name: service.name, id: service._id, selected: true };
+                });
+            return dispatch(receiveServices(services));
+        });
+};
+
 export const initMapData = () => dispatch => {
     dispatch(fetchMapData());
     API

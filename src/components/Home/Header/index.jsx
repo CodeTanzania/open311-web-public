@@ -1,7 +1,8 @@
 
 /* eslint no-unused-vars:1 */
 import React, { Component } from 'react';
-import { HashLink as Link } from 'react-router-hash-link';
+import { HashLink } from 'react-router-hash-link';
+import { Link } from 'react-router-dom';
 // import Sidebar from 'Sidebar';
 import styles from './styles.scss';
 import classnames from 'classnames/bind';
@@ -52,9 +53,10 @@ class Header extends Component {
                 </div> */}
                 <div className={cx('horizontalMenu')}>
                     <ul className={cx('menu')}>
-                        <Link to="/#top" className={cx('menuItem')}>About</Link>
-                        <Link to="/#services" className={cx('menuItem')}>How It Works</Link>
-                        <Link to="/#statistics" className={cx('menuItem')}>Statistics</Link>
+                        <HashLink to="/#about" className={cx('menuItem')}>About</HashLink>
+                        {/* <HashLink to="/#services" className={cx('menuItem')}>How It Works</HashLink> */}
+                        <HashLink to="/#statistics" className={cx('menuItem')}>Statistics</HashLink>
+                        <Link to="/issues" className={cx('menuItem')}>Reported Issues</Link>
                     </ul>
                 </div>
             </div>

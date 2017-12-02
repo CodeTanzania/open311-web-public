@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import styles from './styles.scss';
 import classnames from 'classnames/bind';
 const cx = classnames.bind(styles);
+import Button from 'Button';
 
 import { connect } from 'react-redux';
 import { searchSRByTicketNo } from 'actions';
@@ -39,7 +40,8 @@ class SearchBox extends Component {
         return (
             <form className={cx('searchBox')} onSubmit={this.handleSubmit}>
                 <input type="text" value={this.state.ticketNum} onChange={this.handleChange} className={cx('searchField')} placeholder="Enter Ticket Number" />
-                <button className={cx('searchBtn')}><i className="fa fa-search" aria-hidden="true"></i></button>
+                {/* <button className={cx('searchBtn')}><i className="fa fa-search" aria-hidden="true"></i></button> */}
+                <Button searchBtn={true}><i className="fa fa-search" aria-hidden="true"></i></Button>
             </form>
         );
     }
