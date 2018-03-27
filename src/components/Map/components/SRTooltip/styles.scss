@@ -1,5 +1,6 @@
 .container {
     max-width: 350px;
+    padding-right: 20px;
 }
 
 .item {
@@ -14,11 +15,19 @@
 }
 
 .itemTitle {
-    color: #6a6a6a;
-    text-transform: uppercase;
-    font-weight: 400;
+    color: #000000;
+    font-weight: bold;
+    &.emphasize {
+        color: #6a6a6a;
+        font-weight: 700;
+        text-transform: uppercase;
+    }
 }
 
 .itemValue {
-    font-weight: 900;
+    &.emphasize {
+        font-weight: 900;
+        color: #189ad1;
+        text-transform: uppercase;
+    }
 }

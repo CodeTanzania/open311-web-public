@@ -34,7 +34,7 @@ const getIcon = (serviceRequestName) => {
     shadowSize: [22, 25], // size of the shadow
     iconAnchor: [7, 20], // point of the icon which will correspond to marker's location
     shadowAnchor: [7, 20], // the same for the shadow
-    tooltipAnchor: [0, -15], // point from which the popup should open relative to the iconAnchor
+    tooltipAnchor: [20, -10], // point from which the popup should open relative to the iconAnchor
   };
 
   switch (serviceRequestName) {
@@ -136,7 +136,7 @@ class SimpleMap extends Component {
       <SRTooltip serviceRequest={SRItem} />,
       tooltipContent,
     );
-    SRMarker.bindTooltip(tooltipContent, { direction: 'top' });
+    SRMarker.bindTooltip(tooltipContent, { direction: 'right' });
     return SRMarker;
   }
 
