@@ -1,5 +1,5 @@
 .loader {
-    position: fixed;
+    position: absolute;
     top: 0;
     bottom: 0;
     left: 0;
@@ -68,19 +68,19 @@
     left: 131px;
 }
 
-.header {
-    position: fixed;
+.filter {
+    position: absolute;
     top: 12px;
     left: 5px;
     display: flex;
 }
 
-.headerItem {
+.filterItem {
     margin-left: 5px;
     height: 52px;
 }
 
-.headerItem.homeBtn {
+.filterItem.homeBtn {
     background-color: whitesmoke;
     box-shadow: 0px 1px 4px rgba(0, 0, 0, 0.3);
     padding: 15px;
@@ -89,4 +89,14 @@
     &:hover {
         background-color: #eeeeee;
     }
+}
+
+.wrapper {
+    display: flex;
+    min-height: 100vh;
+    flex-direction: column;
+}
+
+.main {
+    flex: 1;
 }

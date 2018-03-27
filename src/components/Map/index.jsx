@@ -16,6 +16,7 @@ import SRFilter from './components/SRFilter';
 import SRMapLegend from './components/SRMapLegend';
 import SRDateFilter from './components/SRDateFilter';
 import SRSearchBox from './components/SRSearchBox';
+import Header from '../Header';
 import styles from './styles.scss';
 import './leaflet.css';
 
@@ -195,63 +196,79 @@ class SimpleMap extends Component {
     const ticketNotFound = !loading && !dataFound && title === MAP_DATA_SEARCH_BY_TICKETNO;
 
     return (
-      <div>
-        <div className={cx('loader', { hide: !loading && dataFound })} style={{ zIndex: 501 }}>
-          <div className={cx('spinner', { hide: !loading && !dataFound })}>
-          </div>
-          {
-            ticketNotFound ? <div className={cx('loaderInfo')}>
-              <div className={cx('loaderInfoHeader')}>Invalid Ticket Number</div>
-              <div className={cx('loaderInfoBody')}>Dawasco Map Cannot Find Issue with Ticket No: <strong>{ticketNum}</strong></div>
-              <div className={cx('loaderInfoAction')}>
-                <button type="button" className="btn btn-primary" onClick={this.handleEnterValidTicket}>Enter Valid Ticket Number</button>
+      <div className={cx('wrapper')} >
+        <Header />
+        <div className={cx('main')}>
+          <div style={{ position: 'relative' }}>
+            <div className={cx('loader', { hide: !loading && dataFound })} style={{ zIndex: 501 }}>
+              <div className={cx('spinner', { hide: !loading && !dataFound })}>
               </div>
-            </div> : ''
-          }
-        </div>
-        <div className={cx('header')} style={{ zIndex: 500 }}>
-          <Link to="/"><div className={cx('headerItem', 'homeBtn')} title='Go Home'><i className="fa fa-home fa-2x" aria-hidden="true"></i></div></Link>
-          <div className={cx('headerItem')} >
-            <SRSearchBox />
-          </div>
-          <div className={cx('headerItem')}><SRDateFilter /></div>
-          <div className={cx('headerItem')}><SRFilter /></div>
-        </div>
-        <SRCard />
-        <Map center={center} zoomControl={false} zoom={zoom} ref={(map) => { this.map = map; }}>
-          <TileLayer
-            attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
-            url='http://{s}.tile.osm.org/{z}/{x}/{y}.png'
-          />
-
-          {
-            serviceRequests.map((item) => {
-              if (item.location) {
-                const data = {
-                  type: 'Feature',
-                  geometry: {
-                    type: 'Point',
-                    coordinates: item.location.coordinates,
-                  },
-                  properties: {
-                    SRItem: JSON.stringify(item),
-                  },
-                };
-                return (<GeoJSON
-                  data={data}
-                  key={item.code}
-                  pointToLayer={this.pointToLayer.bind(this)}
-                  onEachFeature={this.onEachFeature}>
-                </GeoJSON>);
+              {
+                ticketNotFound ? <div className={cx('loaderInfo')}>
+                  <div className={cx('loaderInfoHeader')}>Invalid Ticket Number</div>
+                  <div className={cx('loaderInfoBody')}>
+                    Dawasco Map Cannot Find Issue with Ticket No: <strong>{ticketNum}</strong>
+                  </div>
+                  <div className={cx('loaderInfoAction')}>
+                    <button
+                      type="button"
+                      className="btn btn-primary"
+                      onClick={this.handleEnterValidTicket}>
+                      Enter Valid Ticket Number
+                </button>
+                  </div>
+                </div> : ''
               }
-              return '';
-            })
-          }
-        </Map >
-        <div className={cx('legend')} style={{ zIndex: 500 }}>
-          <SRMapLegend />
+            </div>
+            <div className={cx('filter')} style={{ zIndex: 500 }}>
+              {/* <Link to="/">
+                <div className={cx('filterItem', 'homeBtn')} title='Go Home'>
+                  <i className="fa fa-home fa-2x" aria-hidden="true"></i>
+                </div>
+              </Link> */}
+              <div className={cx('filterItem')} >
+                <SRSearchBox />
+              </div>
+              <div className={cx('filterItem')}><SRDateFilter /></div>
+              <div className={cx('filterItem')}><SRFilter /></div>
+            </div>
+            <SRCard />
+            <Map center={center} zoomControl={false} zoom={zoom} ref={(map) => { this.map = map; }}>
+              <TileLayer
+                attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
+                url='http://{s}.tile.osm.org/{z}/{x}/{y}.png'
+              />
+
+              {
+                serviceRequests.map((item) => {
+                  if (item.location) {
+                    const data = {
+                      type: 'Feature',
+                      geometry: {
+                        type: 'Point',
+                        coordinates: item.location.coordinates,
+                      },
+                      properties: {
+                        SRItem: JSON.stringify(item),
+                      },
+                    };
+                    return (<GeoJSON
+                      data={data}
+                      key={item.code}
+                      pointToLayer={this.pointToLayer.bind(this)}
+                      onEachFeature={this.onEachFeature}>
+                    </GeoJSON>);
+                  }
+                  return '';
+                })
+              }
+            </Map >
+            <div className={cx('legend')} style={{ zIndex: 500 }}>
+              <SRMapLegend />
+            </div>
+          </div >
         </div>
-      </div >
+      </div>
     );
   }
 }

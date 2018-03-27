@@ -1,6 +1,6 @@
 import React from 'react';
 import classnames from 'classnames/bind';
-import Header from './Header';
+import Header from '../Header';
 import Main from './Main';
 import Footer from './Footer';
 
