@@ -9,5 +9,5 @@ import store from 'store';
 import SRFilter from './index.jsx';
 
 storiesOf('SR Filter', module)
-    .addDecorator(story => (<Provider store={store}>{story()}</Provider>))
-    .addWithInfo('Default', 'Service Request Filter', () => <SRFilter />);
+  .addDecorator(story => (<Provider store={store}>{story()}</Provider>))
+  .addWithInfo('Default', 'Service Request Filter', () => <SRFilter />);

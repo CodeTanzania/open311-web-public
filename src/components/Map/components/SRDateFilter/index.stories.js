@@ -9,11 +9,11 @@ import moment from 'moment';
 
 
 const handleDatesChange = ({ startDate, endDate }) => {
-    console.log(startDate);
-    console.log(endDate);
-}
+  console.log(startDate);
+  console.log(endDate);
+};
 
 storiesOf('Date Filter', module)
-    .addDecorator(story => (<Provider store={store}>{story()}</Provider>))
-    .addWithInfo('Default', 'Date Filter', () => (<DateFilter onDatesChange={handleDatesChange}
-    />))
+  .addDecorator(story => (<Provider store={store}>{story()}</Provider>))
+  .addWithInfo('Default', 'Date Filter', () => (<DateFilter onDatesChange={handleDatesChange}
+    />));

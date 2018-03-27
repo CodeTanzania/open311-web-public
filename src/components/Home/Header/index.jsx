@@ -3,42 +3,43 @@
 import React, { Component } from 'react';
 import { HashLink } from 'react-router-hash-link';
 import { Link } from 'react-router-dom';
+import classnames from 'classnames/bind';
 // import Sidebar from 'Sidebar';
 import styles from './styles.scss';
-import classnames from 'classnames/bind';
 
 const cx = classnames.bind(styles);
 /* eslint no-unused-vars:0 */
 
 class Header extends Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            visible: false
-        };
-        //Binding of this
-        this.toggleSidebar = this.toggleSidebar.bind(this);
-    }
+  constructor(props) {
+    super(props);
+    this.state = {
+      visible: false,
+    };
+    // Binding of this
+    this.toggleSidebar = this.toggleSidebar.bind(this);
+  }
 
-    toggleSidebar() {
-        const visible = !this.state.visible;
-        this.setState({
-            visible
-        });
-    }
+  toggleSidebar() {
+    const visible = !this.state.visible;
+    this.setState({
+      visible,
+    });
+  }
 
-    render() {
-        const { visible } = this.state;
-        return (
-            <div className={cx('header')}>
-                <div className={cx('logoContainer')} >
-                    <Link to="/">
-                        <img src='images/MajiFix_Logo.svg' className={cx('logo')} alt="" />
-                    </Link>
-                </div>
-                {/* <div className={cx('offcanvasMenu')}>
+  render() {
+    const { visible } = this.state;
+    return (
+      <div className={cx('header')}>
+        <div className={cx('logoContainer')} >
+          <Link to="/">
+            <img src='images/MajiFix_Logo.svg' className={cx('logo')} alt="" />
+          </Link>
+        </div>
+        {/* <div className={cx('offcanvasMenu')}>
                     <div className={cx('offcanvasBtn')}>
-                        <a href="#" onClick={this.toggleSidebar} className="icon ion-navicon-round"></a>
+                        <a href="#" onClick={this.toggleSidebar} className="icon ion-navicon-round">
+                        </a>
                     </div>
                     <Sidebar visible={visible} onToggleSidebar={this.toggleSidebar}>
                         <ul className={cx('menu')}>
@@ -51,17 +52,17 @@ class Header extends Component {
                         </ul>
                     </Sidebar>
                 </div> */}
-                <div className={cx('horizontalMenu')}>
-                    <ul className={cx('menu')}>
-                        <HashLink to="/#about" className={cx('menuItem')}>About</HashLink>
-                        {/* <HashLink to="/#services" className={cx('menuItem')}>How It Works</HashLink> */}
-                        <HashLink to="/#statistics" className={cx('menuItem')}>Statistics</HashLink>
-                        <Link to="/issues" className={cx('menuItem')}>Reported Issues</Link>
-                    </ul>
-                </div>
-            </div>
-        );
-    }
+        <div className={cx('horizontalMenu')}>
+          <ul className={cx('menu')}>
+            <HashLink to="/#about" className={cx('menuItem')}>About</HashLink>
+            {/* <HashLink to="/#services" className={cx('menuItem')}>How It Works</HashLink> */}
+            <HashLink to="/#statistics" className={cx('menuItem')}>Statistics</HashLink>
+            <Link to="/issues" className={cx('menuItem')}>Reported Issues</Link>
+          </ul>
+        </div>
+      </div>
+    );
+  }
 }
 
 export default Header;

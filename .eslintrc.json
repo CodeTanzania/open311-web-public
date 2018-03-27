@@ -1,43 +1,32 @@
 {
-	"env": {
-		"browser": true,
-		"node": true,
-		"es6": true
-	},
-	"extends": "eslint:recommended",
-	"parserOptions": {
-		"ecmaFeatures": {
-			"experimentalObjectRestSpread": true,
-			"jsx": true
-		},
-		"sourceType": "module"
-	},
-	"plugins": [
-		"react"
-	],
-	"rules": {
-		// "indent": [
-		// 	"error",
-		// 	"tab"
-		// ],
-		"no-console": 1,
-		"linebreak-style": [
-			"error",
-			"unix"
-		],
-		"quotes": [
-			"error",
-			"single"
-		],
-		"semi": [
-			"error",
-			"always"
-		],
-		"no-mixed-spaces-and-tabs": [
-			"off",
-			"smart-tabs"
-		],
-		"react/jsx-uses-react": "error",
-		"react/jsx-uses-vars": "error"
-	}
+  "extends": "airbnb-base",
+  "parserOptions": {
+    "ecmaFeatures": {
+      "experimentalObjectRestSpread": true,
+      "jsx": true
+    },
+    "sourceType": "module"
+  },
+  "plugins": [
+    "react"
+  ],
+  "rules": {
+    "no-underscore-dangle": "off",
+    "no-use-before-define": [
+      "error",
+      {
+        "functions": false
+      }
+    ],
+    "import/extensions": "off",
+    "import/no-unresolved": "off",
+    "react/jsx-uses-react": "error",
+    "react/jsx-uses-vars": "error"
+  },
+  "globals": {
+    "window": true,
+    "document": true,
+    "fetch": true,
+    "Headers": true
+  }
 }

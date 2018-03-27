@@ -8,6 +8,6 @@ import store from 'store';
 import SRMapLegend from './index.jsx';
 
 storiesOf('SR Map Legend', module)
-    .addDecorator(getStory => (<Provider store={store}>{getStory()}</Provider>))
-    .addWithInfo('Default', 'Service Request Map legend to describe symbols used on the map', () => <SRMapLegend />)
+  .addDecorator(getStory => (<Provider store={store}>{getStory()}</Provider>))
+  .addWithInfo('Default', 'Service Request Map legend to describe symbols used on the map', () => <SRMapLegend />);
 

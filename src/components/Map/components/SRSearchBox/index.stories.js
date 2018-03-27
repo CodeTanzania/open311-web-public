@@ -8,6 +8,6 @@ import store from 'store';
 import SRSearchBox from './index.jsx';
 
 storiesOf('SR Search Box', module)
-    .addDecorator(getStory => (<Provider store={store}>{getStory()}</Provider>))
-    .addDecorator(getStory => (<div style={{ width: '500px' }} >{getStory()}</div>))
-    .addWithInfo('Default', 'Service Request Search Box', () => <SRSearchBox />);
+  .addDecorator(getStory => (<Provider store={store}>{getStory()}</Provider>))
+  .addDecorator(getStory => (<div style={{ width: '500px' }} >{getStory()}</div>))
+  .addWithInfo('Default', 'Service Request Search Box', () => <SRSearchBox />);
