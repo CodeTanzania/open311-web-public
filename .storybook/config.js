@@ -2,9 +2,9 @@ import { configure, setAddon } from '@storybook/react';
 import infoAddon, { setDefaults } from '@storybook/addon-info';
 
 import 'font-awesome/css/font-awesome.css';
-import 'bootstrap/dist/css/bootstrap.css';
+// import 'bootstrap/dist/css/bootstrap.css';
 import 'react-select/dist/react-select.css';
-import '../src/main.css';
+import '../src/site.css';
 
 import 'react-dates/initialize';
 

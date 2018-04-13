@@ -18,6 +18,11 @@
     color: #fff;
 }
 
+.DateInput_input {
+    font-size: 14px;
+    padding-right: 0;
+}
+
 .DateInput_input__focused {
     border-bottom: 2px solid #07729a;
 }
@@ -31,4 +36,8 @@
 
 .DayPickerKeyboardShortcuts_show__bottomRight:hover {
     border-right: 33px solid #0ba3dd;
+}
+
+.DateRangePickerInput_calendarIcon_svg {
+    fill: #0BA3DD;
 }

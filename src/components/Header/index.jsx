@@ -31,11 +31,9 @@ class Header extends Component {
     const { visible } = this.state;
     return (
       <div className={cx('header')}>
-        <div className={cx('logoContainer')} >
-          <Link to="/">
-            <img src='images/MajiFix_Logo.svg' className={cx('logo')} alt="" />
-          </Link>
-        </div>
+        <Link to="/" className={cx('logoContainer')}>
+          <img src='images/MajiFix_Logo.svg' className={cx('logo')} alt="" />
+        </Link>
         {/* <div className={cx('offcanvasMenu')}>
                     <div className={cx('offcanvasBtn')}>
                         <a href="#" onClick={this.toggleSidebar} className="icon ion-navicon-round">
@@ -54,10 +52,10 @@ class Header extends Component {
                 </div> */}
         <div className={cx('horizontalMenu')}>
           <ul className={cx('menu')}>
-            <HashLink to="/#about" className={cx('menuItem')}>About</HashLink>
+            <HashLink to="/#about" className={cx('menuItem')}>Home</HashLink>
             {/* <HashLink to="/#services" className={cx('menuItem')}>How It Works</HashLink> */}
-            <HashLink to="/#statistics" className={cx('menuItem')}>Statistics</HashLink>
-            <Link to="/issues" className={cx('menuItem')}>Reported Issues</Link>
+            {/* <HashLink to="/#statistics" className={cx('menuItem')}>Statistics</HashLink> */}
+            <Link to="/issues" className={cx('menuItem')}>Issues</Link>
           </ul>
         </div>
       </div>

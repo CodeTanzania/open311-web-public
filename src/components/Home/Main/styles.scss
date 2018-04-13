@@ -3,14 +3,13 @@
 }
 
 .about {
-    display: flex;
-    justify-content: space-between;
+    display: flex; // justify-content: space-between;
     align-items: center;
     height: 80vh;
 }
 
 .info {
-    max-width: 400px;
+    max-width: 250px;
 }
 
 .infoItem {
@@ -19,6 +18,6 @@
 }
 
 .infoItemHeader {
-    color: #0BA3DD;
+    color: #2db34b;
     font-weight: 700;
 }

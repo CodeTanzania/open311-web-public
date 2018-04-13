@@ -19,6 +19,7 @@ const defaultProps = {
   isOutsideRange: () => false,
   numberOfMonths: 1,
   showDefaultInputIcon: true,
+  regular: true,
 };
 class DateFilter extends Component {
   constructor(props) {
@@ -63,6 +64,8 @@ class DateFilter extends Component {
           onFocusChange={this.onFocusChange} // PropTypes.func.isRequired,
           hideKeyboardShortcutsPanel
           reopenPickerOnClearDates={false}
+          small
+          noBorder
         />
       </div>
     );

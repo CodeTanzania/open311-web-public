@@ -84,9 +84,11 @@ class SRFilter extends Component {
     return (
       <div className={cx('filterContainer')}>
         <div className={cx('filterBtn')} title='More Filters' onClick={this.toggleFilterContent}>
-          {/* <i className={cx('fa', 'fa-filter', 'fa-2x')} aria-hidden="true"></i> */}
+          <span className={cx('filterBtnIcon')}><img src="images/icons/filter.svg" alt="" className={cx('filterIcon')} /></span>
+          <span className={cx('filterBtnLabel')}>Filters</span>
         </div>
         <div className={cx('filterContent', { hide: hideFilterContent })} >
+          <span className={cx('filterTitle')}>Filter By Area</span>
           <Select
             onChange={this.areaChangeHandler}
             options={areaOptions}
@@ -95,14 +97,17 @@ class SRFilter extends Component {
             placeholder='Select Area'
           />
           <div className={cx('statusFilter')}>
-            {
-              statuses.map(status => (
-                <Status
-                  key={status.name}
-                  status={status}
-                  onStatusClicked={this.statusChangeHandler} />
-              ))
-            }
+            <span className={cx('filterTitle')}>Filter By Status</span>
+            <div className={cx('statuses')}>
+              {
+                statuses.map(status => (
+                  <Status
+                    key={status.name}
+                    status={status}
+                    onStatusClicked={this.statusChangeHandler} />
+                ))
+              }
+            </div>
           </div>
         </div>
       </div >

@@ -15,6 +15,8 @@ $brand-color:#0BA3DD;
 .logoContainer {
     display: flex;
     align-items: center;
+    height: 55px;
+    overflow: hidden;
 }
 
 .logo {
@@ -38,8 +40,7 @@ $brand-color:#0BA3DD;
 
 .menuItem {
     display: block;
-    color: #000000;
-    text-transform: uppercase;
+    color: #000000; // text-transform: uppercase;
     font-weight: 700;
     padding-top: 12px;
     padding-bottom: 12px;

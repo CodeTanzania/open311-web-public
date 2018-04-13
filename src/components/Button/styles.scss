@@ -21,8 +21,7 @@
     border-top: 1px solid #ced4da;
     border-bottom: 1px solid #ced4da;
     border-right: 1px solid #ced4da;
-    border-left: 0;
-    font-size: 1.25rem;
+    border-left: 0; // font-size: 1.25rem;
     padding: .6rem 1rem;
     background-color: whitesmoke;
     color: #0BA3DD;
@@ -33,12 +32,12 @@
     }
 }
 
-.btn.green {
-    background-color: #2ab34b;
+.btn.blue {
+    background-color: #0BA3DD;
     color: white;
     &:hover,
     &:focus {
-        background-color: #25a143;
+        background-color: #0BA3DD;
         color: white;
     }
 }

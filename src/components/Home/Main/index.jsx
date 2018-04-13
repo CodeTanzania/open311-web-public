@@ -36,7 +36,7 @@ export default function Main() {
               </div>
           </div>
           <div className={cx('infoItem')}>
-            <Link to="/issues"> <Button color='green'>VIEW REPORTED ISSUES</Button></Link>
+            <Link to="/issues"> <Button color='blue'>VIEW REPORTED ISSUES</Button></Link>
           </div>
         </div>
       </div>

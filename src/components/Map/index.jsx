@@ -13,7 +13,7 @@ import { MAP_DATA_RELOAD, MAP_DATA_SEARCH_BY_TICKETNO } from 'utils/constants';
 import SRTooltip from './components/SRTooltip';
 import SRCard from './components/SRCard';
 import SRFilter from './components/SRFilter';
-import SRMapLegend from './components/SRMapLegend';
+// import SRMapLegend from './components/SRMapLegend';
 import SRDateFilter from './components/SRDateFilter';
 import SRSearchBox from './components/SRSearchBox';
 import Header from '../Header';
@@ -221,15 +221,11 @@ class SimpleMap extends Component {
               }
             </div>
             <div className={cx('filter')} style={{ zIndex: 500 }}>
-              {/* <Link to="/">
-                <div className={cx('filterItem', 'homeBtn')} title='Go Home'>
-                  <i className="fa fa-home fa-2x" aria-hidden="true"></i>
-                </div>
-              </Link> */}
               <div className={cx('filterItem')} >
                 <SRSearchBox />
+                <div className={cx('dateFilter')}><SRDateFilter /></div>
               </div>
-              <div className={cx('filterItem')}><SRDateFilter /></div>
+
               <div className={cx('filterItem')}><SRFilter /></div>
             </div>
             <SRCard />
@@ -263,9 +259,9 @@ class SimpleMap extends Component {
                 })
               }
             </Map >
-            <div className={cx('legend')} style={{ zIndex: 500 }}>
+            {/* <div className={cx('legend')} style={{ zIndex: 500 }}>
               <SRMapLegend />
-            </div>
+            </div> */}
           </div >
         </div>
       </div>

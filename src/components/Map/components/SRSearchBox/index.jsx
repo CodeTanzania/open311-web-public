@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import classnames from 'classnames/bind';
-import Button from 'Button';
+// import Button from 'Button';
 import { connect } from 'react-redux';
 import { searchSRByTicketNo } from 'actions';
 import styles from './styles.scss';
@@ -38,17 +38,19 @@ class SearchBox extends Component {
 
   render() {
     return (
-      <form className={cx('searchBox')} onSubmit={this.handleSubmit}>
-        <input
-          type="text"
-          value={this.state.ticketNum}
-          onChange={this.handleChange}
-          className={cx('searchField')}
-          placeholder="Enter Ticket Number" />
-        {/* <button className={cx('searchBtn')}>
-      <i className="fa fa-search" aria-hidden="true"></i></button> */}
-        <Button searchBtn={true}><i className="fa fa-search" aria-hidden="true"></i></Button>
-      </form>
+      <div className={cx('searchBox')}>
+        <div className={cx('searchBtn')} onClick={this.handleSubmit}>
+          <img src="images/icons/search.svg" alt="" className={cx('searchBtnIcon')} />
+        </div>
+        <div className={cx('searchFieldContainer')}>
+          <input
+            type="text"
+            value={this.state.ticketNum}
+            onChange={this.handleChange}
+            className={cx('searchField')}
+            placeholder="Enter Ticket Number" />
+        </div>
+      </div>
     );
   }
 }
