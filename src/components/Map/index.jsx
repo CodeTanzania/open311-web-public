@@ -23,7 +23,7 @@ import './leaflet.css';
 const cx = classnames.bind(styles);
 
 
-const defaultZoom = 10;
+const defaultZoom = 11;
 // Get service request(issue) using lat & lng
 const getIssue = (latlng, issues) => issues.find(issue =>
   issue.latitude === latlng.lat && issue.longitude === latlng.lng);
@@ -232,9 +232,9 @@ class SimpleMap extends Component {
             <Map center={center} zoomControl={false} zoom={zoom} ref={(map) => { this.map = map; }}>
               <TileLayer
                 attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
-                url='http://{s}.tile.osm.org/{z}/{x}/{y}.png'
+                id='mapbox.light'
+                url='https://api.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token=pk.eyJ1Ijoid29ybGRiYW5rLWVkdWNhdGlvbiIsImEiOiJIZ2VvODFjIn0.TDw5VdwGavwEsch53sAVxA#1.6/23.725906/-39.714135/0'
               />
-
               {
                 serviceRequests.map((item) => {
                   if (item.location) {

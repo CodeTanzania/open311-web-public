@@ -3,13 +3,22 @@ $brand-color:#0BA3DD;
     position: fixed;
     background-color: rgba(255, 255, 255, 0.78);
     z-index: 600;
+    height: 55px;
+    width: 100%;
+}
+
+.content {
     display: flex;
     justify-content: space-between;
     align-items: center;
     padding-left: 80px;
     padding-right: 80px;
-    height: 55px;
+}
+
+.contentBorder {
     width: 100%;
+    height: 4px;
+    background: linear-gradient(to right, #189ad1, #2db34b);
 }
 
 .logoContainer {
@@ -40,16 +49,14 @@ $brand-color:#0BA3DD;
 
 .menuItem {
     display: block;
-    color: #000000; // text-transform: uppercase;
-    font-weight: 700;
-    padding-top: 12px;
-    padding-bottom: 12px;
+    color: #555555;
+    text-transform: uppercase;
+    font-weight: 600;
     border-bottom: 2px solid white;
     text-decoration: none;
     &:hover,
     &:active {
-        color: inherit;
-        border-bottom: 2px solid $brand-color;
+        color: $brand-color;
     }
 }
 

@@ -25,32 +25,37 @@ class Statistic extends Component {
 
   render() {
     const { data } = this.state;
-    if (!data) {
-      return null;
-    }
     const { publicServices } = this.props;
-    const services = data
-      .services
-      .filter(service =>
-        publicServices.some(publicService => publicService.name === service.name));
+    let services = [];
+    if (data) {
+      services = data
+        .services
+        .filter(service =>
+          publicServices.some(publicService => publicService.name === service.name));
+    }
 
     return (
-      <div className={cx('container')} id='statistics' >
-        {
-          services.map((service) => {
-            const alias = service.name.replace(/\s/g, '_').toLowerCase();
-            const imgUrl = `images/icons/${alias}.svg`;
-            return (
-              <div key={service.name} className={cx('item')} >
-                <img src={imgUrl} className={cx('icon')} />
-                <div key='name' className={cx('itemName')} >{service.name}</div>
-                <div key='value' className={cx('itemValue')} >{service.count}</div>
-              </div>
-            );
-          })
-        }
-      </div>
-    );
+      [
+        <div key='1' className={cx('title')}>
+          <span className={cx('titleLabel')}>Statistics</span>
+          <span className={cx('titleValue')}>LAST 30 DAYS</span>
+        </div>,
+        <div key='2' className={cx('items')} id='statistics' >
+          {
+            services.length ? services.map((service) => {
+              const alias = service.name.replace(/\s/g, '_').toLowerCase();
+              const imgUrl = `images/icons/${alias}.svg`;
+              return (
+                <div key={service.name} className={cx('item')} >
+                  <img src={imgUrl} className={cx('icon')} />
+                  <div key='name' className={cx('itemName')} >{service.name}</div>
+                  <div key='value' className={cx('itemValue')} >{service.count}</div>
+                </div>
+              );
+            }) : ''
+          }
+        </div>,
+      ]);
   }
 }
 
