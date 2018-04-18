@@ -84,7 +84,7 @@ class SRFilter extends Component {
     return (
       <div className={cx('filterContainer')}>
         <div className={cx('filterBtn')} title='More Filters' onClick={this.toggleFilterContent}>
-          <span className={cx('filterBtnIcon')}><img src="images/icons/filter.svg" alt="" className={cx('filterIcon')} /></span>
+          <span className={cx('filterBtnIcon')}><img src="icons/filter.svg" alt="" className={cx('filterIcon')} /></span>
           <span className={cx('filterBtnLabel')}>Filters</span>
         </div>
         <div className={cx('filterContent', { hide: hideFilterContent })} >

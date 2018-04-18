@@ -1,8 +1,11 @@
+/* eslint no-unused-vars: "off" */
+/* eslint no-trailing-spaces: "off" */
 import React, { Component } from 'react';
 import classnames from 'classnames/bind';
 import { connect } from 'react-redux';
 import { unselectMapPoint } from 'actions';
 import Moment from 'react-moment';
+import moment from 'moment';
 // import the core library.
 import ReactEcharts from 'echarts-for-react/lib/core';
 // then import echarts modules those you have used manually.
@@ -46,10 +49,11 @@ const getSRStatusClass = (status) => {
 const renderCard = (props, onBackBtnClicked) => {
   const { selectedSR, SRSummary, publicServices } = props;
 
+  let totalCount = 0;
   let barChartOption;
-  let jurisdictionPieChartOption;
   let serviceStatusChartOption;
   if (Object.keys(SRSummary).length) {
+    totalCount = SRSummary.overall.count;
     // calculate public services
     const services = SRSummary.services.filter(service =>
       publicServices.some(publicService => publicService.name === service.name));
@@ -60,15 +64,7 @@ const renderCard = (props, onBackBtnClicked) => {
         value: service.count / 1000,
         itemStyle: {
           normal: {
-            color: service.color,
-            label: {
-              show: true,
-              position: 'inside',
-              formatter(params) {
-                const value = params.value * 1000;
-                return value.toLocaleString();
-              },
-            },
+            color: '#555555',
           },
         },
       };
@@ -80,26 +76,31 @@ const renderCard = (props, onBackBtnClicked) => {
       tooltip: {
         trigger: 'axis',
         axisPointer: {
-          type: 'shadow',
+          type: 'line',
+        },
+        backgroundColor: '#ffffff',
+        textStyle: {
+          color: '#2db34b',
         },
         formatter(params) {
-          return `${params[0].name}<br/>${params[0].value * 1000}`;
+          return `${params[0].value * 1000}`;
         },
+        extraCssText: 'box-shadow: -1px 1px 7px rgba(0, 0, 0, 0.4); border-radius:0',
       },
-      xAxis: [{
+      yAxis: [{
         type: 'category',
         data: barChartData.map(serie => serie.name),
-        axisTick: {
-          alignWithLabel: true,
+        axisLine: {
+          show: false,
         },
-        axisLabel: {
-          rotate: 30,
-          fontSize: 11,
+        axisTick: {
+          show: false,
         },
       }],
-      yAxis: [
+      xAxis: [
         {
           type: 'value',
+          show: false,
           axisLabel: { formatter: '{value}k' },
         }],
       calculable: true,
@@ -109,65 +110,81 @@ const renderCard = (props, onBackBtnClicked) => {
           data: barChartData,
         },
       ],
+      grid: {
+        top: 5,
+        bottom: 45,
+        left: 100,
+      },
     };
 
     // create jurisdictions chart data
-    const jurisdictionChartData = SRSummary.jurisdictions.map(jurisdiction => ({
-      name: jurisdiction.name,
-      value: jurisdiction.count,
-      color: jurisdiction.color,
-    }));
+    // const jurisdictionChartData = SRSummary.jurisdictions.map(jurisdiction => ({
+    //   name: jurisdiction.name,
+    //   value: jurisdiction.count,
+    //   color: jurisdiction.color,
+    // }));
 
-    // create echart jurisdiction pie chart options
-    jurisdictionPieChartOption = {
-      title: {
-        text: 'Total',
-        subtext: jurisdictionChartData.reduce((prev, curr) => prev + curr.value, 0),
-        x: 'center',
-        y: 'center',
-        textStyle: {
-          fontWeight: 'normal',
-          fontSize: 16,
-        },
-      },
-      tooltip: {
-        show: true,
-        trigger: 'item',
-        formatter: '{b}:<br/> Count: {c} <br/> Percent: ({d}%)',
-      },
-      series: [{
-        type: 'pie',
-        selectedMode: 'single',
-        radius: ['45%', '55%'],
-        color: jurisdictionChartData.map(data => data.color),
-        label: {
-          normal: {
-            formatter: '{b}\n{d}%',
-          },
-        },
-        data: jurisdictionChartData,
-      }],
-    };
+    // // create echart jurisdiction pie chart options
+    // jurisdictionPieChartOption = {
+    //   title: {
+    //     text: 'Total',
+    //     subtext: jurisdictionChartData.reduce((prev, curr) => prev + curr.value, 0),
+    //     x: 'center',
+    //     y: 'center',
+    //     textStyle: {
+    //       fontWeight: 'normal',
+    //       fontSize: 16,
+    //     },
+    //   },
+    //   tooltip: {
+    //     show: true,
+    //     trigger: 'item',
+    //     formatter: '{b}:<br/> Count: {c} <br/> Percent: ({d}%)',
+    //   },
+    //   series: [{
+    //     type: 'pie',
+    //     selectedMode: 'single',
+    //     radius: ['45%', '55%'],
+    //     color: jurisdictionChartData.map(data => data.color),
+    //     label: {
+    //       normal: {
+    //         formatter: '{b}\n{d}%',
+    //       },
+    //     },
+    //     data: jurisdictionChartData,
+    //   }],
+    // };
 
     // create service per status data
     const serviceStatusData = [
-      { value: SRSummary.overall.pending, name: 'pending' },
-      { value: SRSummary.overall.resolved, name: 'resolved' },
-      { value: SRSummary.overall.unattended, name: 'unattended' },
-      { value: SRSummary.overall.late, name: 'late' },
+      { value: SRSummary.overall.pending, name: 'pending', itemStyle: { color: '#999999' } },
+      { value: SRSummary.overall.resolved, name: 'resolved', itemStyle: { color: '#e5e5e5' } },
+      { value: SRSummary.overall.unattended, name: 'unattended', itemStyle: { color: '#4c4c4c' } },
+      { value: SRSummary.overall.late, name: 'late', itemStyle: { color: '#000000' } },
     ];
 
     serviceStatusChartOption = {
       tooltip: {
         trigger: 'item',
-        formatter: '{a} <br/>{b} : {c} ({d}%)',
+        // formatter: '{a} <br/>{b} : {c} ({d}%)',
+        formatter(item) {
+          return `<span style="color:#a9a9a9">${item.data.name.toUpperCase()}</span><br/> ${item.data.value}`;
+        },
+        backgroundColor: '#ffffff',
+        textStyle: {
+          color: '#2db34b',
+          fontWeight: 'bold',
+        },
+        extraCssText: 'box-shadow: -1px 1px 7px rgba(0, 0, 0, 0.4); border-radius:0; text-align:center;',
       },
       series: [
         {
           name: 'Complains',
           type: 'pie',
-          radius: '55%',
-          center: ['50%', '60%'],
+          hoverAnimation: false,
+          radius: '85%',
+          center: ['50%', '50%'],
+          label: { show: false },
           data: serviceStatusData,
           itemStyle: {
             emphasis: {
@@ -183,12 +200,68 @@ const renderCard = (props, onBackBtnClicked) => {
 
 
   if (selectedSR) {
+    const serviceName = selectedSR.service.name;
+    const alias = serviceName.replace(/\s/g, '_').toLowerCase();
+    const imgUrl = `icons/issues/${alias}.svg`;
+    const today = moment();
+    const createdAt = moment(selectedSR.createdAt);
+    const days = today.diff(createdAt, 'days');
     return (
       <div className={cx('cardContainer')} style={{ zIndex: 500 }}>
-        <div className={cx('header', 'navBtn')} onClick={onBackBtnClicked}>
-          <span>&#x3c;</span><span>&#x3c;</span><span> Back to Summary Statistics</span>
+        <div className={cx('cardItem')}>
+          <div className={cx('cardItemTitle')}>Issue Type</div>
+          <div className={cx('cardItemContent')}>
+            <img src={imgUrl} className={cx('cardItemIcon')} />
+            <div className={cx('cardItemCaption')}>{serviceName}</div>
+          </div>
         </div>
-        <div>
+        <div className={cx('cardItem')}>
+          <div className={cx('cardItemTitle')}>Status</div>
+          <div className={cx('cardItemContent')}>
+            {selectedSR.status.name}
+          </div>
+        </div>
+        <div className={cx('cardItem')}>
+          <div className={cx('cardItemTitle')}>Priority</div>
+          <div className={cx('cardItemContent')}>
+            {selectedSR.priority.name}
+          </div>
+        </div>
+        {selectedSR.changelogs ? (<div className={cx('cardItem')}>
+          <div className={cx('cardItemTitle')}>Resolution Timeline</div>
+          <div className={cx('cardItemContent')}>
+          </div>
+        </div>) : ''}
+        <div className={cx('cardItem')}>
+          <div className={cx('cardItemTitle', 'small')}>Ticket No:</div>
+          <div className={cx('cardItemContent', 'gray')}>
+            {selectedSR.code}
+          </div>
+        </div>
+        <div className={cx('cardItem')}>
+          <div className={cx('cardItemTitle', 'small')}>Days since submission:</div>
+          <div className={cx('cardItemContent', 'gray')}>
+            {days} <span>(<Moment format='DD/MM/YYYY' date={selectedSR.createdAt} />)</span>
+          </div>
+        </div>
+        <div className={cx('cardItem')}>
+          <div className={cx('cardItemTitle', 'small')}>Address:</div>
+          <div className={cx('cardItemContent', 'gray', 'small')}>
+            {selectedSR.address}
+          </div>
+        </div>
+        <div className={cx('cardItem')}>
+          <div className={cx('cardItemTitle', 'small')}>Area:</div>
+          <div className={cx('cardItemContent', 'gray', 'small')}>
+            {selectedSR.jurisdiction.name}
+          </div>
+        </div>
+        <div className={cx('cardItem')} onClick={onBackBtnClicked}>
+          <div className={cx('cardItemLink')}>
+            <span>&#x3c;</span><span>&#x3c;</span><span> Back to summary statistics</span>
+          </div>
+        </div>
+        {/* <div>
           <div className={cx('serviceName')}>
             <span>{selectedSR.service.name}</span>
           </div>
@@ -223,22 +296,31 @@ const renderCard = (props, onBackBtnClicked) => {
               {
                 selectedSR.changelogs ?
                   selectedSR.changelogs.map(changelog => (
-                    <div className="sl-item" key={changelog.id} style={{ borderColor: changelog.status.color }}>
+                    <div 
+                    className="sl-item" 
+                    key={changelog.id} 
+                    style={{ borderColor: changelog.status.color }}>
                       <div className="sl-content">
                         <div className="sl-date">
-                          <span className="sl-dateTitle"> {changelog.changer ? changelog.changer.name : ''} </span>
+                          <span className="sl-dateTitle"> 
+                          {changelog.changer ? changelog.changer.name : ''} 
+                          </span>
                           <Moment format='ddd MMM D, YYYY' date={changelog.createdAt} />
                         </div>
                         {
                           changelog.status ? (<p>Change status to
-                                            <span className='labelBadge' style={{ backgroundColor: changelog.status.color, color: changelog.status.color }}>
+                                            <span className='labelBadge' style={{ 
+                                              backgroundColor: changelog.status.color, 
+                                              color: changelog.status.color }}>
                               <span className='labelText'>{changelog.status.name}</span>
                             </span>
                           </p>) : ''
                         }
                         {
                           changelog.priority ? (<p>Change priority to
-                                            <span className='labelBadge' style={{ backgroundColor: changelog.priority.color, color: changelog.priority.color }}>
+                                            <span className='labelBadge' style={{ 
+                                              backgroundColor: changelog.priority.color, 
+                                              color: changelog.priority.color }}>
                               <span className='labelText'>{changelog.priority.name}</span>
                             </span>
                           </p>) : ''
@@ -257,39 +339,46 @@ const renderCard = (props, onBackBtnClicked) => {
               }
             </div>
           </div>
-        </div>
+        </div> */}
       </div>
     );
   }
   return (
     <div className={cx('cardContainer')} style={{ zIndex: 500 }}>
       <div className={cx('header')} >
-        <span> Summary Statistics</span>
+        <span className={cx('cardTitle')}> Summary Statistics</span>
+        <span className={cx('cardSubtitle')}> LAST 30 DAYS</span>
+      </div>
+      <div className={cx('cardItem', 'withPadding')}>
+        <div className={cx('cardItemTitle')}>Total Reports</div>
+        <div className={cx('cardItemContent', 'big', 'green')}>
+          {totalCount}
+        </div>
       </div>
       {
-        barChartOption ? (<div className={cx('chartItem')}>
-          <div className={cx('chartTitle')}>Services</div>
+        barChartOption ? (<div className={cx('cardItem', 'withPadding')}>
+          <div className={cx('cardItemTitle')}>Issue Type</div>
           <div>
             <ReactEcharts echarts={echarts} notMerge={true}
-              lazyUpdate={true} style={{ height: '250px' }} option={barChartOption} />
+              lazyUpdate={true} style={{ height: '250px', width: '100%' }} option={barChartOption} />
           </div>
         </div>) : ''
       }
-      {
+      {/* {
         jurisdictionPieChartOption ? (<div className={cx('chartItem')}>
           <div className={cx('chartTitle')}>Area</div>
           <div>
-            <ReactEcharts echarts={echarts} notMerge={true}
+            <ReactEcharts echarts={echarts} notMerge={false}
               lazyUpdate={true} style={{ height: '250px' }} option={jurisdictionPieChartOption} />
           </div>
         </div>) : ''
-      }
+      } */}
       {
-        serviceStatusChartOption ? (<div className={cx('chartItem')}>
-          <div className={cx('chartTitle')}>Status</div>
+        serviceStatusChartOption ? (<div className={cx('cardItem', 'noPadding')}>
+          <div className={cx('cardItemTitle')}>Status</div>
           <div>
             <ReactEcharts echarts={echarts} notMerge={true}
-              lazyUpdate={true} style={{ height: '250px' }} option={serviceStatusChartOption} />
+              lazyUpdate={true} style={{ height: '150px' }} option={serviceStatusChartOption} />
           </div>
         </div>) : ''
       }

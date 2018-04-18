@@ -29,8 +29,9 @@ const getIssue = (latlng, issues) => issues.find(issue =>
   issue.latitude === latlng.lat && issue.longitude === latlng.lng);
 
 const getIcon = (serviceRequestName) => {
+  const basePath = 'icons/markers';
   const option = {
-    shadowUrl: 'images/icons/Shadow-MarkerIcon.png',
+    shadowUrl: `${basePath}/Shadow.png`,
     iconSize: [22, 25], // size of the icon
     shadowSize: [22, 25], // size of the shadow
     iconAnchor: [7, 20], // point of the icon which will correspond to marker's location
@@ -40,35 +41,35 @@ const getIcon = (serviceRequestName) => {
 
   switch (serviceRequestName) {
     case 'Water Leakage':
-      option.iconUrl = 'images/icons/WL-MarkerIcon.png';
+      option.iconUrl = `${basePath}/WL.png`;
       return icon(option);
     // return divIcon({ className: 'iconWL' });
     case 'Water Theft':
-      option.iconUrl = 'images/icons/WTH-MarkerIcon.png';
+      option.iconUrl = `${basePath}/WTH.png`;
       return icon(option);
     // return divIcon({ className: 'iconWTH' });
     case 'Lack of Water':
-      option.iconUrl = 'images/icons/LW-MarkerIcon.png';
+      option.iconUrl = `${basePath}/LW.png`;
       return icon(option);
     // return divIcon({ className: 'iconLW' });
     case 'Meter Problem':
-      option.iconUrl = 'images/icons/MP-MarkerIcon.png';
+      option.iconUrl = `${basePath}/MP.png`;
       return icon(option);
     // return divIcon({ className: 'iconMP' });
     case 'Seawage Leakage':
-      option.iconUrl = 'images/icons/SL-MarkerIcon.png';
+      option.iconUrl = `${basePath}/SL.png`;
       return icon(option);
     // return divIcon({ className: 'iconSL' });
     case 'Water Quality':
-      option.iconUrl = 'images/icons/WQ-MarkerIcon.png';
+      option.iconUrl = `${basePath}/WQ.png`;
       return icon(option);
     // return divIcon({ className: 'iconWQ' });
     case 'New Connection':
-      option.iconUrl = 'images/icons/NW-MarkerIcon.png';
+      option.iconUrl = `${basePath}/NW.png`;
       return icon(option);
     // return divIcon({ className: 'iconNW' });
     default:
-      option.iconUrl = 'images/icons/RO-MarkerIcon.png';
+      option.iconUrl = `${basePath}/RO.png`;
       return icon(option);
     // return divIcon({ className: 'iconRO' });
   }

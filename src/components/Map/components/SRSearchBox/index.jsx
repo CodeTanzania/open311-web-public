@@ -40,7 +40,7 @@ class SearchBox extends Component {
     return (
       <div className={cx('searchBox')}>
         <div className={cx('searchBtn')} onClick={this.handleSubmit}>
-          <img src="images/icons/search.svg" alt="" className={cx('searchBtnIcon')} />
+          <img src="icons/search.svg" alt="" className={cx('searchBtnIcon')} />
         </div>
         <div className={cx('searchFieldContainer')}>
           <input
