@@ -147,12 +147,12 @@ class SimpleMap extends Component {
       click: () => {
         const SRItem = JSON.parse(feature.properties.SRItem);
         const selectedSRItemMarker = srItemMarkerMap[SRItem.code];
-        setMarkerCustomIcon(this.state.selectedSRItemMarker, selectedSRItemMarker);
+        // setMarkerCustomIcon(this.state.selectedSRItemMarker, selectedSRItemMarker);
         this.props.selectMapPoint(SRItem);
         this.props.resetSearchTicketNum();
         this.setState({
-          center: [SRItem.latitude, SRItem.longitude],
-          zoom: 12,
+          // center: [SRItem.latitude, SRItem.longitude],
+          // zoom: 12,
           selectedSRItemMarker,
         });
       },
@@ -166,18 +166,18 @@ class SimpleMap extends Component {
       const { SRItem } = selectedSRItemMarker;
       if (!prevState.selectedSRItemMarker) {
         // This is the first point to be selected
-        setMarkerCustomIcon(undefined, selectedSRItemMarker);
+        // setMarkerCustomIcon(undefined, selectedSRItemMarker);
         this.setState({
-          center: [SRItem.latitude, SRItem.longitude],
-          zoom: 12,
+          // center: [SRItem.latitude, SRItem.longitude],
+          // zoom: 12,
           selectedSRItemMarker,
         });
       } else if (prevState.selectedSRItemMarker.SRItem.code !== prevProps.selectedSR.code) {
         //
-        setMarkerCustomIcon(prevState.selectedSRItemMarker, selectedSRItemMarker);
+        // setMarkerCustomIcon(prevState.selectedSRItemMarker, selectedSRItemMarker);
         this.setState({
-          center: [SRItem.latitude, SRItem.longitude],
-          zoom: 12,
+          // center: [SRItem.latitude, SRItem.longitude],
+          // zoom: 12,
           selectedSRItemMarker,
         });
       }
