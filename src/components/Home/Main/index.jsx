@@ -81,7 +81,7 @@ class Main extends Component {
             })
           }
         </Map >
-        <div className={cx('info')} >
+        <div className={cx('info')} style={{ zIndex: 500 }}>
           <div className={cx('infoItem')} >
             <div className={cx('infoItemHeader')} >What is MAJIFIX</div>
             <div >
