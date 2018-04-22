@@ -3,9 +3,7 @@
 import React, { Component } from 'react';
 import { HashLink } from 'react-router-hash-link';
 import { NavLink } from 'react-router-dom';
-import LanguageSelect from 'react-flags-select';
 import classnames from 'classnames/bind';
-import 'react-flags-select/css/react-flags-select.css';
 import styles from './styles.scss';
 import './styles.css';
 
@@ -59,11 +57,7 @@ class Header extends Component {
           <div className={cx('horizontalMenu')}>
             <div className={cx('menu')}>
               <a className={classnames('menuItem')}>
-                <LanguageSelect
-                  countries={['GB', 'TZ']}
-                  defaultCountry='GB'
-                  customLabels={{ GB: 'EN', TZ: 'SW' }}
-                />
+
               </a>
               <NavLink exact to="/" className={classnames('menuItem')} activeClassName="selected">
                 Home
