@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import moment from 'moment';
 import { connect } from 'react-redux';
 import { fetchServices } from 'actions';
 import API from 'API';
@@ -7,6 +8,9 @@ import styles from './styles.scss';
 
 
 const cx = classnames.bind(styles);
+
+const endDate = moment().endOf('date');
+const startDate = moment().subtract(1, 'months').startOf('date');
 
 class Statistic extends Component {
   constructor() {
@@ -17,7 +21,7 @@ class Statistic extends Component {
   componentDidMount() {
     this.props.fetchServices();
     API
-      .getSRSummary()
+      .getSRSummary(startDate, endDate)
       .then((data) => {
         this.setState({ data });
       });

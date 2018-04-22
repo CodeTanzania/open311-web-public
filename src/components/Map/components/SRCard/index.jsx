@@ -47,7 +47,9 @@ const getSRStatusClass = (status) => {
 };
 
 const renderCard = (props, onBackBtnClicked) => {
-  const { selectedSR, SRSummary, publicServices } = props;
+  const { selectedSR, SRSummary, publicServices, dateRange, } = props; // eslint-disable-line
+  const { startDate, endDate } = dateRange;
+  const diff = endDate.diff(startDate, 'days');
 
   let totalCount = 0;
   let barChartOption;
@@ -65,6 +67,9 @@ const renderCard = (props, onBackBtnClicked) => {
         itemStyle: {
           normal: {
             color: '#555555',
+          },
+          emphasis: {
+            color: '#2db34b',
           },
         },
       };
@@ -234,25 +239,25 @@ const renderCard = (props, onBackBtnClicked) => {
         </div>) : ''}
         <div className={cx('cardItem')}>
           <div className={cx('cardItemTitle', 'small')}>Ticket No:</div>
-          <div className={cx('cardItemContent', 'gray')}>
+          <div className={cx('cardItemContent', 'small')}>
             {selectedSR.code}
           </div>
         </div>
         <div className={cx('cardItem')}>
           <div className={cx('cardItemTitle', 'small')}>Days since submission:</div>
-          <div className={cx('cardItemContent', 'gray')}>
+          <div className={cx('cardItemContent', 'small')}>
             {days} <span>(<Moment format='DD/MM/YYYY' date={selectedSR.createdAt} />)</span>
           </div>
         </div>
         <div className={cx('cardItem')}>
           <div className={cx('cardItemTitle', 'small')}>Address:</div>
-          <div className={cx('cardItemContent', 'gray', 'small')}>
+          <div className={cx('cardItemContent', 'small')}>
             {selectedSR.address}
           </div>
         </div>
         <div className={cx('cardItem')}>
           <div className={cx('cardItemTitle', 'small')}>Area:</div>
-          <div className={cx('cardItemContent', 'gray', 'small')}>
+          <div className={cx('cardItemContent', 'small')}>
             {selectedSR.jurisdiction.name}
           </div>
         </div>
@@ -346,8 +351,8 @@ const renderCard = (props, onBackBtnClicked) => {
   return (
     <div className={cx('cardContainer')} style={{ zIndex: 500 }}>
       <div className={cx('header')} >
-        <span className={cx('cardTitle')}> Summary Statistics</span>
-        <span className={cx('cardSubtitle')}> LAST 30 DAYS</span>
+        <span className={cx('cardTitle')}> SUMMARY STATISTICS</span>
+        <span className={cx('cardSubtitle')}> LAST {diff - 1} DAYS</span>
       </div>
       <div className={cx('cardItem', 'withPadding')}>
         <div className={cx('cardItemTitle')}>Total Reports</div>
@@ -378,7 +383,7 @@ const renderCard = (props, onBackBtnClicked) => {
           <div className={cx('cardItemTitle')}>Status</div>
           <div>
             <ReactEcharts echarts={echarts} notMerge={true}
-              lazyUpdate={true} style={{ height: '150px' }} option={serviceStatusChartOption} />
+              lazyUpdate={true} style={{ height: '150px', width: '200px' }} option={serviceStatusChartOption} />
           </div>
         </div>) : ''
       }
@@ -406,6 +411,7 @@ class SRCard extends Component {
 const mapStateToProps = state => ({
   selectedSR: state.selectedMapPoint,
   SRSummary: state.SRSummary,
+  dateRange: state.dateFilter,
   publicServices: state.serviceFilter.services,
 });
 

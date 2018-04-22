@@ -1,0 +1,24 @@
+.menuItem {
+    display: block;
+    color: #555555;
+    text-transform: uppercase;
+    border-bottom: 2px solid white;
+    text-decoration: none;
+}
+
+.menuItem:hover,
+.menuItem:active {
+    color: #0BA3DD;
+}
+
+.menuItem.selected {
+    color: #0BA3DD;
+}
+
+@media screen and (min-width:750px) {
+    .menuItem {
+        display: inline-block;
+        padding-left: 12px;
+        padding-right: 12px;
+    }
+}

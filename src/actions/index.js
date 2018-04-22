@@ -43,6 +43,12 @@ const fetchMapData = (title = MAP_DATA_RELOAD) => ({
 
 const receiveSRSummary = summary => ({ type: RECEIVE_SR_SUMMARY, summary });
 
+const receiveDateChange = (startDate, endDate) => ({
+  type: MAP_DATE_FILTER_CHANGE,
+  startDate,
+  endDate,
+});
+
 export const fetchMapDataComplete = (dataFound = true) => ({
   type: FETCH_MAP_DATA_COMPLETE,
   loading: false,
@@ -63,11 +69,11 @@ export const toggleJurisdiction = id => ({ type: TOGGLE_JURISDICTION, id });
 // Action to select or unselect status among filters
 export const toggleStatus = id => ({ type: TOGGLE_STATUS, id });
 
-export const dateFilterChange = (startDate, endDate) => ({
-  type: MAP_DATE_FILTER_CHANGE,
-  startDate,
-  endDate,
-});
+export const dateFilterChange = (startDate, endDate) => (dispatch) => {
+  const start = startDate.startOf('date');
+  const end = endDate.endOf('date');
+  dispatch(receiveDateChange(start, end));
+};
 
 export const selectMapPoint = serviceRequest => ({
   type: SELECT_MAP_POINT,
@@ -84,8 +90,10 @@ export const reloadSRSummary = () => (dispatch, getState) => {
     });
 };
 
-export const getServiceRequests = () => (dispatch, getState) => {
-  dispatch(fetchMapData());
+export const getServiceRequests = showNoLoader => (dispatch, getState) => {
+  if (!showNoLoader) {
+    dispatch(fetchMapData());
+  }
   const {
     serviceFilter, jurisdictionFilter, statusFilter, dateFilter,
   } = getState();

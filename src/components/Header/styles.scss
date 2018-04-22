@@ -1,10 +1,13 @@
 $brand-color:#0BA3DD;
 .header {
     position: fixed;
-    background-color: rgba(255, 255, 255, 0.78);
+    background-color: #ffffff;
     z-index: 600;
     height: 55px;
     width: 100%;
+    &.transparent {
+        background-color: rgba(255, 255, 255, 0.78);
+    }
 }
 
 .content {
@@ -30,6 +33,7 @@ $brand-color:#0BA3DD;
 
 .logo {
     width: 90px;
+    max-height: 50px;
 }
 
 .offcanvasMenu {
@@ -45,19 +49,7 @@ $brand-color:#0BA3DD;
     list-style-type: none;
     height: 100%;
     padding-left: 15px;
-}
-
-.menuItem {
-    display: block;
-    color: #555555;
-    text-transform: uppercase;
-    font-weight: 600;
-    border-bottom: 2px solid white;
-    text-decoration: none;
-    &:hover,
-    &:active {
-        color: $brand-color;
-    }
+    font-family: 'Montserrat', sans-serif;
 }
 
 .horizontalMenu {
@@ -70,11 +62,6 @@ $brand-color:#0BA3DD;
     }
     .horizontalMenu {
         display: block;
-    }
-    .menuItem {
-        display: inline-block;
-        padding-left: 12px;
-        padding-right: 12px;
     }
     .logo {
         width: 150px;

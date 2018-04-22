@@ -17,62 +17,26 @@ import SRFilter from './components/SRFilter';
 import SRDateFilter from './components/SRDateFilter';
 import SRSearchBox from './components/SRSearchBox';
 import Header from '../Header';
+import Footer from '../Footer';
 import styles from './styles.scss';
-import './leaflet.css';
+import './styles.css';
 
 const cx = classnames.bind(styles);
 
 
 const defaultZoom = 11;
+const bigZoom = 16;
 // Get service request(issue) using lat & lng
 const getIssue = (latlng, issues) => issues.find(issue =>
   issue.latitude === latlng.lat && issue.longitude === latlng.lng);
 
-const getIcon = (serviceRequestName) => {
-  const basePath = 'icons/markers';
-  const option = {
-    shadowUrl: `${basePath}/Shadow.png`,
-    iconSize: [22, 25], // size of the icon
-    shadowSize: [22, 25], // size of the shadow
-    iconAnchor: [7, 20], // point of the icon which will correspond to marker's location
-    shadowAnchor: [7, 20], // the same for the shadow
-    tooltipAnchor: [20, -10], // point from which the popup should open relative to the iconAnchor
-  };
-
-  switch (serviceRequestName) {
-    case 'Water Leakage':
-      option.iconUrl = `${basePath}/WL.png`;
-      return icon(option);
-    // return divIcon({ className: 'iconWL' });
-    case 'Water Theft':
-      option.iconUrl = `${basePath}/WTH.png`;
-      return icon(option);
-    // return divIcon({ className: 'iconWTH' });
-    case 'Lack of Water':
-      option.iconUrl = `${basePath}/LW.png`;
-      return icon(option);
-    // return divIcon({ className: 'iconLW' });
-    case 'Meter Problem':
-      option.iconUrl = `${basePath}/MP.png`;
-      return icon(option);
-    // return divIcon({ className: 'iconMP' });
-    case 'Seawage Leakage':
-      option.iconUrl = `${basePath}/SL.png`;
-      return icon(option);
-    // return divIcon({ className: 'iconSL' });
-    case 'Water Quality':
-      option.iconUrl = `${basePath}/WQ.png`;
-      return icon(option);
-    // return divIcon({ className: 'iconWQ' });
-    case 'New Connection':
-      option.iconUrl = `${basePath}/NW.png`;
-      return icon(option);
-    // return divIcon({ className: 'iconNW' });
-    default:
-      option.iconUrl = `${basePath}/RO.png`;
-      return icon(option);
-    // return divIcon({ className: 'iconRO' });
-  }
+const getIcon = (service) => {
+  const color = service.color.replace('#', '');
+  return divIcon({
+    className: `marker-${color}`,
+    bgPos: [0, 0],
+    tooltipAnchor: [15, 0],
+  });
 };
 /**
  * This function reset icon on previous marker and
@@ -83,7 +47,7 @@ const getIcon = (serviceRequestName) => {
 const setMarkerCustomIcon = (previousSRItemMarker, currentSRItemMarker) => {
   if (previousSRItemMarker) {
     // reset icon on previous clicked marker
-    previousSRItemMarker.marker.setIcon(getIcon(previousSRItemMarker.SRItem.service.name));
+    previousSRItemMarker.marker.setIcon(getIcon(previousSRItemMarker.SRItem.service));
   }
   // set new icon to the current clicked marker
   if (currentSRItemMarker) {
@@ -129,7 +93,7 @@ class SimpleMap extends Component {
 
   pointToLayer(feature, latlng) {
     const SRItem = JSON.parse(feature.properties.SRItem);
-    const SRMarker = marker(latlng, { icon: getIcon(SRItem.service.name) });
+    const SRMarker = marker(latlng, { icon: getIcon(SRItem.service) });
 
     srItemMarkerMap[SRItem.code] = { marker: SRMarker, SRItem };
     const tooltipContent = document.createElement('div');
@@ -147,12 +111,12 @@ class SimpleMap extends Component {
       click: () => {
         const SRItem = JSON.parse(feature.properties.SRItem);
         const selectedSRItemMarker = srItemMarkerMap[SRItem.code];
-        // setMarkerCustomIcon(this.state.selectedSRItemMarker, selectedSRItemMarker);
+        setMarkerCustomIcon(this.state.selectedSRItemMarker, selectedSRItemMarker);
         this.props.selectMapPoint(SRItem);
         this.props.resetSearchTicketNum();
         this.setState({
-          // center: [SRItem.latitude, SRItem.longitude],
-          // zoom: 12,
+          center: [SRItem.latitude, SRItem.longitude],
+          zoom: bigZoom,
           selectedSRItemMarker,
         });
       },
@@ -166,18 +130,18 @@ class SimpleMap extends Component {
       const { SRItem } = selectedSRItemMarker;
       if (!prevState.selectedSRItemMarker) {
         // This is the first point to be selected
-        // setMarkerCustomIcon(undefined, selectedSRItemMarker);
+        setMarkerCustomIcon(undefined, selectedSRItemMarker);
         this.setState({
-          // center: [SRItem.latitude, SRItem.longitude],
-          // zoom: 12,
+          center: [SRItem.latitude, SRItem.longitude],
+          zoom: bigZoom,
           selectedSRItemMarker,
         });
       } else if (prevState.selectedSRItemMarker.SRItem.code !== prevProps.selectedSR.code) {
         //
-        // setMarkerCustomIcon(prevState.selectedSRItemMarker, selectedSRItemMarker);
+        setMarkerCustomIcon(prevState.selectedSRItemMarker, selectedSRItemMarker);
         this.setState({
-          // center: [SRItem.latitude, SRItem.longitude],
-          // zoom: 12,
+          center: [SRItem.latitude, SRItem.longitude],
+          zoom: bigZoom,
           selectedSRItemMarker,
         });
       }
@@ -230,7 +194,7 @@ class SimpleMap extends Component {
               <div className={cx('filterItem')}><SRFilter /></div>
             </div>
             <SRCard />
-            <Map center={center} zoomControl={false} zoom={zoom} ref={(map) => { this.map = map; }}>
+            <Map center={center} zoomControl={false} zoom={zoom} className='mapContainer' ref={(map) => { this.map = map; }}>
               <TileLayer
                 attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
                 id='mapbox.light'
@@ -265,6 +229,7 @@ class SimpleMap extends Component {
             </div> */}
           </div >
         </div>
+        <Footer />
       </div>
     );
   }

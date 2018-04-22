@@ -1,23 +1,48 @@
+$brand-color:#0BA3DD;
+$brand-secondary-color: #2db34b;
+$dark-gray: #555555;
 .container {
-    padding: 0 80px 120px;
-}
-
-.about {
-    display: flex; // justify-content: space-between;
-    align-items: center;
-    padding-top: 85px;
+    padding: 0 0 120px;
+    position: relative;
 }
 
 .info {
-    max-width: 250px;
+    position: absolute;
+    background-color: #fff;
+    top: 25px;
+    left: 35px;
+    z-index: 500;
+    max-width: 270px;
+    box-shadow: -1px 1px 7px rgba(0, 0, 0, 0.4);
+    padding: 15px;
 }
 
 .infoItem {
     margin-bottom: 15px;
+    font-size: 12px;
     line-height: 1.7;
+    color: $dark-gray;
+    & .link {
+        text-decoration: none;
+        color: $dark-gray;
+    }
 }
 
 .infoItemHeader {
-    color: #2db34b;
-    font-weight: 700;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 400;
+    font-size: 16px;
+    color: $brand-secondary-color;
+}
+
+.infoItemBtn {
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+    background-color: $brand-color;
+    color: #ffffff;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 15px;
+    height: 40px;
+    text-decoration: none;
 }

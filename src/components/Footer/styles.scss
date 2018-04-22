@@ -1,0 +1,37 @@
+.footer {
+    background-color: #0BA3DD;
+    display: flex;
+    border-right: 2px solid white;
+    min-width: 100%;
+    color: white;
+}
+
+.phone {
+    flex: 1;
+    padding-top: 15px;
+    padding-bottom: 20px;
+    text-decoration: none;
+    color: #ffffff;
+}
+
+.phoneContent {
+    display: flex;
+    align-items: center;
+    font-family: 'Montserrat', sans-serif;
+    text-transform: uppercase;
+    line-height: 1.2;
+    & .icon {
+        height: 49px;
+        margin-right: 10px;
+    }
+    & .text {
+        font-size: 18px;
+    }
+    & .subtext {
+        display: block;
+        font-size: 10px;
+    }
+    &.smart {
+        padding-left: 20%;
+    }
+}

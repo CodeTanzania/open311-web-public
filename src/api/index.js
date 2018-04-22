@@ -1,5 +1,4 @@
 
-import moment, { months } from 'moment';
 
 const authToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjU5ZTQ0OWQzODI0NjEwMDAwNGYzNDgzMSIsImlhdCI6MTUwODEzMzMzMSwiZXhwIjozMzA2NTczMzMzMSwiYXVkIjoib3BlbjMxMSJ9.3-a02oah-lmHFdqw1wMkbxIVa2qdA_D7ZTo0bGQQ_zE'; // eslint-disable-line
 
@@ -7,20 +6,6 @@ const authToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjU5ZTQ0OWQzODI0
 const header = new Headers({
   Authorization: `Bearer ${authToken}`,
 });
-
-function prepareDates(start, end) {
-  if (start && end) {
-    let startDate = moment(new Date(start)).utc().startOf('date');
-    const endDate = moment(new Date(end)).utc().startOf('date');
-    const diff = endDate.diff(startDate, 'months');
-    if (diff >= 3) {
-      return [startDate.toDate(), endDate.toDate()];
-    }
-    startDate = endDate.subtract(3, months).startOf('date');
-    return [startDate.toDate(), endDate.toDate()];
-  }
-  return null;
-}
 
 export default {
   // Get all service requests
@@ -102,11 +87,11 @@ export default {
    */
   getSRSummary(start, end) {
     if (start && end) {
-      const dates = prepareDates(start, end);
       const query = { createdAt: {} };
-      [query.createdAt.$gte, query.createdAt.$lte] = dates;
-      const url = 'api/reports/overviews?';
-      return fetch(`${url}query=${JSON.stringify(query)}`, { headers: header })
+      query.createdAt.$gte = start;
+      query.createdAt.$lte = end;
+      const url = `api/reports/overviews?query=${JSON.stringify(query)}`;
+      return fetch(url, { headers: header })
         .then(res => res.json());
     }
     return fetch('api/reports/overviews', { headers: header })

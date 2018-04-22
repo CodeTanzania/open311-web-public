@@ -18,6 +18,10 @@
     color: #fff;
 }
 
+.DateInput {
+    width: 100px;
+}
+
 .DateInput_input {
     font-size: 14px;
     padding-right: 0;

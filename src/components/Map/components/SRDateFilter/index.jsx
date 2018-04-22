@@ -63,7 +63,7 @@ class DateFilter extends Component {
           onFocusChange={this.onFocusChange} // PropTypes.func.isRequired,
           hideKeyboardShortcutsPanel
           reopenPickerOnClearDates={false}
-
+          displayFormat='DD/MM/YYYY'
         />
       </div>
     );

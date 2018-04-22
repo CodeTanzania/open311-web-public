@@ -10,7 +10,6 @@ html {
     box-sizing: border-box;
 }
 
-
 /* iPad Input Shadows */
 
 input[type="text"],
@@ -22,13 +21,10 @@ input[type="password"] {
     /* mobile firefox too! */
 }
 
-
 /*! normalize.css v7.0.0 | MIT License | github.com/necolas/normalize.css */
-
 
 /* Document
    ========================================================================== */
-
 
 /**
  * 1. Correct the line height in all browsers.
@@ -45,10 +41,8 @@ html {
     /* 2 */
 }
 
-
 /* Sections
    ========================================================================== */
-
 
 /**
  * Remove the margin in all browsers (opinionated).
@@ -56,6 +50,6 @@ html {
 
 body {
     margin: 0;
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
+    font-family: 'Open Sans', sans-serif;
     font-size: 13px;
 }

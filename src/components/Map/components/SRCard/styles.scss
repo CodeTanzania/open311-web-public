@@ -12,9 +12,10 @@
 
 .header {
     display: inline-block;
+    font-family: 'Montserrat', sans-serif;
     width: 100%;
+    font-weight: 700;
     text-align: center;
-    font-weight: 600;
     vertical-align: middle;
 }
 
@@ -26,7 +27,7 @@
 }
 
 .cardSubtitle {
-    color: #a9a9a9;
+    color: #555555;
     font-size: 12px;
 }
 
@@ -40,32 +41,34 @@
 
 .cardItemTitle {
     font-weight: 700;
-    font-size: 0.9em;
-    color: #999999;
+    font-size: 10px;
+    font-family: 'Montserrat', sans-serif;
+    color: #8a8a8a;
     text-transform: uppercase;
     &.small {
         text-transform: capitalize;
+        font-family: 'Open Sans', sans-serif;
         color: #555555;
     }
 }
 
 .cardItemContent {
-    color: #0BA3DD;
-    font-weight: 700;
+    color: #189ad1;
     display: table;
     width: 100%;
     text-transform: uppercase;
+    font-family: 'Montserrat', sans-serif;
     &.big {
         font-size: 24px;
+        font-weight: 700;
     }
     &.green {
         color: #2db34b;
     }
-    &.gray {
-        color: #767676;
-    }
     &.small {
         text-transform: capitalize;
+        font-family: 'Open Sans', sans-serif;
+        color: #555555;
         font-size: 11px;
     }
 }
@@ -73,17 +76,20 @@
 .cardItemIcon {
     display: table-cell;
     padding-top: 10px;
-    width: 80px;
+    width: 37px;
 }
 
 .cardItemCaption {
     display: table-cell;
     vertical-align: middle;
+    font-size: 16px;
+    font-weight: 400;
 }
 
 .cardItemLink {
     cursor: pointer;
     color: #2db34b;
+    font-size: 10px;
 }
 
 .serviceName {
