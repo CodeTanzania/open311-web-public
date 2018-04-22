@@ -3,8 +3,10 @@
 import React, { Component } from 'react';
 import { HashLink } from 'react-router-hash-link';
 import { NavLink } from 'react-router-dom';
+import Dropdown, { DropdownTrigger, DropdownContent } from 'react-simple-dropdown';
 import classnames from 'classnames/bind';
 import styles from './styles.scss';
+import './dropdown.css';
 import './styles.css';
 
 const cx = classnames.bind(styles);
@@ -15,9 +17,11 @@ class Header extends Component {
     super(props);
     this.state = {
       visible: false,
+      locale: 'EN',
     };
     // Binding of this
     this.toggleSidebar = this.toggleSidebar.bind(this);
+    this.handleLocaleChange = this.handleLocaleChange.bind(this);
   }
 
   toggleSidebar() {
@@ -27,8 +31,13 @@ class Header extends Component {
     });
   }
 
+  handleLocaleChange(locale) {
+    this.setState({ locale });
+    this.refs.dropdown.hide();
+  }
+
   render() {
-    const { visible } = this.state;
+    const { visible, locale } = this.state;
     return (
       <div className={cx('header')}>
         <div className={cx('content')}>
@@ -56,15 +65,23 @@ class Header extends Component {
                 </div> */}
           <div className={cx('horizontalMenu')}>
             <div className={cx('menu')}>
-              <a className={classnames('menuItem')}>
-
-              </a>
               <NavLink exact to="/" className={classnames('menuItem')} activeClassName="selected">
                 Home
               </NavLink>
               <NavLink to="/issues" className={classnames('menuItem')} activeClassName="selected">
                 Issues
               </NavLink>
+              <Dropdown className={classnames('menuLocaleItem')} ref="dropdown">
+                <DropdownTrigger>{locale}</DropdownTrigger>
+                <DropdownContent>
+                  <a className={classnames('dropdownItem')} onClick={() => this.handleLocaleChange('EN')}>
+                    EN
+                  </a>
+                  <a className={classnames('dropdownItem')} onClick={() => this.handleLocaleChange('SW')}>
+                    SW
+                  </a>
+                </DropdownContent>
+              </Dropdown>
             </div>
           </div>
         </div>

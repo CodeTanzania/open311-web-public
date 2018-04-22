@@ -44,38 +44,12 @@ const clientConfig = {
       loader: 'babel-loader!eslint-loader',
     },
     {
-      test: /^((?!leaflet).)*\.scss$/,
+      test: /\.scss$/,
       exclude: /(node_modules|bower_components)/,
       use: ExtractTextPlugin.extract({
         fallback: 'style-loader',
         use: [
           'css-loader?modules&localIdentName=[name]__[local]___[hash:base64:5]', {
-            loader: 'postcss-loader',
-            options: {
-              sourceMap: true,
-              plugins: () => [
-                flexFix,
-                autoprefixer({
-                  browsers: [
-                    '>1%',
-                    'last 4 versions',
-                    'Firefox ESR',
-                    'not ie < 9', // React doesn't support IE8 anyway
-                  ],
-                  flexbox: 'no-2009',
-                }), require('css-mqpacker'), require('cssnano')], // eslint-disable-line
-            },
-          }, 'sass-loader',
-        ],
-      }),
-    },
-    {
-      test: /leaflet\.scss$/,
-      exclude: /(node_modules|bower_components)/,
-      use: ExtractTextPlugin.extract({
-        fallback: 'style-loader',
-        use: [
-          'css-loader', {
             loader: 'postcss-loader',
             options: {
               sourceMap: true,

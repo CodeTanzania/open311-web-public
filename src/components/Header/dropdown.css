@@ -1,0 +1,30 @@
+.dropdown {
+    display: inline-block;
+}
+
+.dropdown__content {
+    display: none;
+    position: absolute;
+    margin-top: 5px;
+    border-top: rgba(0, 0, 0, 0.05) 1px solid;
+    background: #ffffff;
+    box-shadow: 0 5px 8px rgba(0, 0, 0, 0.15);
+}
+
+.dropdown--active .dropdown__content {
+    display: block;
+}
+
+.dropdown__trigger:after {
+    content: '\25BE';
+    margin: 0 0 0 10px;
+}
+
+.dropdownItem {
+    display: block;
+    padding: 10px 15px;
+}
+
+.dropdownItem:hover {
+    background: #eaeaea;
+}

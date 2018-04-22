@@ -1,0 +1,53 @@
+.customMarker {
+    background: url('/images/marker.png') center center/100% no-repeat;
+    width: 25px !important;
+    height: 40px !important;
+}
+
+.marker-189ad1 {
+    background: url('/icons/markers/189ad1.svg') no-repeat;
+    width: 20px !important;
+    height: 25px !important;
+}
+
+.marker-a186be {
+    background: url('/icons/markers/a186be.svg') no-repeat;
+    width: 20px !important;
+    height: 25px !important;
+}
+
+.marker-a3d39c {
+    background: url('/icons/markers/a3d39c.svg') no-repeat;
+    width: 20px !important;
+    height: 25px !important;
+}
+
+.marker-e99467 {
+    background: url('/icons/markers/e99467.svg') no-repeat;
+    width: 20px !important;
+    height: 25px !important;
+}
+
+.marker-e5d254 {
+    background: url('/icons/markers/e5d254.svg') no-repeat;
+    width: 20px !important;
+    height: 25px !important;
+}
+
+.marker-fbaf5d {
+    background: url('/icons/markers/fbaf5d.svg') no-repeat;
+    width: 20px !important;
+    height: 25px !important;
+}
+
+.marker-f69597 {
+    background: url('/icons/markers/f69597.svg') no-repeat;
+    width: 20px !important;
+    height: 25px !important;
+}
+
+.marker-6dcff6 {
+    background: url('/icons/markers/6dcff6.svg') no-repeat;
+    width: 20px !important;
+    height: 25px !important;
+}

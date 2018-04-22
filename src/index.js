@@ -11,7 +11,7 @@ import 'react-dates/initialize';
 import 'font-awesome/css/font-awesome.css';
 import 'react-select/dist/react-select.css';
 import './site.css';
-import './leaflet.scss';
+import './leaflet.css';
 import store from './store';
 
 

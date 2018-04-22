@@ -45,7 +45,7 @@ const clientConfig = {
       loader: 'babel-loader!eslint-loader',
     },
     {
-      test: /^((?!leaflet).)*\.scss$/,
+      test: /\.scss$/,
       use: [{
         loader: 'style-loader', // inject style tag in the head part of the document
       }, {
@@ -54,41 +54,6 @@ const clientConfig = {
           modules: true, // enable css modules
           sourceMap: true,
           localIdentName: '[name]__[local]___[hash:base64:5]', // generate meaningful unique class names
-        },
-      },
-      {
-        loader: 'postcss-loader',
-        options: {
-          sourceMap: true,
-          plugins: () => [
-            flexFix,
-            autoprefixer({
-              browsers: [
-                '>1%',
-                'last 4 versions',
-                'Firefox ESR',
-                'not ie < 9', // React doesn't support IE8 anyway
-              ],
-              flexbox: 'no-2009',
-            })],
-        },
-      },
-      {
-        loader: 'sass-loader',
-        options: {
-          sourceMap: true,
-        },
-      },
-      ],
-    },
-    {
-      test: /leaflet\.scss$/,
-      use: [{
-        loader: 'style-loader', // inject style tag in the head part of the document
-      }, {
-        loader: 'css-loader',
-        options: {
-          sourceMap: true,
         },
       },
       {
