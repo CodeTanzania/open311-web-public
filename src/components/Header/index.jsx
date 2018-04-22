@@ -39,7 +39,7 @@ class Header extends Component {
   render() {
     const { visible, locale } = this.state;
     return (
-      <div className={cx('header')}>
+      <div className={cx('header')} style={{ zIndex: 502 }}>
         <div className={cx('content')}>
           <NavLink to="/" className={cx('logoContainer')}>
             <svg xmlns="http://www.w3.org/2000/svg"
@@ -73,7 +73,7 @@ class Header extends Component {
               </NavLink>
               <Dropdown className={classnames('menuLocaleItem')} ref="dropdown">
                 <DropdownTrigger>{locale}</DropdownTrigger>
-                <DropdownContent style={{ zIndex: 500 }}>
+                <DropdownContent>
                   <a className={classnames('dropdownItem')} onClick={() => this.handleLocaleChange('EN')}>
                     EN
                   </a>
