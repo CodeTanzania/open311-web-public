@@ -73,7 +73,7 @@ class Header extends Component {
               </NavLink>
               <Dropdown className={classnames('menuLocaleItem')} ref="dropdown">
                 <DropdownTrigger>{locale}</DropdownTrigger>
-                <DropdownContent>
+                <DropdownContent style={{ zIndex: 500 }}>
                   <a className={classnames('dropdownItem')} onClick={() => this.handleLocaleChange('EN')}>
                     EN
                   </a>
