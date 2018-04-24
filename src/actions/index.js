@@ -8,6 +8,7 @@ export const SELECT_MAP_POINT = 'select_map_point';
 export const UNSELECT_MAP_POINT = 'unselect_map_point';
 export const RECEIVE_SERVICEREQUESTS = 'service_request_receive';
 export const RECEIVE_SERVICES = 'services_receive';
+export const RESET_SERVICES = 'services_reset';
 export const RECEIVE_STATUSES = 'statuses_receive';
 export const RESET_STATUSES = 'statuses_reset';
 export const RECEIVE_JURISDICTIONS = 'jurisdictions_receive';
@@ -27,13 +28,15 @@ const receiveServiceRequests = serviceRequests => ({
 
 const receiveServices = services => ({ type: RECEIVE_SERVICES, services });
 
+export const resetServices = () => ({ type: RESET_SERVICES });
+
 const receiveJurisdictions = jurisdictions => ({ type: RECEIVE_JURISDICTIONS, jurisdictions });
 
-const resetJurisdictions = () => ({ type: RESET_JURISDICTIONS });
+export const resetJurisdictions = () => ({ type: RESET_JURISDICTIONS });
 
 const receiveStatuses = statuses => ({ type: RECEIVE_STATUSES, statuses });
 
-const resetStatuses = () => ({ type: RESET_STATUSES });
+export const resetStatuses = () => ({ type: RESET_STATUSES });
 
 const fetchMapData = (title = MAP_DATA_RELOAD) => ({
   type: FETCH_MAP_DATA,
@@ -106,12 +109,22 @@ export const getServiceRequests = showNoLoader => (dispatch, getState) => {
   const selectedStatuses = statusFilter
     .statuses
     .filter(status => status.selected);
-  const query = {
-    ...dateFilter,
-    services: selectedServices.map(service => service.id),
-    jurisdictions: selectedAreas.map(area => area.id),
-    statuses: selectedStatuses.map(status => status.id),
-  };
+  let query;
+  if (selectedServices.length) {
+    query = {
+      ...dateFilter,
+      services: selectedServices.map(service => service.id),
+      jurisdictions: selectedAreas.map(area => area.id),
+      statuses: selectedStatuses.map(status => status.id),
+    };
+  } else {
+    query = {
+      ...dateFilter,
+      services: serviceFilter.services.map(service => service.id),
+      jurisdictions: selectedAreas.map(area => area.id),
+      statuses: selectedStatuses.map(status => status.id),
+    };
+  }
 
   API
     .getSR(query)
@@ -159,7 +172,11 @@ export const fetchServices = () => (dispatch) => {
       const services = data
         .services
         .map(service => ({
-          code: service.code, name: service.name, id: service._id, selected: true,
+          code: service.code,
+          name: service.name,
+          id: service._id,
+          selected: true,
+          color: service.color,
         }));
       return dispatch(receiveServices(services));
     });
@@ -173,7 +190,11 @@ export const initMapData = () => (dispatch) => {
       const services = data
         .services
         .map(service => ({
-          code: service.code, name: service.name, id: service._id, selected: true,
+          code: service.code,
+          name: service.name,
+          id: service._id,
+          selected: false,
+          color: service.color,
         }));
       return dispatch(receiveServices(services));
     })

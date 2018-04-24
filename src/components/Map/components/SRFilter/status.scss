@@ -1,0 +1,19 @@
+.status {
+    padding: 7px 10px;
+    border: 1px solid #c3c3c3;
+    color: #afafaf;
+    margin-right: 5px;
+    text-align: center;
+    flex: 1;
+    cursor: pointer;
+    white-space: nowrap;
+}
+
+.status.selected {
+    background: #026AA7;
+    color: white;
+}
+
+.status:first-child {
+    border-left: 1px solid #c3c3c3;
+}

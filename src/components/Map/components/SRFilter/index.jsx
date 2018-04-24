@@ -5,28 +5,50 @@ import Select from 'react-select';
 import {
   toggleJurisdiction,
   toggleStatus,
+  toggleService,
   getServiceRequests,
   resetSearchTicketNum,
+  resetStatuses,
+  resetJurisdictions,
+  resetServices,
 } from 'actions';
 import styles from './styles.scss';
 import Status from './status';
+import Issue from './issue';
 
 const cx = classnames.bind(styles);
+const delayTime = 2000;
 
+/* eslint-disable func-names */
+/* eslint-disable prefer-arrow-callback */
 
 class SRFilter extends Component {
   constructor() {
     super();
     this.state = { hideFilterContent: true, statuses: [] };
     this.toggleFilterContent = this.toggleFilterContent.bind(this);
+    this.onClearFilterClicked = this.onClearFilterClicked.bind(this);
     this.areaChangeHandler = this.areaChangeHandler.bind(this);
     this.statusChangeHandler = this.statusChangeHandler.bind(this);
+    this.issueChangeHandler = this.issueChangeHandler.bind(this);
   }
 
   toggleFilterContent() {
     this.setState({
       hideFilterContent: !this.state.hideFilterContent,
     });
+  }
+
+  onClearFilterClicked() {
+    this.props.resetStatuses();
+    this.props.resetServices();
+    this.props.resetJurisdictions();
+    this.props.getServiceRequests();
+    setTimeout(function () {
+      this.setState({
+        hideFilterContent: !this.state.hideFilterContent,
+      });
+    }.bind(this), delayTime);
   }
   /**
      * This function is fired when jurisdiction/area select box
@@ -70,11 +92,27 @@ class SRFilter extends Component {
     this.props.toggleStatus(id);
     this.props.resetSearchTicketNum();
     this.props.getServiceRequests();
+    setTimeout(function () {
+      this.setState({
+        hideFilterContent: !this.state.hideFilterContent,
+      });
+    }.bind(this), delayTime);
+  }
+
+  issueChangeHandler(issueId) {
+    this.props.toggleService(issueId);
+    this.props.resetSearchTicketNum();
+    this.props.getServiceRequests();
+    setTimeout(function () {
+      this.setState({
+        hideFilterContent: !this.state.hideFilterContent,
+      });
+    }.bind(this), delayTime);
   }
 
   render() {
     const { hideFilterContent, selectedArea } = this.state;
-    const { areas, statuses } = this.props;
+    const { areas, statuses, issues } = this.props;
     const areaOptions = areas.map(jurisdiction => ({
       label: jurisdiction.name,
       value: jurisdiction.id,
@@ -88,6 +126,10 @@ class SRFilter extends Component {
           <span className={cx('filterBtnLabel')}>Filters</span>
         </div>
         <div className={cx('filterContent', { hide: hideFilterContent })} >
+          <div className={cx('filterClear')} onClick={this.onClearFilterClicked}>
+            <img src='icons/x-mark.svg' style={{ width: '12px', marginRight: '3px' }} />
+            <span>Clear all filters</span>
+          </div>
           <span className={cx('filterTitle')}>Filter By Area</span>
           <Select
             onChange={this.areaChangeHandler}
@@ -96,7 +138,7 @@ class SRFilter extends Component {
             multi={true}
             placeholder='Select Area'
           />
-          <div className={cx('statusFilter')}>
+          <div className={cx('filterItem')}>
             <span className={cx('filterTitle')}>Filter By Status</span>
             <div className={cx('statuses')}>
               {
@@ -109,6 +151,18 @@ class SRFilter extends Component {
               }
             </div>
           </div>
+          <div className={cx('filterItem')}>
+            <span className={cx('filterTitle')}>Filter By Issue Type</span>
+            <div className={cx('issues')}>
+              {
+                issues.map(issue => (<Issue
+                  key={issue.name}
+                  issue={issue}
+                  onIssueClicked={this.issueChangeHandler}
+                />))
+              }
+            </div>
+          </div>
         </div>
       </div >
     );
@@ -118,8 +172,16 @@ class SRFilter extends Component {
 const mapStateToProps = state => ({
   areas: state.jurisdictionFilter.jurisdictions,
   statuses: state.statusFilter.statuses,
+  issues: state.serviceFilter.services,
 });
 
 export default connect(mapStateToProps, {
-  toggleJurisdiction, toggleStatus, getServiceRequests, resetSearchTicketNum,
+  toggleJurisdiction,
+  toggleStatus,
+  toggleService,
+  getServiceRequests,
+  resetSearchTicketNum,
+  resetJurisdictions,
+  resetServices,
+  resetStatuses,
 })(SRFilter);

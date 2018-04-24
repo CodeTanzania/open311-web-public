@@ -22,6 +22,7 @@
 .filterBtnLabel {
     display: table-cell;
     vertical-align: middle;
+    color: #a9a9a9;
     padding-right: 5px;
     padding-left: 5px;
 }
@@ -45,14 +46,24 @@
     display: none;
 }
 
+.filterClear {
+    display: flex;
+    align-items: center;
+    color: #189ad1;
+    margin-bottom: 16px;
+    font-size: 12px;
+    cursor: pointer;
+}
+
 .filterTitle {
     display: block;
-    font-weight: bold;
-    color: #0BA3DD;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 700;
+    color: #189ad1;
     padding-bottom: 7px;
 }
 
-.statusFilter {
+.filterItem {
     margin-top: 16px;
 }
 
@@ -60,21 +71,7 @@
     display: flex;
 }
 
-.status {
-    padding: 10px;
-    border: 1px solid #c3c3c3;
-    margin-right: 5px;
-    text-align: center;
-    flex: 1;
-    cursor: pointer;
-    white-space: nowrap;
-}
-
-.status.selected {
-    background: #026AA7;
-    color: white;
-}
-
-.status:first-child {
-    border-left: 1px solid #c3c3c3;
+.issues {
+    display: flex;
+    flex-wrap: wrap;
 }
