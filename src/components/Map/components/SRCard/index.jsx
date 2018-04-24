@@ -101,6 +101,10 @@ const renderCard = (props, onBackBtnClicked) => {
         axisTick: {
           show: false,
         },
+        axisLabel: {
+          fontFamily: 'Open Sans',
+          color: '#555555',
+        },
       }],
       xAxis: [
         {
@@ -113,52 +117,15 @@ const renderCard = (props, onBackBtnClicked) => {
         {
           type: 'bar',
           data: barChartData,
+          legendHoverLink: true,
         },
       ],
       grid: {
         top: 5,
         bottom: 45,
-        left: 100,
+        left: 110,
       },
     };
-
-    // create jurisdictions chart data
-    // const jurisdictionChartData = SRSummary.jurisdictions.map(jurisdiction => ({
-    //   name: jurisdiction.name,
-    //   value: jurisdiction.count,
-    //   color: jurisdiction.color,
-    // }));
-
-    // // create echart jurisdiction pie chart options
-    // jurisdictionPieChartOption = {
-    //   title: {
-    //     text: 'Total',
-    //     subtext: jurisdictionChartData.reduce((prev, curr) => prev + curr.value, 0),
-    //     x: 'center',
-    //     y: 'center',
-    //     textStyle: {
-    //       fontWeight: 'normal',
-    //       fontSize: 16,
-    //     },
-    //   },
-    //   tooltip: {
-    //     show: true,
-    //     trigger: 'item',
-    //     formatter: '{b}:<br/> Count: {c} <br/> Percent: ({d}%)',
-    //   },
-    //   series: [{
-    //     type: 'pie',
-    //     selectedMode: 'single',
-    //     radius: ['45%', '55%'],
-    //     color: jurisdictionChartData.map(data => data.color),
-    //     label: {
-    //       normal: {
-    //         formatter: '{b}\n{d}%',
-    //       },
-    //     },
-    //     data: jurisdictionChartData,
-    //   }],
-    // };
 
     // create service per status data
     const serviceStatusData = [
@@ -194,9 +161,6 @@ const renderCard = (props, onBackBtnClicked) => {
           itemStyle: {
             emphasis: {
               color: '#2db34b',
-              shadowBlur: 10,
-              shadowOffsetX: 0,
-              shadowColor: 'rgba(0, 0, 0, 0.5)',
             },
           },
         },
@@ -206,6 +170,11 @@ const renderCard = (props, onBackBtnClicked) => {
 
 
   if (selectedSR) {
+    // console.log(selectedSR.service.color);
+    const imgStyle = {
+      border: `3px solid ${selectedSR.service.color}`,
+      borderRadius: '50%',
+    };
     const serviceName = selectedSR.service.name;
     const alias = serviceName.replace(/\s/g, '_').toLowerCase();
     const imgUrl = `icons/issues/${alias}.svg`;
@@ -216,8 +185,8 @@ const renderCard = (props, onBackBtnClicked) => {
       <div className={cx('cardContainer')} style={{ zIndex: 500 }}>
         <div className={cx('cardItem')}>
           <div className={cx('cardItemTitle')}>Issue Type</div>
-          <div className={cx('cardItemContent')}>
-            <img src={imgUrl} className={cx('cardItemIcon')} />
+          <div className={cx('cardItemContent', 'icon')}>
+            <img src={imgUrl} className={cx('cardItemIcon')} style={imgStyle} />
             <div className={cx('cardItemCaption')}>{serviceName}</div>
           </div>
         </div>

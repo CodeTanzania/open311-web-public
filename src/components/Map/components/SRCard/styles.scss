@@ -72,11 +72,13 @@
         color: #555555;
         font-size: 11px;
     }
+    &.icon {
+        padding-top: 10px;
+    }
 }
 
 .cardItemIcon {
     display: table-cell;
-    padding-top: 10px;
     width: 37px;
 }
 
