@@ -1,3 +1,7 @@
+.leaflet-tooltip {
+    width: 300px;
+}
+
 .customMarker {
     background: url('/images/marker.png') center center/100% no-repeat;
     width: 25px !important;

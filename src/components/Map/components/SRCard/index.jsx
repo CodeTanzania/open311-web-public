@@ -194,6 +194,9 @@ const renderCard = (props, onBackBtnClicked) => {
           itemStyle: {
             emphasis: {
               color: '#2db34b',
+              shadowBlur: 10,
+              shadowOffsetX: 0,
+              shadowColor: 'rgba(0, 0, 0, 0.5)',
             },
           },
         },
