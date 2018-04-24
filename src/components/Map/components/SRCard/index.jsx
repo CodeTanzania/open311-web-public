@@ -193,9 +193,7 @@ const renderCard = (props, onBackBtnClicked) => {
           data: serviceStatusData,
           itemStyle: {
             emphasis: {
-              shadowBlur: 10,
-              shadowOffsetX: 0,
-              shadowColor: 'rgba(0, 0, 0, 0.5)',
+              color: '#2db34b',
             },
           },
         },
