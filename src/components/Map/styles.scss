@@ -81,8 +81,12 @@
     max-width: 275px;
 }
 
-.dateFilter {
+.dateFilterVertical {
     padding-top: 10px;
+}
+
+.dateFilterHor {
+    display: none;
 }
 
 .filterItem.homeBtn {
@@ -104,4 +108,13 @@
 
 .main {
     flex: 1;
+}
+
+@media screen and (min-width:1000px) {
+    .dateFilterVertical {
+        display: none;
+    }
+    .dateFilterHor {
+        display: block;
+    }
 }

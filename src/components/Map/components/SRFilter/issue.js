@@ -18,8 +18,9 @@ class Issue extends Component {
     const { issue } = this.props;
     const issueIconName = issue.name.toLowerCase().replace(/ /g, '_');
     const imgUrl = `icons/issues/${issueIconName}.svg`;
+    const borderColor = issue.selected ? issue.color : '#d3d3d3';
     const imgStyle = {
-      border: `3px solid ${issue.color}`,
+      border: `3px solid ${borderColor}`,
       borderRadius: '50%',
     };
     return (

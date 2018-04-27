@@ -39,7 +39,7 @@ class Header extends Component {
   render() {
     const { visible, locale } = this.state;
     return (
-      <div className={cx('header')} style={{ zIndex: 502 }}>
+      <div className={cx('header')} style={{ zIndex: 1002 }}>
         <div className={cx('content')}>
           <NavLink to="/" className={cx('logoContainer')}>
             <svg xmlns="http://www.w3.org/2000/svg"

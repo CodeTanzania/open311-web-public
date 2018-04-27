@@ -80,6 +80,11 @@ class SRFilter extends Component {
     this.props.toggleJurisdiction(changed);
     this.props.resetSearchTicketNum();
     this.props.getServiceRequests();
+    setTimeout(function () {
+      this.setState({
+        hideFilterContent: !this.state.hideFilterContent,
+      });
+    }.bind(this), delayTime);
   }
 
   /**
@@ -113,23 +118,30 @@ class SRFilter extends Component {
   render() {
     const { hideFilterContent, selectedArea } = this.state;
     const { areas, statuses, issues } = this.props;
+    const isFilterApplied = areas.some(item => item.selected) ||
+      statuses.some(item => item.selected) || issues.some(item => item.selected);
     const areaOptions = areas.map(jurisdiction => ({
       label: jurisdiction.name,
       value: jurisdiction.id,
     }));
-
+    let filterImgUrl = 'icons/filter.svg';
+    if (isFilterApplied) {
+      filterImgUrl = 'icons/filter-white.svg';
+    }
 
     return (
       <div className={cx('filterContainer')}>
-        <div className={cx('filterBtn')} title='More Filters' onClick={this.toggleFilterContent}>
-          <span className={cx('filterBtnIcon')}><img src="icons/filter.svg" alt="" className={cx('filterIcon')} /></span>
-          <span className={cx('filterBtnLabel')}>Filters</span>
+        <div className={cx('filterBtn', { selected: isFilterApplied })} title='More Filters' onClick={this.toggleFilterContent}>
+          <span className={cx('filterBtnIcon')}><img src={filterImgUrl} alt="" className={cx('filterIcon')} /></span>
+          <span className={cx('filterBtnLabel', { selected: isFilterApplied })}>Filters {isFilterApplied ? 'applied' : ''}</span>
         </div>
         <div className={cx('filterContent', { hide: hideFilterContent })} >
-          <div className={cx('filterClear')} onClick={this.onClearFilterClicked}>
-            <img src='icons/x-mark.svg' style={{ width: '12px', marginRight: '3px' }} />
-            <span>Clear all filters</span>
-          </div>
+          {
+            isFilterApplied ? (<div className={cx('filterClear')} onClick={this.onClearFilterClicked}>
+              <img src='icons/x-mark.svg' style={{ width: '12px', marginRight: '3px' }} />
+              <span>Clear all filters</span>
+            </div>) : ''
+          }
           <span className={cx('filterTitle')}>Filter By Area</span>
           <Select
             onChange={this.areaChangeHandler}

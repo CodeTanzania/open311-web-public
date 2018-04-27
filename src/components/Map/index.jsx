@@ -188,9 +188,13 @@ class SimpleMap extends Component {
             <div className={cx('filter')} style={{ zIndex: 500 }}>
               <div className={cx('filterItem')} >
                 <SRSearchBox />
-                <div className={cx('dateFilter')}><SRDateFilter /></div>
+                <div className={cx('dateFilterVertical')}><SRDateFilter /></div>
               </div>
-
+              <div className={cx('filterItem')}>
+                <div className={cx('dateFilterHor')}>
+                  <SRDateFilter />
+                </div>
+              </div>
               <div className={cx('filterItem')}><SRFilter /></div>
             </div>
             <SRCard />
