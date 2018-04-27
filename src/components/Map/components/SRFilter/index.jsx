@@ -25,7 +25,7 @@ const delayTime = 2000;
 class SRFilter extends Component {
   constructor() {
     super();
-    this.state = { hideFilterContent: true, statuses: [] };
+    this.state = { hideFilterContent: true, selectedArea: undefined };
     this.toggleFilterContent = this.toggleFilterContent.bind(this);
     this.onClearFilterClicked = this.onClearFilterClicked.bind(this);
     this.areaChangeHandler = this.areaChangeHandler.bind(this);
@@ -44,9 +44,13 @@ class SRFilter extends Component {
     this.props.resetServices();
     this.props.resetJurisdictions();
     this.props.getServiceRequests();
+    this.setState({
+      selectedArea: undefined,
+    });
     setTimeout(function () {
       this.setState({
         hideFilterContent: !this.state.hideFilterContent,
+        selectedArea: undefined,
       });
     }.bind(this), delayTime);
   }

@@ -15,7 +15,7 @@ class SearchBox extends Component {
       ticketNum: '',
     };
     // bind functions
-    this.handleSubmit = this.handleSubmit.bind(this);
+    this.handleEnterKey = this.handleEnterKey.bind(this);
     this.handleChange = this.handleChange.bind(this);
   }
 
@@ -27,9 +27,10 @@ class SearchBox extends Component {
     }
   }
 
-  handleSubmit(event) {
-    event.preventDefault();
-    this.props.searchSRByTicketNo(this.state.ticketNum.toUpperCase());
+  handleEnterKey(event) {
+    if (event.key === 'Enter') {
+      this.props.searchSRByTicketNo(this.state.ticketNum.toUpperCase());
+    }
   }
 
   handleChange(event) {
@@ -39,7 +40,7 @@ class SearchBox extends Component {
   render() {
     return (
       <div className={cx('searchBox')}>
-        <div className={cx('searchBtn')} onClick={this.handleSubmit}>
+        <div className={cx('searchBtn')}>
           <img src="icons/search.svg" alt="" className={cx('searchBtnIcon')} />
         </div>
         <div className={cx('searchFieldContainer')}>
@@ -48,6 +49,7 @@ class SearchBox extends Component {
             value={this.state.ticketNum}
             onChange={this.handleChange}
             className={cx('searchField')}
+            onKeyPress={this.handleEnterKey}
             placeholder="Enter Ticket Number" />
         </div>
       </div>
