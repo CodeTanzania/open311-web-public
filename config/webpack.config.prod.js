@@ -102,11 +102,10 @@ const clientConfig = {
   },
   /* eslint indent:0 */
   plugins: [
-    new webpack.DefinePlugin({ // <-- key to reducing React's size
-      'process.env': {
-        NODE_ENV: JSON.stringify('production'),
-      },
-    }),
+    new webpack.EnvironmentPlugin([
+      'NODE_ENV',
+      'PUBLICWEB_AUTH_TOKEN'
+    ]),
     new ExtractTextPlugin({
       filename: 'styles.css',
     }),

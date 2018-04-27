@@ -105,6 +105,9 @@ const clientConfig = {
   plugins: [
     new webpack.HotModuleReplacementPlugin(),
     new webpack.NoEmitOnErrorsPlugin(),
+    new webpack.EnvironmentPlugin([
+      'PUBLICWEB_AUTH_TOKEN'
+    ])
   ],
 };
 
