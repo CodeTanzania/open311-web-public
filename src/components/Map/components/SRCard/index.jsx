@@ -221,7 +221,7 @@ class SRCard extends Component {
       const alias = serviceName.replace(/\s/g, '_').toLowerCase();
       const issueIconUrl = `icons/issues/${alias}.svg`;
       let sampleIssueImgUrl;
-      let lightboxImgs;
+      let lightboxImgs = [];
       if (selectedSR.attachments && selectedSR.attachments.length > 0) {
         const sampleImg = selectedSR.attachments[0];
         sampleIssueImgUrl = `data:${sampleImg.mime};base64,${sampleImg.content}`;
@@ -376,14 +376,17 @@ class SRCard extends Component {
               </div>
             </div>
           </div> */}
-          <Lightbox
-            currentImage={currentIssueImg}
-            images={lightboxImgs}
-            isOpen={showIssueImg}
-            onClose={this.closeViewer}
-            onClickNext={this.goToNextLightboxImg}
-            onClickPrev={this.goToPrevLightboxImg}
-          />
+          {
+            lightboxImgs.length ? (<Lightbox
+              currentImage={currentIssueImg}
+              images={lightboxImgs}
+              isOpen={showIssueImg}
+              onClose={this.closeViewer}
+              onClickNext={this.goToNextLightboxImg}
+              onClickPrev={this.goToPrevLightboxImg}
+            />) : ''
+          }
+
         </div>
       );
     }
