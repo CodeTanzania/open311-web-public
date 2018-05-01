@@ -229,8 +229,6 @@ class SRCard extends Component {
           .attachments
           .map(attachment => ({ src: `data:${attachment.mime};base64,${attachment.content}` }));
       }
-      console.log(lightboxImgs);
-      console.log(currentIssueImg);
       const today = moment();
       const createdAt = moment(selectedSR.createdAt);
       const days = today.diff(createdAt, 'days');
