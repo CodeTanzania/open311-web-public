@@ -7,7 +7,7 @@ const webpackHotMiddleware = require('webpack-hot-middleware');
 const config = require('./config/webpack.config.dev.js');
 const compiler = webpack(config);
 const proxy = require('http-proxy-middleware');
-const api = 'http://dawasco-production.herokuapp.com';
+const api = 'http://dawasco.herokuapp.com';
 
 app.set('port', (process.env.PORT || 3000));
 
