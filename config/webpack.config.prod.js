@@ -114,6 +114,7 @@ const clientConfig = {
       compress: {
         warnings: false,
       },
+      sourceMap: true,
       comments: false,
       minimize: false,
     }), // minify everything
