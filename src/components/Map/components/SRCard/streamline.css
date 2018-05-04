@@ -1,8 +1,9 @@
 .streamline {
     position: relative;
-    border-color: rgba(120, 130, 140, .13)
+    border-color: rgba(120, 130, 140, .13);
+    height: 150px;
+    overflow: auto;
 }
-
 
 /* .streamline .sl-icon:before, */
 
@@ -21,7 +22,6 @@
 .sl-item:after {
     content: ""
 }
-
 
 /* .sl-icon {
     position: absolute;
@@ -47,7 +47,6 @@
     left: 0
 } */
 
-
 /* .tl-content.panel, */
 
 .sl-content p:last-child {
@@ -58,7 +57,8 @@
     border-color: rgba(120, 130, 140, .13);
     position: relative;
     padding: 10px 16px;
-    clear: left
+    clear: left;
+    font-size: 9px;
 }
 
 .sl-item:after {
@@ -81,7 +81,6 @@
     background-color: rgba(120, 130, 140, .13)
 }
 
-
 /* .sl-left {
     float: left;
     position: relative;
@@ -100,7 +99,6 @@
 .sl-content {
     margin-left: 24px
 }
-
 
 /* .sl-author,
 .sl-footer {
@@ -124,7 +122,6 @@
     font-weight: 700;
     background-color: blue;
     color: blue;
-    border-radius: 4px;
     position: relative;
     display: inline;
     margin-left: 10px;

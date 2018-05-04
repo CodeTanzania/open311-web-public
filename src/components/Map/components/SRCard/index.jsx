@@ -88,7 +88,6 @@ class SRCard extends Component {
   }
 
   render() {
-    // return renderCard(this.props, this.onBackBtnClicked,  this.state);
     const { selectedSR, SRSummary, publicServices, dateRange, } = this.props; // eslint-disable-line
     const { startDate, endDate } = dateRange;
     const { showIssueImg, currentIssueImg } = this.state;
@@ -263,9 +262,58 @@ class SRCard extends Component {
               {selectedSR.priority.name}
             </div>
           </div>
-          {selectedSR.changelogs ? (<div className={cx('cardItem')}>
+          {selectedSR.changelogs.length ? (<div className={cx('cardItem')}>
             <div className={cx('cardItemTitle')}>Resolution Timeline</div>
             <div className={cx('cardItemContent')}>
+              <div className="streamline">
+                {
+                  selectedSR.changelogs ?
+                    selectedSR.changelogs.map(changelog => (
+                      <div
+                        className="sl-item"
+                        key={changelog.id}
+                        style={{ borderColor: changelog.status ? changelog.status.color : '' }}>
+                        <div className="sl-content">
+                          <div className="sl-date">
+                            <span className="sl-dateTitle">
+                              {changelog.changer ? changelog.changer.name : ''}
+                            </span>
+                            <Moment format='ddd MMM D, YYYY' date={changelog.createdAt} />
+                          </div>
+                          {
+                            changelog.status ? (<p>Change status to
+                                              <span className='labelBadge' style={{
+                                backgroundColor: changelog.status ? changelog.status.color : '',
+                                color: changelog.status ? changelog.status.color : '',
+                              }}>
+                                <span className='labelText'>{changelog.status.name}</span>
+                              </span>
+                            </p>) : ''
+                          }
+                          {
+                            changelog.priority ? (<p>Change priority to
+                                              <span className='labelBadge' style={{
+                                backgroundColor: changelog.priority.color,
+                                color: changelog.priority.color,
+                              }}>
+                                <span className='labelText'>{changelog.priority.name}</span>
+                              </span>
+                            </p>) : ''
+                          }
+                          {
+                            changelog.assignee ? (
+                              <p>
+                                Assignee to {changelog.assignee.name}
+                              </p>
+                            ) : ''
+                          }
+
+                        </div>
+                      </div>
+                    )) : ''
+                }
+              </div>
+              {/* </div> */}
             </div>
           </div>) : ''}
           <div className={cx('cardItem')}>
@@ -297,85 +345,6 @@ class SRCard extends Component {
               <span>&#x3c;</span><span>&#x3c;</span><span> Back to summary statistics</span>
             </div>
           </div>
-          {/* <div>
-            <div className={cx('serviceName')}>
-              <span>{selectedSR.service.name}</span>
-            </div>
-            <div className={cx('item')}>
-              <div className={cx('itemTitle', 'horizontal')}>Ticket No:</div>
-              <div className={cx('itemValue', 'horizontal')}>{selectedSR.code}</div>
-            </div>
-            <div className={cx('item', 'grid')}>
-              <div className={cx('itemLeft')}>
-                <div className={cx('itemTitle', 'vertical')}>Address:</div>
-                <div className={cx('itemValue')}>{selectedSR.address}</div>
-              </div>
-              <div className={cx('itemRight')}>
-                <div className={cx('itemTitle', 'vertical')}>Area:</div>
-                <div className={cx('itemValue')}>{selectedSR.jurisdiction.name}</div>
-              </div>
-            </div>
-            <div className={cx('item', 'grid')}>
-              <div className={cx('itemLeft')}>
-                <div className={cx('itemBtn', getSRStatusClass(selectedSR.status.name))}>
-                  Status - {selectedSR.status.name}
-                </div>
-              </div>
-              <div className={cx('itemRight')}>
-                <div className={cx('itemBtn', getSRPriorityClass(selectedSR.priority.name))}>
-                  Priority - {selectedSR.priority.name}
-                </div>
-              </div>
-            </div>
-            <div className={cx('item', 'last')}>
-              <div className="streamline">
-                {
-                  selectedSR.changelogs ?
-                    selectedSR.changelogs.map(changelog => (
-                      <div 
-                      className="sl-item" 
-                      key={changelog.id} 
-                      style={{ borderColor: changelog.status.color }}>
-                        <div className="sl-content">
-                          <div className="sl-date">
-                            <span className="sl-dateTitle"> 
-                            {changelog.changer ? changelog.changer.name : ''} 
-                            </span>
-                            <Moment format='ddd MMM D, YYYY' date={changelog.createdAt} />
-                          </div>
-                          {
-                            changelog.status ? (<p>Change status to
-                                              <span className='labelBadge' style={{ 
-                                                backgroundColor: changelog.status.color, 
-                                                color: changelog.status.color }}>
-                                <span className='labelText'>{changelog.status.name}</span>
-                              </span>
-                            </p>) : ''
-                          }
-                          {
-                            changelog.priority ? (<p>Change priority to
-                                              <span className='labelBadge' style={{ 
-                                                backgroundColor: changelog.priority.color, 
-                                                color: changelog.priority.color }}>
-                                <span className='labelText'>{changelog.priority.name}</span>
-                              </span>
-                            </p>) : ''
-                          }
-                          {
-                            changelog.assignee ? (
-                              <p>
-                                Assignee to {changelog.assignee.name}
-                              </p>
-                            ) : ''
-                          }
-  
-                        </div>
-                      </div>
-                    )) : ''
-                }
-              </div>
-            </div>
-          </div> */}
           {
             lightboxImgs.length ? (<Lightbox
               currentImage={currentIssueImg}

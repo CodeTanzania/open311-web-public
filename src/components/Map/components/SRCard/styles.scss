@@ -5,8 +5,9 @@
     width: 250px;
     background: #fafafa;
     box-shadow: -1px 1px 7px rgba(0, 0, 0, 0.4);
-    height: auto;
-    overflow: hidden;
+    max-height: 600px;
+    overflow-x: hidden;
+    overflow-y: scroll;
 }
 
 .header {
@@ -78,6 +79,10 @@
     &.icon {
         padding-top: 10px;
     }
+    &.fixed {
+        max-height: 120px;
+        overflow: auto;
+    }
 }
 
 .cardItemIcon {
@@ -145,143 +150,122 @@
     padding: 10px 0;
 }
 
-.item.grid {
-    display: flex;
-    justify-content: space-between;
-}
-
-.item.last {
+// .item.grid {
+//     display: flex;
+//     justify-content: space-between;
+// }
+.item {
     border-bottom: 0;
     margin-bottom: 10px;
 }
 
-.itemRight,
-.itemLeft {
-    flex: 1;
-    white-space: nowrap;
-}
-
-.itemRight {
-    padding-left: 60px;
-}
-
-.itemTitle {
-    display: inline-block;
-    font-weight: bold;
-    color: #026AA7;
-}
-
-.itemTitle.horizontal {
-    padding-right: 5px;
-}
-
-.itemTitle.vertical {
-    padding-bottom: 3px;
-}
-
-.itemValue {
-    display: block
-}
-
-.itemValue.horizontal {
-    display: inline-block;
-}
-
-.timelineContainer {
-    width: 100%;
-    background: white;
-    height: 250px;
-    overflow-y: auto;
-    margin-top: 15px;
-    box-shadow: 0px 1px 4px rgba(0, 0, 0, 0.3);
-}
-
-.timeline {
-    margin: 20px 0;
-    display: inline-block;
-}
-
-.timelineItem {
-    list-style: none;
-    margin: auto;
-    min-height: 50px;
-    border-left: 1px dashed #86D6FF;
-    padding: 0 0 50px 30px;
-    position: relative;
-}
-
-.timelineItem:last-child {
-    border-left: 0;
-}
-
-.timelineItem::before {
-    position: absolute;
-    left: -11px;
-    top: -5px;
-    content: " ";
-    border: 8px solid rgba(255, 255, 255, 0.74);
-    border-radius: 500%;
-    background: #258CC7;
-    height: 20px;
-    width: 20px;
-    transition: all 500ms ease-in-out;
-}
-
-.timelineDetail {
-    color: rgba(0, 0, 0, 0.5);
-    font-size: 12px;
-}
-
-.itemBtn {
-    background-color: #44c767;
-    border: 1px solid #18ab29;
-    display: inline-block;
-    color: #ffffff;
-    font-family: Arial;
-    padding: 4px 9px;
-    border-radius: 3px;
-    text-decoration: none;
-    text-shadow: 0px 1px 0px #2f6627;
-}
-
-.itemBtn.priorityCritical {
-    background-color: #F44336;
-    border: 1px solid #db3c30;
-    text-shadow: 0px 1px 0px #922820;
-}
-
-.itemBtn.priorityLow {
-    background-color: #1B5E20;
-    border: 1px solid #18541c;
-    text-shadow: 0px 1px 0px #124116;
-}
-
-.itemBtn.priorityNormal {
-    background-color: #4CAF50;
-    border: 1px solid #3c8c40;
-    text-shadow: 0px 1px 0px #357a38;
-}
-
-.itemBtn.statusOpen {
-    background-color: #0d47a1;
-    border: 1px solid #0a3880;
-    text-shadow: 0px 1px 0px #093170;
-}
-
-.itemBtn.statusInProgress {
-    background-color: #f9a825;
-    border: 1px solid #c7861d;
-    text-shadow: 0px 1px 0px #ae7519;
-}
-
-.itemBtn.statusClosed {
-    background-color: #1B5E20;
-    border: 1px solid #18541c;
-    text-shadow: 0px 1px 0px #124116;
-}
-
-.itemBtn.statusEscallated {
-    background-color: #EF6C00;
-    border: 1px solid #bf5600;
-    text-shadow: 0px 1px 0px #a74b00;
-}
+// .itemRight,
+// .itemLeft {
+//     flex: 1;
+//     white-space: nowrap;
+// }
+// .itemRight {
+//     padding-left: 60px;
+// }
+// .itemTitle {
+//     display: inline-block;
+//     font-weight: bold;
+//     color: #026AA7;
+// }
+// .itemTitle.horizontal {
+//     padding-right: 5px;
+// }
+// .itemTitle.vertical {
+//     padding-bottom: 3px;
+// }
+// .itemValue {
+//     display: block
+// }
+// .itemValue.horizontal {
+//     display: inline-block;
+// }
+// .timelineContainer {
+//     width: 100%;
+//     background: white;
+//     height: 250px;
+//     overflow-y: auto;
+//     margin-top: 15px;
+//     box-shadow: 0px 1px 4px rgba(0, 0, 0, 0.3);
+// }
+// .timeline {
+//     margin: 20px 0;
+//     display: inline-block;
+// }
+// .timelineItem {
+//     list-style: none;
+//     margin: auto;
+//     min-height: 50px;
+//     border-left: 1px dashed #86D6FF;
+//     padding: 0 0 50px 30px;
+//     position: relative;
+// }
+// .timelineItem:last-child {
+//     border-left: 0;
+// }
+// .timelineItem::before {
+//     position: absolute;
+//     left: -11px;
+//     top: -5px;
+//     content: " ";
+//     border: 8px solid rgba(255, 255, 255, 0.74);
+//     border-radius: 500%;
+//     background: #258CC7;
+//     height: 20px;
+//     width: 20px;
+//     transition: all 500ms ease-in-out;
+// }
+// .timelineDetail {
+//     color: rgba(0, 0, 0, 0.5);
+//     font-size: 12px;
+// }
+// .itemBtn {
+//     background-color: #44c767;
+//     border: 1px solid #18ab29;
+//     display: inline-block;
+//     color: #ffffff;
+//     font-family: Arial;
+//     padding: 4px 9px;
+//     border-radius: 3px;
+//     text-decoration: none;
+//     text-shadow: 0px 1px 0px #2f6627;
+// }
+// .itemBtn.priorityCritical {
+//     background-color: #F44336;
+//     border: 1px solid #db3c30;
+//     text-shadow: 0px 1px 0px #922820;
+// }
+// .itemBtn.priorityLow {
+//     background-color: #1B5E20;
+//     border: 1px solid #18541c;
+//     text-shadow: 0px 1px 0px #124116;
+// }
+// .itemBtn.priorityNormal {
+//     background-color: #4CAF50;
+//     border: 1px solid #3c8c40;
+//     text-shadow: 0px 1px 0px #357a38;
+// }
+// .itemBtn.statusOpen {
+//     background-color: #0d47a1;
+//     border: 1px solid #0a3880;
+//     text-shadow: 0px 1px 0px #093170;
+// }
+// .itemBtn.statusInProgress {
+//     background-color: #f9a825;
+//     border: 1px solid #c7861d;
+//     text-shadow: 0px 1px 0px #ae7519;
+// }
+// .itemBtn.statusClosed {
+//     background-color: #1B5E20;
+//     border: 1px solid #18541c;
+//     text-shadow: 0px 1px 0px #124116;
+// }
+// .itemBtn.statusEscallated {
+//     background-color: #EF6C00;
+//     border: 1px solid #bf5600;
+//     text-shadow: 0px 1px 0px #a74b00;
+// }

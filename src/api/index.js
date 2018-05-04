@@ -12,7 +12,7 @@ export default {
   getSR({
     limit = 1, page = 0, services, jurisdictions, statuses, startDate, endDate,
   }) {
-    const url = 'api/servicerequests?select={"operator": 0, "changelogs": 0, "wasOpenTicketSent": 0, "wasResolveTicketSent": 0, "ttr": 0, "resolvedAt": 0, "call": 0, "method": 0, "group": 0, "description": 0}';
+    const url = 'api/servicerequests?select={"operator": 0, "wasOpenTicketSent": 0, "wasResolveTicketSent": 0, "ttr": 0, "resolvedAt": 0, "call": 0, "method": 0, "group": 0, "description": 0}';
     const query = { location: { $ne: null } };
     if (services && services.length) {
       query.service = { $in: services };

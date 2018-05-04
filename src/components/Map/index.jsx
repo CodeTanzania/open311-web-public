@@ -163,7 +163,7 @@ class SimpleMap extends Component {
     return (
       <div className={cx('wrapper')} >
         <Header />
-        <div className={cx('main')}>
+        <div>
           <div style={{ position: 'relative' }}>
             <div className={cx('loader', { hide: !loading && dataFound })} style={{ zIndex: 501 }}>
               <div className={cx('spinner', { hide: !loading && !dataFound })}>
