@@ -1,5 +1,6 @@
 /* eslint no-unused-vars: "off" */
 /* eslint no-trailing-spaces: "off" */
+/* eslint max-len: "off" */
 import React, { Component } from 'react';
 import classnames from 'classnames/bind';
 import { connect } from 'react-redux';
@@ -15,7 +16,6 @@ import 'echarts/lib/chart/pie';
 import 'echarts/lib/component/tooltip';
 import 'echarts/lib/component/title';
 import Lightbox from 'react-images';
-import './streamline.css';
 import styles from './styles.scss';
 
 const cx = classnames.bind(styles);
@@ -57,6 +57,7 @@ class SRCard extends Component {
     this.openImgViewer = this.openImgViewer.bind(this);
     this.goToNextLightboxImg = this.goToNextLightboxImg.bind(this);
     this.goToPrevLightboxImg = this.goToPrevLightboxImg.bind(this);
+    this.toggleTimeline = this.toggleTimeline.bind(this);
   }
 
   onBackBtnClicked() {
@@ -87,10 +88,16 @@ class SRCard extends Component {
     });
   }
 
+  toggleTimeline() {
+    this.setState({
+      timelineOpen: !this.state.timelineOpen,
+    });
+  }
+
   render() {
     const { selectedSR, SRSummary, publicServices, dateRange, } = this.props; // eslint-disable-line
     const { startDate, endDate } = dateRange;
-    const { showIssueImg, currentIssueImg } = this.state;
+    const { showIssueImg, currentIssueImg, timelineOpen } = this.state;
     const diff = endDate.diff(startDate, 'days');
 
     let totalCount = 0;
@@ -263,57 +270,34 @@ class SRCard extends Component {
             </div>
           </div>
           {selectedSR.changelogs.length ? (<div className={cx('cardItem')}>
-            <div className={cx('cardItemTitle')}>Resolution Timeline</div>
-            <div className={cx('cardItemContent')}>
-              <div className="streamline">
+            <div
+              title={timelineOpen ? 'Click to hide the resolution' : 'Click to display the resolution'}
+              className={cx('cardItemTitle', 'collapsible', { closed: !timelineOpen, open: timelineOpen })}
+              onClick={this.toggleTimeline}
+            >
+              Resolution Timeline</div>
+            <div className={cx('cardItemContent', 'small')}>
+              <div className={cx('timeline', { open: timelineOpen })}>
                 {
-                  selectedSR.changelogs ?
-                    selectedSR.changelogs.map(changelog => (
-                      <div
-                        className="sl-item"
-                        key={changelog.id}
-                        style={{ borderColor: changelog.status ? changelog.status.color : '' }}>
-                        <div className="sl-content">
-                          <div className="sl-date">
-                            <span className="sl-dateTitle">
-                              {changelog.changer ? changelog.changer.name : ''}
-                            </span>
-                            <Moment format='ddd MMM D, YYYY' date={changelog.createdAt} />
-                          </div>
-                          {
-                            changelog.status ? (<p>Change status to
-                                              <span className='labelBadge' style={{
-                                backgroundColor: changelog.status ? changelog.status.color : '',
-                                color: changelog.status ? changelog.status.color : '',
-                              }}>
-                                <span className='labelText'>{changelog.status.name}</span>
-                              </span>
-                            </p>) : ''
-                          }
-                          {
-                            changelog.priority ? (<p>Change priority to
-                                              <span className='labelBadge' style={{
-                                backgroundColor: changelog.priority.color,
-                                color: changelog.priority.color,
-                              }}>
-                                <span className='labelText'>{changelog.priority.name}</span>
-                              </span>
-                            </p>) : ''
-                          }
-                          {
-                            changelog.assignee ? (
-                              <p>
-                                Assignee to {changelog.assignee.name}
-                              </p>
-                            ) : ''
-                          }
-
-                        </div>
-                      </div>
-                    )) : ''
+                  selectedSR.changelogs.map(changelog => (
+                    <div className={cx('timelineItem')}
+                      date-is={moment(changelog.createdAt).format('ddd MMM D, YYYY')}>
+                      {
+                        changelog.status ?
+                          (<span className={cx('timelineContent')}>Change status to {changelog.status.name}</span>) : ''
+                      }
+                      {
+                        changelog.priority ?
+                          (<span>Change priority to {changelog.priority.name}</span>) : ''
+                      }
+                      {
+                        changelog.assignee ?
+                          (<span>Assignee to {changelog.assignee.name}</span>) : ''
+                      }
+                    </div>
+                  ))
                 }
               </div>
-              {/* </div> */}
             </div>
           </div>) : ''}
           <div className={cx('cardItem')}>
