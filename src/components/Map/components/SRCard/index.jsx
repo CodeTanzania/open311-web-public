@@ -277,7 +277,7 @@ class SRCard extends Component {
             >
               Resolution Timeline</div>
             <div className={cx('cardItemContent', 'small')}>
-              <div className={cx('timeline', { open: timelineOpen })}>
+              <div className={cx('timeline')}>
                 {
                   selectedSR.changelogs.map(changelog => (
                     <div className={cx('timelineItem')}
