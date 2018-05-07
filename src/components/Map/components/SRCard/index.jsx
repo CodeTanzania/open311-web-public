@@ -239,7 +239,7 @@ class SRCard extends Component {
       const createdAt = moment(selectedSR.createdAt);
       const days = today.diff(createdAt, 'days');
       return (
-        <div className={cx('cardContainer')} style={{ zIndex: 500 }}>
+        <div className={cx('cardContainer')}>
           {
             sampleIssueImgUrl ? (<div className={cx('cardItem', 'noPadding')}>
               <div className={cx('issueImgHolder')}>
@@ -344,7 +344,7 @@ class SRCard extends Component {
       );
     }
     return (
-      <div className={cx('cardContainer')} style={{ zIndex: 500 }}>
+      <div className={cx('cardContainer')}>
         <div className={cx('header')} >
           <span className={cx('cardTitle')}> SUMMARY STATISTICS</span>
           <span className={cx('cardSubtitle')}> LAST {diff - 1} DAYS</span>

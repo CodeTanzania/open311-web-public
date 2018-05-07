@@ -70,6 +70,7 @@ class SimpleMap extends Component {
     this.pointToLayer = this.pointToLayer.bind(this);
     this.onEachFeature = this.onEachFeature.bind(this);
     this.handleEnterValidTicket = this.handleEnterValidTicket.bind(this);
+    this.restoreDefaultMapZoom = this.restoreDefaultMapZoom.bind(this);
   }
   /**
    * This method is called only once
@@ -79,9 +80,9 @@ class SimpleMap extends Component {
   componentDidMount() {
     const map = this.map.leafletElement;
     // Reset zoom level when click outside issues
-    map.on('click', () => {
-      this.setState({ zoom: defaultZoom });
-    });
+    // map.on('click', () => {
+    //   this.setState({ zoom: defaultZoom });
+    // });
     // Reposition zoom control buttons
     control.zoom({
       position: 'bottomleft',
@@ -153,12 +154,16 @@ class SimpleMap extends Component {
     this.props.fetchMapDataComplete();
   }
 
+  restoreDefaultMapZoom() {
+    this.setState({ zoom: defaultZoom });
+  }
 
   render() {
     const { center, zoom } = this.state;
     const { serviceRequests, mapData, ticketNum } = this.props;
     const { loading, dataFound, title } = mapData;
     const ticketNotFound = !loading && !dataFound && title === MAP_DATA_SEARCH_BY_TICKETNO;
+    const showRestoreMapZoomBtn = zoom !== defaultZoom;
 
     return (
       <div className={cx('wrapper')} >
@@ -197,7 +202,20 @@ class SimpleMap extends Component {
               </div>
               <div className={cx('filterItem')}><SRFilter /></div>
             </div>
-            <SRCard />
+            {
+              showRestoreMapZoomBtn ? (<div
+                className={cx('restoreMapZoomBtn')}
+                style={{ zIndex: 500 }}
+                title='Click to restore map zoom to original'
+                onClick={this.restoreDefaultMapZoom}
+              >
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="#8a8a8a" viewBox="0 0 24 24"><path d="M16.586 19.414l-2.586 2.586v-8h8l-2.586 2.586 4.586 4.586-2.828 2.828-4.586-4.586zm-13.758-19.414l-2.828 2.828 4.586 4.586-2.586 2.586h8v-8l-2.586 2.586-4.586-4.586zm16.586 7.414l2.586 2.586h-8v-8l2.586 2.586 4.586-4.586 2.828 2.828-4.586 4.586zm-19.414 13.758l2.828 2.828 4.586-4.586 2.586 2.586v-8h-8l2.586 2.586-4.586 4.586z" />
+                </svg>
+              </div>) : ''
+            }
+            <div className={cx('issuesStatsCard')} style={{ zIndex: 500 }}>
+              <SRCard />
+            </div>
             <Map center={center} zoomControl={false} zoom={zoom} className='mapContainer' ref={(map) => { this.map = map; }}>
               <TileLayer
                 attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
