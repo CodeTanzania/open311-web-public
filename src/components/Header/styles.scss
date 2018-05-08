@@ -1,4 +1,4 @@
-$brand-color:#0BA3DD;
+$brand-color:#189ad1;
 .header {
     position: fixed;
     background-color: #ffffff;
@@ -14,8 +14,8 @@ $brand-color:#0BA3DD;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding-left: 80px;
-    padding-right: 80px;
+    padding-left: 15px;
+    padding-right: 15px;
 }
 
 .contentBorder {
@@ -36,28 +36,60 @@ $brand-color:#0BA3DD;
     max-height: 50px;
 }
 
-.offcanvasMenu {
-    display: block;
-}
-
-.offcanvasBtn {
-    display: block;
-    font-size: 25px;
-}
-
 .menu {
     list-style-type: none;
     height: 100%;
     padding-left: 15px;
-    font-family: 'Montserrat', sans-serif;
 }
 
 .horizontalMenu {
     display: none;
 }
 
+.sideMenu {
+    position: fixed;
+    display: flex;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.5);
+    &.hide {
+        display: none;
+    }
+}
+
+.sideMenuBtn {
+    display: block;
+    text-decoration: none;
+}
+
+.sideMenuRight {
+    width: 70%;
+    background: #fafafa;
+    height: 100%;
+}
+
+.sideMenuLeft {
+    width: 30%;
+    height: 100%;
+}
+
+.closeSideMenu {
+    display: flex;
+    justify-content: flex-end;
+    text-decoration: none;
+    padding-top: 17px;
+    padding-right: 15px;
+    margin-bottom: 50px;
+}
+
 @media screen and (min-width:750px) {
-    .offcanvasMenu {
+    .content {
+        padding-left: 80px;
+        padding-right: 80px;
+    }
+    .sideMenuBtn {
         display: none;
     }
     .horizontalMenu {
