@@ -165,57 +165,11 @@ class SimpleMap extends Component {
     const ticketNotFound = !loading && !dataFound && title === MAP_DATA_SEARCH_BY_TICKETNO;
     const showRestoreMapZoomBtn = zoom !== defaultZoom;
 
-    return (
-      <div className={cx('wrapper')} >
-        <Header />
+    return [
+      <Header key='header' />,
+      <div key='body' className={cx('wrapper')} >
         <div>
           <div style={{ position: 'relative' }}>
-            <div className={cx('loader', { hide: !loading && dataFound })} style={{ zIndex: 501 }}>
-              <div className={cx('spinner', { hide: !loading && !dataFound })}>
-              </div>
-              {
-                ticketNotFound ? <div className={cx('loaderInfo')}>
-                  <div className={cx('loaderInfoHeader')}>Invalid Ticket Number</div>
-                  <div className={cx('loaderInfoBody')}>
-                    Dawasco Map Cannot Find Issue with Ticket No: <strong>{ticketNum}</strong>
-                  </div>
-                  <div className={cx('loaderInfoAction')}>
-                    <button
-                      type="button"
-                      className="btn btn-primary"
-                      onClick={this.handleEnterValidTicket}>
-                      Enter Valid Ticket Number
-                </button>
-                  </div>
-                </div> : ''
-              }
-            </div>
-            <div className={cx('filter')} style={{ zIndex: 500 }}>
-              <div className={cx('filterItem')} >
-                <SRSearchBox />
-                <div className={cx('dateFilterVertical')}><SRDateFilter /></div>
-              </div>
-              <div className={cx('filterItem')}>
-                <div className={cx('dateFilterHor')}>
-                  <SRDateFilter />
-                </div>
-              </div>
-              <div className={cx('filterItem')}><SRFilter /></div>
-            </div>
-            {
-              showRestoreMapZoomBtn ? (<div
-                className={cx('restoreMapZoomBtn')}
-                style={{ zIndex: 500 }}
-                title='Click to restore map zoom to original'
-                onClick={this.restoreDefaultMapZoom}
-              >
-                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="#8a8a8a" viewBox="0 0 24 24"><path d="M16.586 19.414l-2.586 2.586v-8h8l-2.586 2.586 4.586 4.586-2.828 2.828-4.586-4.586zm-13.758-19.414l-2.828 2.828 4.586 4.586-2.586 2.586h8v-8l-2.586 2.586-4.586-4.586zm16.586 7.414l2.586 2.586h-8v-8l2.586 2.586 4.586-4.586 2.828 2.828-4.586 4.586zm-19.414 13.758l2.828 2.828 4.586-4.586 2.586 2.586v-8h-8l2.586 2.586-4.586 4.586z" />
-                </svg>
-              </div>) : ''
-            }
-            <div className={cx('issuesStatsCard')} style={{ zIndex: 500 }}>
-              <SRCard />
-            </div>
             <Map center={center} zoomControl={false} zoom={zoom} className='mapContainer' ref={(map) => { this.map = map; }}>
               <TileLayer
                 attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
@@ -246,14 +200,66 @@ class SimpleMap extends Component {
                 })
               }
             </Map >
+            <div className={cx('loader', { hide: !loading && dataFound })} style={{ zIndex: 501 }}>
+              <div className={cx('spinner', { hide: !loading && !dataFound })}>
+              </div>
+              {
+                ticketNotFound ? <div className={cx('loaderInfo')}>
+                  <div className={cx('loaderInfoHeader')}>Invalid Ticket Number</div>
+                  <div className={cx('loaderInfoBody')}>
+                    Dawasco Map Cannot Find Issue with Ticket No: <strong>{ticketNum}</strong>
+                  </div>
+                  <div className={cx('loaderInfoAction')}>
+                    <button
+                      type="button"
+                      className="btn btn-primary"
+                      onClick={this.handleEnterValidTicket}>
+                      Enter Valid Ticket Number
+                </button>
+                  </div>
+                </div> : ''
+              }
+            </div>
+            <div className={cx('filter')} style={{ zIndex: 500 }}>
+              <div className={cx('filterItem')} >
+                <SRSearchBox />
+                <div className={cx('dateFilterVert')}><SRDateFilter /></div>
+              </div>
+              <div className={cx('filterItem')}>
+                <div className={cx('dateFilterHor')}>
+                  <SRDateFilter />
+                </div>
+              </div>
+              <div className={cx('filterItem')}><SRFilter /></div>
+            </div>
+            <div className={cx('dateFilterMobile')} style={{ zIndex: 500 }}>
+              <SRSearchBox />
+            </div>
+            {
+              showRestoreMapZoomBtn ? (<div
+                className={cx('restoreMapZoomBtn')}
+                style={{ zIndex: 500 }}
+                title='Click to restore map zoom to original'
+                onClick={this.restoreDefaultMapZoom}
+              >
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="#8a8a8a" viewBox="0 0 24 24"><path d="M16.586 19.414l-2.586 2.586v-8h8l-2.586 2.586 4.586 4.586-2.828 2.828-4.586-4.586zm-13.758-19.414l-2.828 2.828 4.586 4.586-2.586 2.586h8v-8l-2.586 2.586-4.586-4.586zm16.586 7.414l2.586 2.586h-8v-8l2.586 2.586 4.586-4.586 2.828 2.828-4.586 4.586zm-19.414 13.758l2.828 2.828 4.586-4.586 2.586 2.586v-8h-8l2.586 2.586-4.586 4.586z" />
+                </svg>
+              </div>) : ''
+            }
+            <div className={cx('issuesStatsCard')} style={{ zIndex: 500 }}>
+              <SRCard />
+            </div>
+            <div className={cx('issuesStatsCardMobile')}>
+              <SRCard />
+            </div>
             {/* <div className={cx('legend')} style={{ zIndex: 500 }}>
               <SRMapLegend />
             </div> */}
           </div >
         </div>
         <Footer />
-      </div>
-    );
+      </div>,
+    ];
   }
 }
 

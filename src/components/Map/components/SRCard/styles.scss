@@ -1,8 +1,6 @@
 .cardContainer {
     width: 100%;
     background: #fafafa;
-    box-shadow: -1px 1px 7px rgba(0, 0, 0, 0.4);
-    max-height: 600px;
     overflow: hidden; // overflow-y: scroll;
 }
 
@@ -50,30 +48,29 @@
         text-transform: capitalize;
         font-family: 'Open Sans', sans-serif;
         color: #555555;
-    }
-    // &.collapsible {
- //     display: flex;
- //     align-items: center;
- //     cursor: pointer;
- // }
- // &.closed:after {
- //     content: '';
- //     width: 0;
- //     height: 0;
- //     margin-left: 5px;
- //     border-top: 3px solid transparent;
- //     border-left: 6px solid #555;
- //     border-bottom: 3px solid transparent;
- // }
- // &.open:after {
- //     content: '';
- //     width: 0;
- //     height: 0;
- //     margin-left: 5px;
- //     border-left: 3px solid transparent;
- //     border-right: 3px solid transparent;
- //     border-top: 6px solid #555;
- // }
+    } // &.collapsible {
+    //     display: flex;
+    //     align-items: center;
+    //     cursor: pointer;
+    // }
+    // &.closed:after {
+    //     content: '';
+    //     width: 0;
+    //     height: 0;
+    //     margin-left: 5px;
+    //     border-top: 3px solid transparent;
+    //     border-left: 6px solid #555;
+    //     border-bottom: 3px solid transparent;
+    // }
+    // &.open:after {
+    //     content: '';
+    //     width: 0;
+    //     height: 0;
+    //     margin-left: 5px;
+    //     border-left: 3px solid transparent;
+    //     border-right: 3px solid transparent;
+    //     border-top: 6px solid #555;
+    // }
 }
 
 .cardItemContent {
