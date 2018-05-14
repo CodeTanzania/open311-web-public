@@ -15,6 +15,9 @@
         background: #189ad1;
         border: 1px solid #189ad1;
     }
+    &.hide {
+        display: none;
+    }
 }
 
 .filterBtnIcon {

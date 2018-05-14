@@ -75,13 +75,32 @@
 }
 
 .filter {
+    position: absolute;
+    top: 12px;
+    left: 5px;
+    display: flex;
+}
+
+.filterItem {
+    margin-left: 5px;
+    height: 45px;
+    max-width: 275px;
+}
+
+.dateFilterVert {
     display: none;
 }
 
-.dateFilterMobile {
-    position: absolute;
-    top: 12px;
-    left: 10px;
+.dateFilterHor {
+    display: none;
+}
+
+.mapFilterDesktop {
+    display: none;
+}
+
+.mapFilterMobile {
+    height: 100%;
 }
 
 .issuesStatsCard {
@@ -94,10 +113,11 @@
 
 .restoreMapZoomBtn {
     position: absolute;
-    top: 15px;
+    top: 280px;
     right: 15px;
     background: #fff;
     padding: 5px;
+    box-shadow: 2px 2px 3px #999;
     cursor: pointer;
 }
 
@@ -114,30 +134,28 @@
         max-height: 600px;
         display: block;
     }
-    .filter {
-        position: absolute;
-        top: 12px;
-        left: 5px;
-        display: flex;
-    }
-    .filterItem {
-        margin-left: 5px;
-        height: 45px;
-        max-width: 275px;
-    }
     .dateFilterVert {
+        display: block;
         padding-top: 10px;
     }
     .dateFilterHor {
         display: none;
     }
+    .mapFilterDesktop {
+        display: block;
+        height: 100%;
+    }
+    .mapFilterMobile {
+        display: none;
+    }
     .restoreMapZoomBtn {
+        top: 15px;
         right: 280px;
     }
 }
 
 @media screen and (min-width:1000px) {
-    .dateFilterVertical {
+    .dateFilterVert {
         display: none;
     }
     .dateFilterHor {

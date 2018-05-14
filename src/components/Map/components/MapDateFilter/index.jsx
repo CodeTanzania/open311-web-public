@@ -18,9 +18,8 @@ const END_DATE = 'endDate';
 const defaultProps = {
   isOutsideRange: () => false,
   numberOfMonths: 1,
-  showDefaultInputIcon: true,
 };
-class DateFilter extends Component {
+class MapDateFilter extends Component {
   constructor(props) {
     super(props);
     let focusedInput = null;
@@ -50,12 +49,13 @@ class DateFilter extends Component {
 
   render() {
     const { focusedInput } = this.state;
-    const { dateFilter } = this.props;
+    const { dateFilter, showDefaultInputIcon } = this.props;
     const { startDate, endDate } = dateFilter;
     return (
       <div>
         <DateRangePicker
           {...defaultProps}
+          showDefaultInputIcon={showDefaultInputIcon}
           startDate={startDate} // momentPropTypes.momentObj or null,
           endDate={endDate} // momentPropTypes.momentObj or null,
           onDatesChange={this.onDatesChange} // PropTypes.func.isRequired,
@@ -76,4 +76,4 @@ const mapStateToProps = state => ({
 
 export default connect(mapStateToProps, {
   dateFilterChange, getServiceRequests, resetSearchTicketNum, reloadSRSummary,
-})(DateFilter);
+})(MapDateFilter);

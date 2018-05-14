@@ -236,110 +236,110 @@ const renderIssueDetails = (
   const today = moment();
   const createdAt = moment(selectedSR.createdAt);
   const daysSinceSubmission = today.diff(createdAt, 'days');
-  const issueDetailsContent = (<div className={cx('cardContainer')}>
-    {
-      sampleIssueImgUrl ? (<div className={cx('cardItem', 'noPadding')}>
-        <div className={cx('issueImgHolder')}>
-          <img src={sampleIssueImgUrl} alt="Issue Attachment" className={cx('issueImg')} />
-          <div className={cx('showIssueImg')} onClick={openImgViewer}>
-            <span>CLICK FOR FULL PHOTO</span>
+  return (
+    <div className={cx('cardContainer')}>
+      {
+        sampleIssueImgUrl ? (<div className={cx('cardItem', 'noPadding')}>
+          <div className={cx('issueImgHolder')}>
+            <img src={sampleIssueImgUrl} alt="Issue Attachment" className={cx('issueImg')} />
+            <div className={cx('showIssueImg')} onClick={openImgViewer}>
+              <span>CLICK FOR FULL PHOTO</span>
+            </div>
+          </div>
+        </div>) : ''
+      }
+      <div className={cx('cardItem')}>
+        <div className={cx('cardItemTitle')}>Issue Type</div>
+        <div className={cx('cardItemContent', 'icon')}>
+          <img src={issueIconUrl} className={cx('cardItemIcon')} style={issueIconStyle} />
+          <div className={cx('cardItemCaption')}>{serviceName}</div>
+        </div>
+      </div>
+      <div className={cx('cardItem')}>
+        <div className={cx('cardItemTitle')}>Status</div>
+        <div className={cx('cardItemContent')}>
+          {selectedSR.status.name}
+        </div>
+      </div>
+      <div className={cx('cardItem')}>
+        <div className={cx('cardItemTitle')}>Priority</div>
+        <div className={cx('cardItemContent')}>
+          {selectedSR.priority.name}
+        </div>
+      </div>
+      {selectedSR.changelogs.length ? (<div className={cx('cardItem')}>
+        <div
+          title={timelineOpen ? 'Click to hide the resolution' : 'Click to display the resolution'}
+          className={cx('cardItemTitle', 'collapsible', { closed: !timelineOpen, open: timelineOpen })}
+          onClick={toggleTimeline}
+        >
+
+          Resolution Timeline</div>
+        <div className={cx('cardItemContent', 'small')}>
+          <div className={cx('timeline', { open: timelineOpen })}>
+            {
+              selectedSR.changelogs.map(changelog => (
+                <div key={changelog.createdAt} className={cx('timelineItem')}
+                  date-is={moment(changelog.createdAt).format('ddd MMM D, YYYY')}>
+                  {
+                    changelog.status ?
+                      (<span className={cx('timelineContent')}>Change status to {changelog.status.name}</span>) : ''
+                  }
+                  {
+                    changelog.priority ?
+                      (<span>Change priority to {changelog.priority.name}</span>) : ''
+                  }
+                  {
+                    changelog.assignee ?
+                      (<span>Assignee to {changelog.assignee.name}</span>) : ''
+                  }
+                </div>
+              ))
+            }
           </div>
         </div>
-      </div>) : ''
-    }
-    <div className={cx('cardItem')}>
-      <div className={cx('cardItemTitle')}>Issue Type</div>
-      <div className={cx('cardItemContent', 'icon')}>
-        <img src={issueIconUrl} className={cx('cardItemIcon')} style={issueIconStyle} />
-        <div className={cx('cardItemCaption')}>{serviceName}</div>
-      </div>
-    </div>
-    <div className={cx('cardItem')}>
-      <div className={cx('cardItemTitle')}>Status</div>
-      <div className={cx('cardItemContent')}>
-        {selectedSR.status.name}
-      </div>
-    </div>
-    <div className={cx('cardItem')}>
-      <div className={cx('cardItemTitle')}>Priority</div>
-      <div className={cx('cardItemContent')}>
-        {selectedSR.priority.name}
-      </div>
-    </div>
-    {selectedSR.changelogs.length ? (<div className={cx('cardItem')}>
-      <div
-        title={timelineOpen ? 'Click to hide the resolution' : 'Click to display the resolution'}
-        className={cx('cardItemTitle', 'collapsible', { closed: !timelineOpen, open: timelineOpen })}
-        onClick={toggleTimeline}
-      >
-
-        Resolution Timeline</div>
-      <div className={cx('cardItemContent', 'small')}>
-        <div className={cx('timeline', { open: timelineOpen })}>
-          {
-            selectedSR.changelogs.map(changelog => (
-              <div className={cx('timelineItem')}
-                date-is={moment(changelog.createdAt).format('ddd MMM D, YYYY')}>
-                {
-                  changelog.status ?
-                    (<span className={cx('timelineContent')}>Change status to {changelog.status.name}</span>) : ''
-                }
-                {
-                  changelog.priority ?
-                    (<span>Change priority to {changelog.priority.name}</span>) : ''
-                }
-                {
-                  changelog.assignee ?
-                    (<span>Assignee to {changelog.assignee.name}</span>) : ''
-                }
-              </div>
-            ))
-          }
+      </div>) : ''}
+      <div className={cx('cardItem')}>
+        <div className={cx('cardItemTitle', 'small')}>Ticket No:</div>
+        <div className={cx('cardItemContent', 'small')}>
+          {selectedSR.code}
         </div>
       </div>
-    </div>) : ''}
-    <div className={cx('cardItem')}>
-      <div className={cx('cardItemTitle', 'small')}>Ticket No:</div>
-      <div className={cx('cardItemContent', 'small')}>
-        {selectedSR.code}
+      <div className={cx('cardItem')}>
+        <div className={cx('cardItemTitle', 'small')}>Days since submission:</div>
+        <div className={cx('cardItemContent', 'small')}>
+          {daysSinceSubmission} <span>(<Moment format='DD/MM/YYYY' date={selectedSR.createdAt} />)</span>
+        </div>
       </div>
-    </div>
-    <div className={cx('cardItem')}>
-      <div className={cx('cardItemTitle', 'small')}>Days since submission:</div>
-      <div className={cx('cardItemContent', 'small')}>
-        {daysSinceSubmission} <span>(<Moment format='DD/MM/YYYY' date={selectedSR.createdAt} />)</span>
+      <div className={cx('cardItem')}>
+        <div className={cx('cardItemTitle', 'small')}>Address:</div>
+        <div className={cx('cardItemContent', 'small')}>
+          {selectedSR.address}
+        </div>
       </div>
-    </div>
-    <div className={cx('cardItem')}>
-      <div className={cx('cardItemTitle', 'small')}>Address:</div>
-      <div className={cx('cardItemContent', 'small')}>
-        {selectedSR.address}
+      <div className={cx('cardItem')}>
+        <div className={cx('cardItemTitle', 'small')}>Area:</div>
+        <div className={cx('cardItemContent', 'small')}>
+          {selectedSR.jurisdiction.name}
+        </div>
       </div>
-    </div>
-    <div className={cx('cardItem')}>
-      <div className={cx('cardItemTitle', 'small')}>Area:</div>
-      <div className={cx('cardItemContent', 'small')}>
-        {selectedSR.jurisdiction.name}
+      <div className={cx('cardItem')} onClick={backBtnClicked}>
+        <div className={cx('cardItemLink')}>
+          <span>&#x3c;</span><span>&#x3c;</span><span> Back to summary statistics</span>
+        </div>
       </div>
-    </div>
-    <div className={cx('cardItem')} onClick={backBtnClicked}>
-      <div className={cx('cardItemLink')}>
-        <span>&#x3c;</span><span>&#x3c;</span><span> Back to summary statistics</span>
-      </div>
-    </div>
-    {
-      lightboxImgs.length ? (<Lightbox
-        currentImage={currentIssueImg}
-        images={lightboxImgs}
-        isOpen={showIssueImg}
-        onClose={closeViewer}
-        onClickNext={goToNextLightboxImg}
-        onClickPrev={goToPrevLightboxImg}
-      />) : ''
-    }
+      {
+        lightboxImgs.length ? (<Lightbox
+          currentImage={currentIssueImg}
+          images={lightboxImgs}
+          isOpen={showIssueImg}
+          onClose={closeViewer}
+          onClickNext={goToNextLightboxImg}
+          onClickPrev={goToPrevLightboxImg}
+        />) : ''
+      }
 
-  </div>);
-  return issueDetailsContent;
+    </div>);
 };
 
 class SRCard extends Component {

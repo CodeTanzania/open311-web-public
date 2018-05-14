@@ -10,12 +10,15 @@ import { connect } from 'react-redux';
 import classnames from 'classnames/bind';
 import { initMapData, selectMapPoint, fetchMapDataComplete, resetSearchTicketNum, reloadSRSummary } from 'actions';
 import { MAP_DATA_RELOAD, MAP_DATA_SEARCH_BY_TICKETNO } from 'utils/constants';
+// import MapFilters from './components/MapFilters';
 import SRTooltip from './components/SRTooltip';
 import SRCard from './components/SRCard';
-import SRFilter from './components/SRFilter';
+import DesktopMapFilter from './components/DesktopMapFilter';
 // import SRMapLegend from './components/SRMapLegend';
-import SRDateFilter from './components/SRDateFilter';
+import MapDateFilter from './components/MapDateFilter';
 import SRSearchBox from './components/SRSearchBox';
+import FilterBtn from './components/FilterBtn';
+import MobileMapFilter from './components/MobileMapFilter';
 import Header from '../Header';
 import Footer from '../Footer';
 import styles from './styles.scss';
@@ -65,12 +68,14 @@ class SimpleMap extends Component {
       zoom: defaultZoom,
       center: [-6.816330, 39.276638],
       issues: [],
+      showMobileFilter: false,
     };
     // bind functions
     this.pointToLayer = this.pointToLayer.bind(this);
     this.onEachFeature = this.onEachFeature.bind(this);
     this.handleEnterValidTicket = this.handleEnterValidTicket.bind(this);
     this.restoreDefaultMapZoom = this.restoreDefaultMapZoom.bind(this);
+    this.toggleMobileFilterContent = this.toggleMobileFilterContent.bind(this);
   }
   /**
    * This method is called only once
@@ -158,9 +163,22 @@ class SimpleMap extends Component {
     this.setState({ zoom: defaultZoom });
   }
 
+  toggleMobileFilterContent() {
+    this.setState({ showMobileFilter: !this.state.showMobileFilter });
+  }
+
   render() {
-    const { center, zoom } = this.state;
-    const { serviceRequests, mapData, ticketNum } = this.props;
+    const { center, zoom, showMobileFilter } = this.state;
+    const {
+      serviceRequests,
+      mapData,
+      ticketNum,
+      areas,
+      statuses,
+      issues,
+    } = this.props;
+    const isFilterApplied = areas.some(item => item.selected) ||
+      statuses.some(item => item.selected) || issues.some(item => item.selected);
     const { loading, dataFound, title } = mapData;
     const ticketNotFound = !loading && !dataFound && title === MAP_DATA_SEARCH_BY_TICKETNO;
     const showRestoreMapZoomBtn = zoom !== defaultZoom;
@@ -223,17 +241,26 @@ class SimpleMap extends Component {
             <div className={cx('filter')} style={{ zIndex: 500 }}>
               <div className={cx('filterItem')} >
                 <SRSearchBox />
-                <div className={cx('dateFilterVert')}><SRDateFilter /></div>
+                {/* date filter visible on small screen */}
+                <div className={cx('dateFilterVert')}><MapDateFilter /></div>
               </div>
               <div className={cx('filterItem')}>
                 <div className={cx('dateFilterHor')}>
-                  <SRDateFilter />
+                  {/* date filter visible on large screen */}
+                  <MapDateFilter showDefaultInputIcon />
                 </div>
               </div>
-              <div className={cx('filterItem')}><SRFilter /></div>
-            </div>
-            <div className={cx('dateFilterMobile')} style={{ zIndex: 500 }}>
-              <SRSearchBox />
+              <div className={cx('filterItem')}>
+                <div className={cx('mapFilterDesktop')}>
+                  <DesktopMapFilter />
+                </div>
+                <div className={cx('mapFilterMobile')}>
+                  <FilterBtn isFilterApplied={isFilterApplied}
+                    toggleFilterContent={this.toggleMobileFilterContent} />
+                </div>
+              </div>
+              {/* <div className={cx('filterItem')}>
+              </div> */}
             </div>
             {
               showRestoreMapZoomBtn ? (<div
@@ -252,10 +279,14 @@ class SimpleMap extends Component {
             <div className={cx('issuesStatsCardMobile')}>
               <SRCard />
             </div>
-            {/* <div className={cx('legend')} style={{ zIndex: 500 }}>
-              <SRMapLegend />
-            </div> */}
+
           </div >
+        </div>
+        {/* <div className={cx('mobileFilter')} style={{ zIndex: 500 }}>
+        </div> */}
+        <div style={{ zIndex: '1003' }}>
+          <MobileMapFilter showFilter={showMobileFilter}
+            onClickCancel={this.toggleMobileFilterContent} />
         </div>
         <Footer />
       </div>,
@@ -268,6 +299,9 @@ const mapStateToProps = state => ({
   mapData: state.mapData,
   selectedSR: state.selectedMapPoint,
   ticketNum: state.ticketNum,
+  areas: state.jurisdictionFilter.jurisdictions,
+  statuses: state.statusFilter.statuses,
+  issues: state.serviceFilter.services,
 });
 
 export default connect(mapStateToProps, {
