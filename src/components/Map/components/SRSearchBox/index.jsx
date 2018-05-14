@@ -38,6 +38,7 @@ class SearchBox extends Component {
   }
 
   render() {
+    const { placeholder } = this.props;
     return (
       <div className={cx('searchBox')}>
         <div className={cx('searchBtn')}>
@@ -50,7 +51,7 @@ class SearchBox extends Component {
             onChange={this.handleChange}
             className={cx('searchField')}
             onKeyPress={this.handleEnterKey}
-            placeholder="Enter Ticket Number" />
+            placeholder={placeholder || 'Enter ticket number'} />
         </div>
       </div>
     );

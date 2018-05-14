@@ -49,7 +49,6 @@ class Statistic extends Component {
             services.length ? services.map((service) => {
               const alias = service.name.replace(/\s/g, '_').toLowerCase();
               const imgUrl = `icons/issues/${alias}.svg`;
-              // const imgUrl = 'images/icons/lack_of_water_.svg';
               return (
                 <div key={service.name} className={cx('item')} >
                   <img src={imgUrl} className={cx('icon')} />

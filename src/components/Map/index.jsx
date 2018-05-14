@@ -10,12 +10,15 @@ import { connect } from 'react-redux';
 import classnames from 'classnames/bind';
 import { initMapData, selectMapPoint, fetchMapDataComplete, resetSearchTicketNum, reloadSRSummary } from 'actions';
 import { MAP_DATA_RELOAD, MAP_DATA_SEARCH_BY_TICKETNO } from 'utils/constants';
+// import MapFilters from './components/MapFilters';
 import SRTooltip from './components/SRTooltip';
 import SRCard from './components/SRCard';
-import SRFilter from './components/SRFilter';
+import DesktopMapFilter from './components/DesktopMapFilter';
 // import SRMapLegend from './components/SRMapLegend';
-import SRDateFilter from './components/SRDateFilter';
+import MapDateFilter from './components/MapDateFilter';
 import SRSearchBox from './components/SRSearchBox';
+import FilterBtn from './components/FilterBtn';
+import MobileMapFilter from './components/MobileMapFilter';
 import Header from '../Header';
 import Footer from '../Footer';
 import styles from './styles.scss';
@@ -65,12 +68,14 @@ class SimpleMap extends Component {
       zoom: defaultZoom,
       center: [-6.816330, 39.276638],
       issues: [],
+      showMobileFilter: false,
     };
     // bind functions
     this.pointToLayer = this.pointToLayer.bind(this);
     this.onEachFeature = this.onEachFeature.bind(this);
     this.handleEnterValidTicket = this.handleEnterValidTicket.bind(this);
     this.restoreDefaultMapZoom = this.restoreDefaultMapZoom.bind(this);
+    this.toggleMobileFilterContent = this.toggleMobileFilterContent.bind(this);
   }
   /**
    * This method is called only once
@@ -158,64 +163,31 @@ class SimpleMap extends Component {
     this.setState({ zoom: defaultZoom });
   }
 
+  toggleMobileFilterContent() {
+    this.setState({ showMobileFilter: !this.state.showMobileFilter });
+  }
+
   render() {
-    const { center, zoom } = this.state;
-    const { serviceRequests, mapData, ticketNum } = this.props;
+    const { center, zoom, showMobileFilter } = this.state;
+    const {
+      serviceRequests,
+      mapData,
+      ticketNum,
+      areas,
+      statuses,
+      issues,
+    } = this.props;
+    const isFilterApplied = areas.some(item => item.selected) ||
+      statuses.some(item => item.selected) || issues.some(item => item.selected);
     const { loading, dataFound, title } = mapData;
     const ticketNotFound = !loading && !dataFound && title === MAP_DATA_SEARCH_BY_TICKETNO;
     const showRestoreMapZoomBtn = zoom !== defaultZoom;
 
-    return (
-      <div className={cx('wrapper')} >
-        <Header />
+    return [
+      <Header key='header' />,
+      <div key='body' className={cx('wrapper')} >
         <div>
           <div style={{ position: 'relative' }}>
-            <div className={cx('loader', { hide: !loading && dataFound })} style={{ zIndex: 501 }}>
-              <div className={cx('spinner', { hide: !loading && !dataFound })}>
-              </div>
-              {
-                ticketNotFound ? <div className={cx('loaderInfo')}>
-                  <div className={cx('loaderInfoHeader')}>Invalid Ticket Number</div>
-                  <div className={cx('loaderInfoBody')}>
-                    Dawasco Map Cannot Find Issue with Ticket No: <strong>{ticketNum}</strong>
-                  </div>
-                  <div className={cx('loaderInfoAction')}>
-                    <button
-                      type="button"
-                      className="btn btn-primary"
-                      onClick={this.handleEnterValidTicket}>
-                      Enter Valid Ticket Number
-                </button>
-                  </div>
-                </div> : ''
-              }
-            </div>
-            <div className={cx('filter')} style={{ zIndex: 500 }}>
-              <div className={cx('filterItem')} >
-                <SRSearchBox />
-                <div className={cx('dateFilterVertical')}><SRDateFilter /></div>
-              </div>
-              <div className={cx('filterItem')}>
-                <div className={cx('dateFilterHor')}>
-                  <SRDateFilter />
-                </div>
-              </div>
-              <div className={cx('filterItem')}><SRFilter /></div>
-            </div>
-            {
-              showRestoreMapZoomBtn ? (<div
-                className={cx('restoreMapZoomBtn')}
-                style={{ zIndex: 500 }}
-                title='Click to restore map zoom to original'
-                onClick={this.restoreDefaultMapZoom}
-              >
-                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="#8a8a8a" viewBox="0 0 24 24"><path d="M16.586 19.414l-2.586 2.586v-8h8l-2.586 2.586 4.586 4.586-2.828 2.828-4.586-4.586zm-13.758-19.414l-2.828 2.828 4.586 4.586-2.586 2.586h8v-8l-2.586 2.586-4.586-4.586zm16.586 7.414l2.586 2.586h-8v-8l2.586 2.586 4.586-4.586 2.828 2.828-4.586 4.586zm-19.414 13.758l2.828 2.828 4.586-4.586 2.586 2.586v-8h-8l2.586 2.586-4.586 4.586z" />
-                </svg>
-              </div>) : ''
-            }
-            <div className={cx('issuesStatsCard')} style={{ zIndex: 500 }}>
-              <SRCard />
-            </div>
             <Map center={center} zoomControl={false} zoom={zoom} className='mapContainer' ref={(map) => { this.map = map; }}>
               <TileLayer
                 attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
@@ -246,14 +218,79 @@ class SimpleMap extends Component {
                 })
               }
             </Map >
-            {/* <div className={cx('legend')} style={{ zIndex: 500 }}>
-              <SRMapLegend />
-            </div> */}
+            <div className={cx('loader', { hide: !loading && dataFound })} style={{ zIndex: 501 }}>
+              <div className={cx('spinner', { hide: !loading && !dataFound })}>
+              </div>
+              {
+                ticketNotFound ? <div className={cx('loaderInfo')}>
+                  <div className={cx('loaderInfoHeader')}>Invalid Ticket Number</div>
+                  <div className={cx('loaderInfoBody')}>
+                    Dawasco Map Cannot Find Issue with Ticket No: <strong>{ticketNum}</strong>
+                  </div>
+                  <div className={cx('loaderInfoAction')}>
+                    <button
+                      type="button"
+                      className="btn btn-primary"
+                      onClick={this.handleEnterValidTicket}>
+                      Enter Valid Ticket Number
+                </button>
+                  </div>
+                </div> : ''
+              }
+            </div>
+            <div className={cx('filter')} style={{ zIndex: 500 }}>
+              <div className={cx('filterItem')} >
+                <SRSearchBox />
+                {/* date filter visible on small screen */}
+                <div className={cx('dateFilterVert')}><MapDateFilter /></div>
+              </div>
+              <div className={cx('filterItem')}>
+                <div className={cx('dateFilterHor')}>
+                  {/* date filter visible on large screen */}
+                  <MapDateFilter showDefaultInputIcon />
+                </div>
+              </div>
+              <div className={cx('filterItem')}>
+                <div className={cx('mapFilterDesktop')}>
+                  <DesktopMapFilter />
+                </div>
+                <div className={cx('mapFilterMobile')}>
+                  <FilterBtn isFilterApplied={isFilterApplied}
+                    toggleFilterContent={this.toggleMobileFilterContent} />
+                </div>
+              </div>
+              {/* <div className={cx('filterItem')}>
+              </div> */}
+            </div>
+            {
+              showRestoreMapZoomBtn ? (<div
+                className={cx('restoreMapZoomBtn')}
+                style={{ zIndex: 500 }}
+                title='Click to restore map zoom to original'
+                onClick={this.restoreDefaultMapZoom}
+              >
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="#8a8a8a" viewBox="0 0 24 24"><path d="M16.586 19.414l-2.586 2.586v-8h8l-2.586 2.586 4.586 4.586-2.828 2.828-4.586-4.586zm-13.758-19.414l-2.828 2.828 4.586 4.586-2.586 2.586h8v-8l-2.586 2.586-4.586-4.586zm16.586 7.414l2.586 2.586h-8v-8l2.586 2.586 4.586-4.586 2.828 2.828-4.586 4.586zm-19.414 13.758l2.828 2.828 4.586-4.586 2.586 2.586v-8h-8l2.586 2.586-4.586 4.586z" />
+                </svg>
+              </div>) : ''
+            }
+            <div className={cx('issuesStatsCard')} style={{ zIndex: 500 }}>
+              <SRCard />
+            </div>
+            <div className={cx('issuesStatsCardMobile')}>
+              <SRCard />
+            </div>
+
           </div >
         </div>
+        {/* <div className={cx('mobileFilter')} style={{ zIndex: 500 }}>
+        </div> */}
+        <div style={{ zIndex: '1003' }}>
+          <MobileMapFilter showFilter={showMobileFilter}
+            onClickCancel={this.toggleMobileFilterContent} />
+        </div>
         <Footer />
-      </div>
-    );
+      </div>,
+    ];
   }
 }
 
@@ -262,6 +299,9 @@ const mapStateToProps = state => ({
   mapData: state.mapData,
   selectedSR: state.selectedMapPoint,
   ticketNum: state.ticketNum,
+  areas: state.jurisdictionFilter.jurisdictions,
+  statuses: state.statusFilter.statuses,
+  issues: state.serviceFilter.services,
 });
 
 export default connect(mapStateToProps, {

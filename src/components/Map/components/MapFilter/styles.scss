@@ -1,0 +1,20 @@
+.filterItem {
+    margin-bottom: 16px;
+}
+
+.filterTitle {
+    display: block;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 700;
+    color: #189ad1;
+    padding-bottom: 7px;
+}
+
+.statuses {
+    display: flex;
+}
+
+.issues {
+    display: flex;
+    flex-wrap: wrap;
+}

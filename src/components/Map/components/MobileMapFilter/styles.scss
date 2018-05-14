@@ -1,0 +1,38 @@
+.container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    padding: 20px 15px;
+    background: #fff;
+}
+
+.actionBtn {
+    display: flex;
+    justify-content: center;
+}
+
+.button {
+    display: block;
+    position: relative;
+    float: left;
+    width: 120px;
+    padding: 0;
+    margin: 10px 20px 10px 0;
+    text-transform: uppercase;
+    text-align: center;
+    line-height: 50px;
+    color: #FFF;
+    border-radius: 5px;
+    transition: all 0.2s;
+    &.primary {
+        background: #2db34b
+    }
+    &.tertiary {
+        color: #555555;
+        &:hover {
+            background: #a9a9a9;
+        }
+    }
+}

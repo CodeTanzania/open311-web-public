@@ -1,6 +1,8 @@
 .footer {
     background-color: #0BA3DD;
-    display: flex;
+    display: flex; // To position child components
+    flex: auto; // To make footer expand to fill the remaining space
+    flex-wrap: wrap;
     border-right: 2px solid white;
     min-width: 100%;
     color: white;
@@ -9,7 +11,7 @@
 }
 
 .phone {
-    flex: 1;
+    width: 100%;
     padding-top: 15px;
     padding-bottom: 20px;
     text-decoration: none;
@@ -22,18 +24,31 @@
     font-family: 'Montserrat', sans-serif;
     text-transform: uppercase;
     line-height: 1.2;
+    padding-left: 20px;
     & .icon {
         height: 49px;
         margin-right: 10px;
     }
     & .text {
-        font-size: 18px;
+        font-size: 15px;
     }
     & .subtext {
         display: block;
         font-size: 10px;
     }
-    &.smart {
-        padding-left: 20%;
+}
+
+@media screen and (min-width:750px) {
+    .phone {
+        width: 50%;
+    }
+    .phoneContent {
+        padding-left: 0;
+        & .text {
+            font-size: 18px;
+        }
+        &.smart {
+            padding-left: 20%;
+        }
     }
 }
