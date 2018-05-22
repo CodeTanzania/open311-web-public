@@ -3,8 +3,6 @@ const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const flexFix = require('postcss-flexbugs-fixes');
 const autoprefixer = require('autoprefixer');
 const webpack = require('webpack');
-const Dotenv = require('dotenv-webpack');
-
 
 const URL = 'https://dawasco-public.herokuapp.com/';
 // const URL = 'http://127.0.0.1:3000/';
@@ -104,7 +102,10 @@ const clientConfig = {
   },
   /* eslint indent:0 */
   plugins: [
-    new Dotenv(),
+    new webpack.EnvironmentPlugin([
+      'NODE_ENV',
+      'PUBLICWEB_AUTH_TOKEN'
+    ]),
     new ExtractTextPlugin({
       filename: 'styles.css',
     }),
