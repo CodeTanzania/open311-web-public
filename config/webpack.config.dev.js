@@ -2,6 +2,7 @@ const webpack = require('webpack');
 const path = require('path');
 const flexFix = require('postcss-flexbugs-fixes');
 const autoprefixer = require('autoprefixer');
+const Dotenv = require('dotenv-webpack');
 
 const URL = '/dist/';
 
@@ -105,9 +106,7 @@ const clientConfig = {
   plugins: [
     new webpack.HotModuleReplacementPlugin(),
     new webpack.NoEmitOnErrorsPlugin(),
-    new webpack.EnvironmentPlugin([
-      'PUBLICWEB_AUTH_TOKEN'
-    ])
+    new Dotenv()
   ],
 };
 
