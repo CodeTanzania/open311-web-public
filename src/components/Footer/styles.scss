@@ -1,14 +1,16 @@
 .footer {
     color: white;
+    display: flex;
+    flex: auto; // To make footer expand to fill the remaining space
+    flex-direction: column;
 }
 
 .footerPrimaryItem {
     background-color: #0BA3DD;
     display: flex; // To position child components
-    flex: auto; // To make footer expand to fill the remaining space
     flex-wrap: wrap;
-    min-width: 100%;
     padding-top: 20px;
+    flex: 1;
     min-height: 200px;
 }
 
@@ -43,6 +45,7 @@
 .footerSecondaryItem {
     background: #07729a;
     display: flex;
+    flex: initial;
     justify-content: center;
     align-items: center;
     padding-top: 10px;
