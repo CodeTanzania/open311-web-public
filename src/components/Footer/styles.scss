@@ -1,11 +1,13 @@
 .footer {
+    color: white;
+}
+
+.footerPrimaryItem {
     background-color: #0BA3DD;
     display: flex; // To position child components
     flex: auto; // To make footer expand to fill the remaining space
     flex-wrap: wrap;
-    border-right: 2px solid white;
     min-width: 100%;
-    color: white;
     padding-top: 20px;
     min-height: 200px;
 }
@@ -38,6 +40,25 @@
     }
 }
 
+.footerSecondaryItem {
+    background: #07729a;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+
+.githubIcon {
+    fill: #fff;
+    margin-right: 5px;
+}
+
+.githubText {
+    color: #fff;
+    text-decoration: none;
+}
+
 @media screen and (min-width:750px) {
     .phone {
         width: 50%;
@@ -50,5 +71,9 @@
         &.smart {
             padding-left: 20%;
         }
+    }
+    .footerSecondaryItem {
+        justify-content: flex-end;
+        padding-right: 20px;
     }
 }
