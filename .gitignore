@@ -4,3 +4,4 @@ node_modules
 semantic/dist/
 bower_components
 .env
+public/dist/*

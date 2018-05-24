@@ -1,0 +1,134 @@
+{
+    "data": [
+        {
+            "location": {
+                "type": "Point",
+                "coordinates": [
+                    39.277814,
+                    -6.799185
+                ]
+            },
+            "name": "International School of Tanganyika"
+        },
+        {
+            "location": {
+                "type": "Point",
+                "coordinates": [
+                    39.233121,
+                    -6.754964
+                ]
+            },
+            "name": "Nabaki Afrika Ltd"
+        },
+        {
+            "location": {
+                "type": "Point",
+                "coordinates": [
+                    39.277478,
+                    -6.759866
+                ]
+            },
+            "name": "International School of Tanganyika"
+        },
+        {
+            "location": {
+                "type": "Point",
+                "coordinates": [
+                    39.272205,
+                    -6.776834
+                ]
+            },
+            "name": "Wonder Welders"
+        },
+        {
+            "location": {
+                "type": "Point",
+                "coordinates": [
+                    39.279016,
+                    -6.748208
+                ]
+            },
+            "name": "The Schoolhouse"
+        },
+        {
+            "location": {
+                "type": "Point",
+                "coordinates": [
+                    39.278184,
+                    -6.748423
+                ]
+            },
+            "name": "Dar es Salaam International Academy"
+        },
+        {
+            "location": {
+                "type": "Point",
+                "coordinates": [
+                    39.266444,
+                    -6.772748
+                ]
+            },
+            "name": "U.S. Embassy"
+        },
+        {
+            "location": {
+                "type": "Point",
+                "coordinates": [
+                    39.275254,
+                    -6.789409
+                ]
+            },
+            "name": "World Food Programme Tanzania"
+        },
+        {
+            "location": {
+                "type": "Point",
+                "coordinates": [
+                    39.2769920000001,
+                    -6.75924
+                ]
+            },
+            "name": "Nordic School of Tanzania"
+        },
+        {
+            "location": {
+                "type": "Point",
+                "coordinates": [
+                    39.280201,
+                    -6.767382
+                ]
+            },
+            "name": "Ecole Francaise Arthur Rimbaud"
+        },
+        {
+            "location": {
+                "type": "Point",
+                "coordinates": [
+                    39.2916744,
+                    -6.8134175
+                ]
+            },
+            "name": "Canada Embassy"
+        },
+        {
+            "location": {
+                "type": "Point",
+                "coordinates": [
+                    39.2921851999999,
+                    -6.8133155
+                ]
+            },
+            "name": "Finland and Swedish Embassy"
+        },
+        {
+            "location": {
+                "type": "Point",
+                "coordinates": [
+                    39.29135,
+                    -6.8122384
+                ]
+            },
+            "name": "Umoja House Building"
+        }
+    ]
+}
