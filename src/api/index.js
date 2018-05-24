@@ -42,6 +42,11 @@ export default {
       .then(data => fetch(`${url}&query=${JSON.stringify(query)}&limit=${data.count}&page=${page}`, { headers: header })
         .then(res => res.json()));
   },
+  getTR() {
+    const url = '/trashpoints';
+    return fetch(`${url}`, { headers: header })
+      .then(res => res.json());
+  },
   /**
    * Search SR by using ticket Number
    * @param {String} ticketNum

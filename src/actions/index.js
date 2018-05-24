@@ -20,10 +20,16 @@ export const MAP_DATE_FILTER_CHANGE = 'map_date_change';
 export const SEARCH_TICKET_NUM = 'search_ticket_number';
 export const SEARCH_TICKET_NUM_RESET = 'search_ticket_number_reset';
 export const RECEIVE_SR_SUMMARY = 'receive_service_request_summary';
+export const RECEIVE_TRASH_POINTS = 'receive_trash_points';
 
 const receiveServiceRequests = serviceRequests => ({
   type: RECEIVE_SERVICEREQUESTS,
   serviceRequests,
+});
+
+const receiveTrashPoints = trashpoints => ({
+  type: RECEIVE_TRASH_POINTS,
+  trashpoints,
 });
 
 const receiveServices = services => ({ type: RECEIVE_SERVICES, services });
@@ -136,6 +142,16 @@ export const getServiceRequests = showNoLoader => (dispatch, getState) => {
     .catch(() => {
       dispatch(receiveServiceRequests([]));
       dispatch(fetchMapDataComplete());
+    });
+
+  API
+    .getTR()
+    .then((res) => {
+      const trashpoints = res.data;
+      dispatch(receiveTrashPoints(trashpoints));
+    })
+    .catch(() => {
+      dispatch(receiveTrashPoints([]));
     });
 };
 

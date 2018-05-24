@@ -171,6 +171,7 @@ class SimpleMap extends Component {
     const { center, zoom, showMobileFilter } = this.state;
     const {
       serviceRequests,
+      trashPoints,
       mapData,
       ticketNum,
       areas,
@@ -195,7 +196,7 @@ class SimpleMap extends Component {
                 url='https://api.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token=pk.eyJ1Ijoid29ybGRiYW5rLWVkdWNhdGlvbiIsImEiOiJIZ2VvODFjIn0.TDw5VdwGavwEsch53sAVxA#1.6/23.725906/-39.714135/0'
               />
               {
-                serviceRequests.map((item) => {
+                trashPoints.map((item) => {
                   if (item.location) {
                     const data = {
                       type: 'Feature',
@@ -209,7 +210,7 @@ class SimpleMap extends Component {
                     };
                     return (<GeoJSON
                       data={data}
-                      key={item.code}
+                      key={item.location.coordinates[0]}
                       pointToLayer={this.pointToLayer.bind(this)}
                       onEachFeature={this.onEachFeature}>
                     </GeoJSON>);
@@ -297,6 +298,7 @@ class SimpleMap extends Component {
 const mapStateToProps = state => ({
   serviceRequests: state.serviceRequests,
   mapData: state.mapData,
+  trashPoints: state.trashPoints,
   selectedSR: state.selectedMapPoint,
   ticketNum: state.ticketNum,
   areas: state.jurisdictionFilter.jurisdictions,

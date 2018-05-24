@@ -8,6 +8,7 @@ import {
   RECEIVE_SR_SUMMARY,
 } from 'actions';
 import serviceRequests from './serviceRequests';
+import trashPoints from './trashPointReducer';
 import serviceFilter from './serviceFilter';
 import dateFilter from './dateFilter';
 import statusFilter from './statusFilter';
@@ -51,6 +52,7 @@ export default combineReducers({
   dateFilter,
   serviceFilter,
   jurisdictionFilter,
+  trashPoints,
   statusFilter,
   mapData,
   selectedMapPoint,

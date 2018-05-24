@@ -8,7 +8,22 @@
                     -6.799185
                 ]
             },
-            "name": "International School of Tanganyika"
+            "name": "International School of Tanganyika",
+            "service": {
+                "group":"5968b64148dfc224bb47747f",
+                "code":"NW",
+                "name":"New Connection",
+                "color":"#a186be",
+                "priority":{
+                    "name":"Normal",
+                    "weight":0,
+                    "color":"#4CAF50",
+                    "_id":"5968b63d48dfc224bb477444",
+                    "createdAt":"2017-07-14T12:17:01.167Z",
+                    "updatedAt":"2017-07-14T12:17:01.167Z"},
+                    "isExternal":true,
+                    "_id":"5968b64248dfc224bb477497"
+                }
         },
         {
             "location": {
@@ -18,7 +33,22 @@
                     -6.754964
                 ]
             },
-            "name": "Nabaki Afrika Ltd"
+            "name": "Nabaki Afrika Ltd",
+            "service": {
+                "group":"5968b64148dfc224bb47747f",
+                "code":"NW",
+                "name":"New Connection",
+                "color":"#a186be",
+                "priority":{
+                    "name":"Normal",
+                    "weight":0,
+                    "color":"#4CAF50",
+                    "_id":"5968b63d48dfc224bb477444",
+                    "createdAt":"2017-07-14T12:17:01.167Z",
+                    "updatedAt":"2017-07-14T12:17:01.167Z"},
+                    "isExternal":true,
+                    "_id":"5968b64248dfc224bb477497"
+                }
         },
         {
             "location": {
@@ -28,7 +58,22 @@
                     -6.759866
                 ]
             },
-            "name": "International School of Tanganyika"
+            "name": "International School of Tanganyika",
+            "service": {
+                "group":"5968b64148dfc224bb47747f",
+                "code":"NW",
+                "name":"New Connection",
+                "color":"#a186be",
+                "priority":{
+                    "name":"Normal",
+                    "weight":0,
+                    "color":"#4CAF50",
+                    "_id":"5968b63d48dfc224bb477444",
+                    "createdAt":"2017-07-14T12:17:01.167Z",
+                    "updatedAt":"2017-07-14T12:17:01.167Z"},
+                    "isExternal":true,
+                    "_id":"5968b64248dfc224bb477497"
+                }
         },
         {
             "location": {
@@ -38,7 +83,22 @@
                     -6.776834
                 ]
             },
-            "name": "Wonder Welders"
+            "name": "Wonder Welders",
+            "service": {
+                "group":"5968b64148dfc224bb47747f",
+                "code":"NW",
+                "name":"New Connection",
+                "color":"#a186be",
+                "priority":{
+                    "name":"Normal",
+                    "weight":0,
+                    "color":"#4CAF50",
+                    "_id":"5968b63d48dfc224bb477444",
+                    "createdAt":"2017-07-14T12:17:01.167Z",
+                    "updatedAt":"2017-07-14T12:17:01.167Z"},
+                    "isExternal":true,
+                    "_id":"5968b64248dfc224bb477497"
+                }
         },
         {
             "location": {
@@ -48,7 +108,22 @@
                     -6.748208
                 ]
             },
-            "name": "The Schoolhouse"
+            "name": "The Schoolhouse",
+            "service": {
+                "group":"5968b64148dfc224bb47747f",
+                "code":"NW",
+                "name":"New Connection",
+                "color":"#a186be",
+                "priority":{
+                    "name":"Normal",
+                    "weight":0,
+                    "color":"#4CAF50",
+                    "_id":"5968b63d48dfc224bb477444",
+                    "createdAt":"2017-07-14T12:17:01.167Z",
+                    "updatedAt":"2017-07-14T12:17:01.167Z"},
+                    "isExternal":true,
+                    "_id":"5968b64248dfc224bb477497"
+                }
         },
         {
             "location": {
@@ -58,7 +133,22 @@
                     -6.748423
                 ]
             },
-            "name": "Dar es Salaam International Academy"
+            "name": "Dar es Salaam International Academy",
+            "service": {
+                "group":"5968b64148dfc224bb47747f",
+                "code":"NW",
+                "name":"New Connection",
+                "color":"#a186be",
+                "priority":{
+                    "name":"Normal",
+                    "weight":0,
+                    "color":"#4CAF50",
+                    "_id":"5968b63d48dfc224bb477444",
+                    "createdAt":"2017-07-14T12:17:01.167Z",
+                    "updatedAt":"2017-07-14T12:17:01.167Z"},
+                    "isExternal":true,
+                    "_id":"5968b64248dfc224bb477497"
+                }
         },
         {
             "location": {
@@ -68,7 +158,22 @@
                     -6.772748
                 ]
             },
-            "name": "U.S. Embassy"
+            "name": "U.S. Embassy",
+            "service": {
+                "group":"5968b64148dfc224bb47747f",
+                "code":"NW",
+                "name":"New Connection",
+                "color":"#a186be",
+                "priority":{
+                    "name":"Normal",
+                    "weight":0,
+                    "color":"#4CAF50",
+                    "_id":"5968b63d48dfc224bb477444",
+                    "createdAt":"2017-07-14T12:17:01.167Z",
+                    "updatedAt":"2017-07-14T12:17:01.167Z"},
+                    "isExternal":true,
+                    "_id":"5968b64248dfc224bb477497"
+                }
         },
         {
             "location": {
@@ -78,7 +183,22 @@
                     -6.789409
                 ]
             },
-            "name": "World Food Programme Tanzania"
+            "name": "World Food Programme Tanzania",
+            "service": {
+                "group":"5968b64148dfc224bb47747f",
+                "code":"NW",
+                "name":"New Connection",
+                "color":"#a186be",
+                "priority":{
+                    "name":"Normal",
+                    "weight":0,
+                    "color":"#4CAF50",
+                    "_id":"5968b63d48dfc224bb477444",
+                    "createdAt":"2017-07-14T12:17:01.167Z",
+                    "updatedAt":"2017-07-14T12:17:01.167Z"},
+                    "isExternal":true,
+                    "_id":"5968b64248dfc224bb477497"
+                }
         },
         {
             "location": {
@@ -88,7 +208,22 @@
                     -6.75924
                 ]
             },
-            "name": "Nordic School of Tanzania"
+            "name": "Nordic School of Tanzania",
+            "service": {
+                "group":"5968b64148dfc224bb47747f",
+                "code":"NW",
+                "name":"New Connection",
+                "color":"#a186be",
+                "priority":{
+                    "name":"Normal",
+                    "weight":0,
+                    "color":"#4CAF50",
+                    "_id":"5968b63d48dfc224bb477444",
+                    "createdAt":"2017-07-14T12:17:01.167Z",
+                    "updatedAt":"2017-07-14T12:17:01.167Z"},
+                    "isExternal":true,
+                    "_id":"5968b64248dfc224bb477497"
+                }
         },
         {
             "location": {
@@ -98,7 +233,22 @@
                     -6.767382
                 ]
             },
-            "name": "Ecole Francaise Arthur Rimbaud"
+            "name": "Ecole Francaise Arthur Rimbaud",
+            "service": {
+                "group":"5968b64148dfc224bb47747f",
+                "code":"NW",
+                "name":"New Connection",
+                "color":"#a186be",
+                "priority":{
+                    "name":"Normal",
+                    "weight":0,
+                    "color":"#4CAF50",
+                    "_id":"5968b63d48dfc224bb477444",
+                    "createdAt":"2017-07-14T12:17:01.167Z",
+                    "updatedAt":"2017-07-14T12:17:01.167Z"},
+                    "isExternal":true,
+                    "_id":"5968b64248dfc224bb477497"
+                }
         },
         {
             "location": {
@@ -108,7 +258,22 @@
                     -6.8134175
                 ]
             },
-            "name": "Canada Embassy"
+            "name": "Canada Embassy",
+            "service": {
+                "group":"5968b64148dfc224bb47747f",
+                "code":"NW",
+                "name":"New Connection",
+                "color":"#a186be",
+                "priority":{
+                    "name":"Normal",
+                    "weight":0,
+                    "color":"#4CAF50",
+                    "_id":"5968b63d48dfc224bb477444",
+                    "createdAt":"2017-07-14T12:17:01.167Z",
+                    "updatedAt":"2017-07-14T12:17:01.167Z"},
+                    "isExternal":true,
+                    "_id":"5968b64248dfc224bb477497"
+                }
         },
         {
             "location": {
@@ -118,7 +283,22 @@
                     -6.8133155
                 ]
             },
-            "name": "Finland and Swedish Embassy"
+            "name": "Finland and Swedish Embassy",
+            "service": {
+                "group":"5968b64148dfc224bb47747f",
+                "code":"NW",
+                "name":"New Connection",
+                "color":"#a186be",
+                "priority":{
+                    "name":"Normal",
+                    "weight":0,
+                    "color":"#4CAF50",
+                    "_id":"5968b63d48dfc224bb477444",
+                    "createdAt":"2017-07-14T12:17:01.167Z",
+                    "updatedAt":"2017-07-14T12:17:01.167Z"},
+                    "isExternal":true,
+                    "_id":"5968b64248dfc224bb477497"
+                }
         },
         {
             "location": {
@@ -128,7 +308,22 @@
                     -6.8122384
                 ]
             },
-            "name": "Umoja House Building"
+            "name": "Umoja House Building",
+            "service": {
+                "group":"5968b64148dfc224bb47747f",
+                "code":"NW",
+                "name":"New Connection",
+                "color":"#a186be",
+                "priority":{
+                    "name":"Normal",
+                    "weight":0,
+                    "color":"#4CAF50",
+                    "_id":"5968b63d48dfc224bb477444",
+                    "createdAt":"2017-07-14T12:17:01.167Z",
+                    "updatedAt":"2017-07-14T12:17:01.167Z"},
+                    "isExternal":true,
+                    "_id":"5968b64248dfc224bb477497"
+                }
         }
     ]
 }
