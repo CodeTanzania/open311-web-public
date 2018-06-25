@@ -1,82 +1,82 @@
 .footer {
-    color: white;
-    display: flex;
-    flex: auto; // To make footer expand to fill the remaining space
-    flex-direction: column;
+  color: white;
+  display: flex;
+  flex: auto; // To make footer expand to fill the remaining space
+  flex-direction: column;
 }
 
 .footerPrimaryItem {
-    background-color: #0BA3DD;
-    display: flex; // To position child components
-    flex-wrap: wrap;
-    padding-top: 20px;
-    flex: 1;
-    min-height: 200px;
+  background-color: #0BA3DD;
+  display: flex; // To position child components
+  flex-wrap: wrap;
+  padding: 20px;
+  flex: 1;
+  min-height: 100px;
 }
 
 .phone {
-    width: 100%;
-    padding-top: 15px;
-    padding-bottom: 20px;
-    text-decoration: none;
-    color: #ffffff;
+  width: 100%;
+  padding-top: 15px;
+  padding-bottom: 20px;
+  text-decoration: none;
+  color: #ffffff;
 }
 
 .phoneContent {
-    display: flex;
-    align-items: center;
-    font-family: 'Montserrat', sans-serif;
-    text-transform: uppercase;
-    line-height: 1.2;
-    padding-left: 20px;
-    & .icon {
-        height: 49px;
-        margin-right: 10px;
-    }
-    & .text {
-        font-size: 15px;
-    }
-    & .subtext {
-        display: block;
-        font-size: 10px;
-    }
+  display: flex;
+  align-items: center;
+  font-family: 'Montserrat', sans-serif;
+  text-transform: uppercase;
+  line-height: 1.2;
+  padding-left: 20px;
+  & .icon {
+    height: 49px;
+    margin-right: 10px;
+  }
+  & .text {
+    font-size: 15px;
+  }
+  & .subtext {
+    display: block;
+    font-size: 10px;
+  }
 }
 
 .footerSecondaryItem {
-    background: #07729a;
-    display: flex;
-    flex: initial;
-    justify-content: center;
-    align-items: center;
-    padding-top: 10px;
-    padding-bottom: 10px;
+  background: #07729a;
+  display: flex;
+  flex: initial;
+  justify-content: center;
+  align-items: center;
+  padding-top: 10px;
+  padding-bottom: 10px;
 }
 
 .githubIcon {
-    fill: #fff;
-    margin-right: 5px;
+  fill: #fff;
+  margin-right: 5px;
 }
 
 .githubText {
-    color: #fff;
-    text-decoration: none;
+  color: #fff;
+  text-decoration: none;
 }
 
 @media screen and (min-width:750px) {
-    .phone {
-        width: 50%;
+  .phone {
+    width: 50%;
+  }
+  .phoneContent {
+    padding-left: 0;
+    & .text {
+      font-size: 18px;
     }
-    .phoneContent {
-        padding-left: 0;
-        & .text {
-            font-size: 18px;
-        }
-        &.smart {
-            padding-left: 20%;
-        }
+    &.smart {
+      padding-left: 20%;
     }
-    .footerSecondaryItem {
-        justify-content: flex-end;
-        padding-right: 20px;
-    }
+  }
+  .footerSecondaryItem {
+    justify-content: flex-end;
+    padding-right: 20px;
+  }
 }

@@ -1,11 +1,23 @@
 .mapContainer {
-    width: 100%;
-    height: 350px;
-    margin-top: 59px;
+  width: 100%;
+  height: 350px;
+  margin-top: 59px;
 }
 
 @media screen and (min-width:750px) {
-    .mapContainer {
-        height: 650px;
-    }
+  .mapContainer {
+    height: 650px;
+  }
+}
+
+@media screen and (min-height:950px) {
+  .mapContainer {
+    height: 850px;
+  }
+}
+
+@media screen and (min-height:1250px) {
+  .mapContainer {
+    height: 1150px;
+  }
 }
