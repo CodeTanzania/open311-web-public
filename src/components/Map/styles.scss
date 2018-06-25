@@ -1,164 +1,164 @@
 .wrapper {
-    display: flex;
-    min-height: 100vh;
-    flex-direction: column;
+  display: flex;
+  min-height: 100vh;
+  flex-direction: column;
 }
 
 .loader {
-    position: absolute;
-    top: 0;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    padding-top: 25%;
-    background-color: rgba(0, 0, 0, 0.3);
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding-top: 25%;
+  background-color: rgba(0, 0, 0, 0.3);
 }
 
 .loader.hide {
-    display: none;
+  display: none;
 }
 
 .loaderInfo {
-    width: 30%;
-    margin: 0 auto;
-    background-color: white;
-    border-radius: 2px;
-    box-shadow: 0px 1px 4px rgba(0, 0, 0, 0.3);
+  width: 30%;
+  margin: 0 auto;
+  background-color: white;
+  border-radius: 2px;
+  box-shadow: 0px 1px 4px rgba(0, 0, 0, 0.3);
 }
 
 .loaderInfoHeader {
-    background-color: #d6e9d0;
-    padding: 10px 15px;
-    font-weight: 700;
+  background-color: #d6e9d0;
+  padding: 10px 15px;
+  font-weight: 700;
 }
 
 .loaderInfoBody {
-    padding-top: 10px;
-    text-align: center;
+  padding-top: 10px;
+  text-align: center;
 }
 
 .loaderInfoAction {
-    padding: 15px 0 30px;
-    display: flex;
-    justify-content: center;
+  padding: 15px 0 30px;
+  display: flex;
+  justify-content: center;
 }
 
 .spinner {
-    border: 8px solid #f3f3f3;
-    /* Light grey */
-    border-top: 8px solid #3498db;
-    /* Blue */
-    border-radius: 50%;
-    width: 70px;
-    height: 70px;
-    margin: 0 auto;
-    animation: spin 2s linear infinite;
+  border: 8px solid #f3f3f3;
+  /* Light grey */
+  border-top: 8px solid #3498db;
+  /* Blue */
+  border-radius: 50%;
+  width: 70px;
+  height: 70px;
+  margin: 0 auto;
+  animation: spin 2s linear infinite;
 }
 
 .spinner.hide {
-    display: none;
+  display: none;
 }
 
 @keyframes spin {
-    0% {
-        transform: rotate(0deg);
-    }
-    100% {
-        transform: rotate(360deg);
-    }
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
 }
 
 .legend {
-    position: fixed;
-    bottom: 28px;
-    left: 131px;
+  position: fixed;
+  bottom: 28px;
+  left: 131px;
 }
 
 .filter {
-    position: absolute;
-    top: 12px;
-    left: 5px;
-    display: flex;
+  position: absolute;
+  top: 12px;
+  left: 5px;
+  display: flex;
 }
 
 .filterItem {
-    margin-left: 5px;
-    height: 45px;
-    max-width: 275px;
+  margin-left: 5px;
+  height: 45px;
+  max-width: 275px;
 }
 
 .dateFilterVert {
-    display: none;
+  display: none;
 }
 
 .dateFilterHor {
-    display: none;
+  display: none;
 }
 
 .mapFilterDesktop {
-    display: none;
+  display: none;
 }
 
 .mapFilterMobile {
-    height: 100%;
+  height: 100%;
 }
 
 .issuesStatsCard {
-    display: none;
+  display: none;
 }
 
 .issuesStatsCardMobile {
-    display: block;
+  display: block;
 }
 
 .restoreMapZoomBtn {
-    position: absolute;
-    top: 280px;
-    right: 15px;
-    background: #fff;
-    padding: 5px;
-    box-shadow: 2px 2px 3px #999;
-    cursor: pointer;
+  position: absolute;
+  top: 280px;
+  right: 15px;
+  background: #fff;
+  padding: 5px;
+  box-shadow: 2px 2px 3px #999;
+  cursor: pointer;
 }
 
 @media screen and (min-width:750px) {
-    .issuesStatsCardMobile {
-        display: none;
-    }
-    .issuesStatsCard {
-        position: absolute;
-        top: 15px;
-        right: 20px;
-        width: 250px;
-        box-shadow: -1px 1px 7px rgba(0, 0, 0, 0.4);
-        max-height: 600px;
-        display: block;
-    }
-    .dateFilterVert {
-        display: block;
-        padding-top: 10px;
-    }
-    .dateFilterHor {
-        display: none;
-    }
-    .mapFilterDesktop {
-        display: block;
-        height: 100%;
-    }
-    .mapFilterMobile {
-        display: none;
-    }
-    .restoreMapZoomBtn {
-        top: 15px;
-        right: 280px;
-    }
+  .issuesStatsCardMobile {
+    display: none;
+  }
+  .issuesStatsCard {
+    position: absolute;
+    top: 65px;
+    right: 20px;
+    width: 250px;
+    box-shadow: -1px 1px 7px rgba(0, 0, 0, 0.4);
+    max-height: 600px;
+    display: block;
+  }
+  .dateFilterVert {
+    display: block;
+    padding-top: 10px;
+  }
+  .dateFilterHor {
+    display: none;
+  }
+  .mapFilterDesktop {
+    display: block;
+    height: 100%;
+  }
+  .mapFilterMobile {
+    display: none;
+  }
+  .restoreMapZoomBtn {
+    top: 15px;
+    right: 280px;
+  }
 }
 
 @media screen and (min-width:1000px) {
-    .dateFilterVert {
-        display: none;
-    }
-    .dateFilterHor {
-        display: block;
-    }
+  .dateFilterVert {
+    display: none;
+  }
+  .dateFilterHor {
+    display: block;
+  }
 }
